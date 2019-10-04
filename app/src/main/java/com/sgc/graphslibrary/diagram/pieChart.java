@@ -73,15 +73,43 @@ public class pieChart extends View {
 
     protected ArrayList<pieChartData> data;
 
+    public int getDescriptionColor() {
+        return descriptionColor;
+    }
+
+    public float getStartAngle() {
+        return startAngle;
+    }
+
+    public float getDistanceDescriptionSectorFactor() {
+        return distanceDescriptionSectorFactor;
+    }
+
+    public ArrayList<pieChartData> getData() {
+        return data;
+    }
+
+    public void setDescriptionColor(int descriptionColor) {
+        this.descriptionColor = descriptionColor;
+    }
+
+    public void setStartAngle(float startAngle) {
+        this.startAngle = startAngle;
+    }
+
+    public void setDistanceDescriptionSectorFactor(float distanceDescriptionSectorFactor) {
+        this.distanceDescriptionSectorFactor = distanceDescriptionSectorFactor;
+    }
+
+    public void setData(ArrayList<pieChartData> data) {
+        this.data = data;
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         this.width = w;
         this.height = h;
         super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    public void setData(ArrayList<pieChartData> data) {
-        this.data = data;
     }
 
     @Override

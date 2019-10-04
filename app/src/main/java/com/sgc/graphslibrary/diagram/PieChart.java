@@ -14,6 +14,9 @@ import com.sgc.graphslibrary.model.PieChartData;
 
 import java.util.ArrayList;
 
+import static com.sgc.graphslibrary.Maths.AngleMath.getAngleOfSectorCenter;
+import static com.sgc.graphslibrary.Maths.AngleMath.getCompress;
+
 public class PieChart extends View {
 
     //
@@ -211,7 +214,7 @@ public class PieChart extends View {
      * @param canvas canvas on which need to draw pie chart
      */
     protected void drawCircle(Canvas canvas) {
-        float compress = getCompress();
+        float compress = getCompress(data);
         float sweepAngle;
 
         Paint paint = new Paint();
@@ -238,7 +241,7 @@ public class PieChart extends View {
         int diameter = getDiameter();
 
         for (int i = 0; i < data.size(); i++) {
-            float angle = getAngleOfSectorCenter(i);
+            float angle = getAngleOfSectorCenter(i,startAngle,data);
             float cosY = (float) Math.cos(Math.toRadians(angle));
             float sinX = (float) Math.sin(Math.toRadians(angle));
             canvas.drawText(data.get(i).getText(),
@@ -247,22 +250,6 @@ public class PieChart extends View {
         }
     }
 
-    /**
-     * @return Coefficient by which you need to multiply the percentage
-     * of space occupied by the sector to get the angle of the sector.
-     *Example: If getPercentageSpace () return 10,
-     *getCompress () return 5. 10 * 5 angles of space occupied by the sector
-     */
-    protected float getCompress() {
-        float sumPercent = 0;
-
-        for (int i = 0; i < data.size(); i++) {
-            sumPercent += data.get(i).getPercentageSpace();
-        }
-
-        int degreesOfCircle = 360;
-        return degreesOfCircle / sumPercent;
-    }
 
     /**
      * @param value cos Y or sin X
@@ -283,23 +270,4 @@ public class PieChart extends View {
             return width;
     }
 
-    /**
-     *
-     * @param numberSector number sector for which the average angle is calculated
-     * @return average angle sector
-     */
-    protected float getAngleOfSectorCenter(int numberSector) {
-        float compress = getCompress();
-        float startAngleSector = startAngle + 90;
-
-        for (int i = 0; i <= numberSector; i++) {
-            float startCurrentAngleSector = data.get(i).getPercentageSpace() * compress;
-            if (i == numberSector)
-                startAngleSector += startCurrentAngleSector / 2;
-            else
-                startAngleSector += startCurrentAngleSector;
-        }
-
-        return startAngleSector;
-    }
 }

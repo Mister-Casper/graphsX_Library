@@ -91,7 +91,7 @@ public class pieChart extends View {
     /**
      * sector description text color
      */
-    protected int descriptionColor;
+    protected int descriptionColor = Color.BLACK;
 
     /*
     * angle rotation pie chart

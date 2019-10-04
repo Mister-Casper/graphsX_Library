@@ -2,17 +2,17 @@ package com.sgc.graphslibrary.model;
 
 import android.graphics.Color;
 
-public class pieChartData {
+public class PieChartData {
     private int percentageSpace;
     private int colorDedicatedSpace;
     private String text;
 
-    public pieChartData(int percentageSpace, int colorDedicatedSpace) {
+    public PieChartData(int percentageSpace, int colorDedicatedSpace) {
         this.percentageSpace = percentageSpace;
         this.colorDedicatedSpace = colorDedicatedSpace;
     }
 
-    public pieChartData(int percentageSpace, int colorDedicatedSpace,String text) {
+    public PieChartData(int percentageSpace, int colorDedicatedSpace, String text) {
         this.percentageSpace = percentageSpace;
         this.colorDedicatedSpace = colorDedicatedSpace;
         this.text = text;

@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.sgc.graphslibrary.R;
-import com.sgc.graphslibrary.model.pieChartData;
+import com.sgc.graphslibrary.model.PieChartData;
 
 import java.util.ArrayList;
 
@@ -103,7 +103,7 @@ public class PieChart extends View {
     /**
      *data to build pie chart
      */
-    protected ArrayList<pieChartData> data;
+    protected ArrayList<PieChartData> data;
 
     /**
      * @return  sector description text color
@@ -129,7 +129,7 @@ public class PieChart extends View {
     /**
      * @return data to build pie chart
      */
-    public ArrayList<pieChartData> getData() {
+    public ArrayList<PieChartData> getData() {
         return data;
     }
 
@@ -160,7 +160,7 @@ public class PieChart extends View {
     /**
      * @param data data to build pie chart
      */
-    public void setData(ArrayList<pieChartData> data) {
+    public void setData(ArrayList<PieChartData> data) {
         this.data = data;
         super.invalidate();
     }

@@ -6,34 +6,30 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.icu.text.SymbolTable;
 import android.util.AttributeSet;
-import android.util.LayoutDirection;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.sgc.graphslibrary.R;
 import com.sgc.graphslibrary.model.pieChartData;
 
 import java.util.ArrayList;
 
-public class pieChart extends View {
+public class PieChart extends View {
 
     //
     // Constructors
     //
 
-    public pieChart(Context context) {
+    public PieChart(Context context) {
         super(context);
     }
 
-    public pieChart(Context context, AttributeSet attrs) {
+    public PieChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         loadAttribute(context, attrs);
     }
 
-    public pieChart(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PieChart(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         loadAttribute(context, attrs);
     }
@@ -46,18 +42,18 @@ public class pieChart extends View {
      *   load and set xml attribute
       */
     protected void loadAttribute(Context context, AttributeSet attrs) {
-        TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.pieChart);
+        TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PieChart);
 
-        String attributeStr = getAttribute(arr, R.styleable.pieChart_startAngle);
+        String attributeStr = getAttribute(arr, R.styleable.PieChart_startAngle);
 
         if (attributeStr != null) {
-            startAngle = Integer.parseInt(getAttribute(arr, R.styleable.pieChart_startAngle));
+            startAngle = Integer.parseInt(getAttribute(arr, R.styleable.PieChart_startAngle));
         }
-        attributeStr = getAttribute(arr, R.styleable.pieChart_descriptionColor);
+        attributeStr = getAttribute(arr, R.styleable.PieChart_descriptionColor);
         if (attributeStr != null) {
             descriptionColor = Color.parseColor(attributeStr);
         }
-        attributeStr = getAttribute(arr, R.styleable.pieChart_distanceDescription);
+        attributeStr = getAttribute(arr, R.styleable.PieChart_distanceDescription);
         if (attributeStr != null) {
             distanceDescriptionSectorFactor = Float.parseFloat(attributeStr);
         }

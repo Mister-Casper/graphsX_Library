@@ -142,6 +142,7 @@ public class pieChart extends View {
      */
     public void setDescriptionColor(int descriptionColor) {
         this.descriptionColor = descriptionColor;
+        super.invalidate();
     }
 
     /**
@@ -149,6 +150,7 @@ public class pieChart extends View {
      */
     public void setStartAngle(float startAngle) {
         this.startAngle = startAngle;
+        super.invalidate();
     }
 
     /**
@@ -156,6 +158,7 @@ public class pieChart extends View {
      */
     public void setDistanceDescriptionSectorFactor(float distanceDescriptionSectorFactor) {
         this.distanceDescriptionSectorFactor = distanceDescriptionSectorFactor;
+        super.invalidate();
     }
 
     /**
@@ -163,6 +166,7 @@ public class pieChart extends View {
      */
     public void setData(ArrayList<pieChartData> data) {
         this.data = data;
+        super.invalidate();
     }
 
     /**

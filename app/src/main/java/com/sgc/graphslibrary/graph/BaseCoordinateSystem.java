@@ -96,6 +96,14 @@ public class BaseCoordinateSystem extends View {
             stepDivisionsOrdinateAxis = arr.getInt(
                     R.styleable.BaseCoordinateSystem_stepDivisionsOrdinateAxis,
                     stepDivisionsOrdinateAxis);
+
+            colorDivisionAbscissaAxis = arr.getInt(
+                    R.styleable.BaseCoordinateSystem_colorDivisionAbscissaAxis,
+                    colorDivisionAbscissaAxis);
+
+            colorDivisionOrdinateAxis = arr.getInt(
+                    R.styleable.BaseCoordinateSystem_colorDivisionOrdinateAxis,
+                    colorDivisionOrdinateAxis);
         } finally {
             arr.recycle();
         }
@@ -112,6 +120,19 @@ public class BaseCoordinateSystem extends View {
      * Default : Black.
      */
     protected int colorOrdinateAxis = Color.BLACK;
+
+    /**
+     * Abscissa division axis color.
+     * Default : Black.
+     */
+    protected int colorDivisionAbscissaAxis = Color.BLACK;
+
+    /**
+     * Ordinate division axis color.
+     * Default : Black.
+     */
+    protected int colorDivisionOrdinateAxis = Color.BLACK;
+
 
     /*
      * if = true The divisions are shown on the abscissa.
@@ -178,6 +199,34 @@ public class BaseCoordinateSystem extends View {
      * step of divisions of the ordinate axis
      */
     protected int stepDivisionsOrdinateAxis = 25;
+
+    /**
+     * @return Abscissa division axis color.
+     */
+    public int getColorDivisionAbscissaAxis() {
+        return colorDivisionAbscissaAxis;
+    }
+
+    /**
+     * @param colorDivisionAbscissaAxis Abscissa division axis color.
+     */
+    public void setColorDivisionAbscissaAxis(int colorDivisionAbscissaAxis) {
+        this.colorDivisionAbscissaAxis = colorDivisionAbscissaAxis;
+    }
+
+    /**
+     * @return Ordinate division axis color.
+     */
+    public int getColorDivisionOrdinateAxis() {
+        return colorDivisionOrdinateAxis;
+    }
+
+    /**
+     * @param colorDivisionOrdinateAxis Ordinate division axis color.
+     */
+    public void setColorDivisionOrdinateAxis(int colorDivisionOrdinateAxis) {
+        this.colorDivisionOrdinateAxis = colorDivisionOrdinateAxis;
+    }
 
     /**
      * @return step of divisions of the abscissa axis

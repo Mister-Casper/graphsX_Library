@@ -2,6 +2,7 @@ package com.sgc.graphslibrary.diagram;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import static com.sgc.graphslibrary.Maths.AngleMath.getAngleOfSectorCenter;
 import static com.sgc.graphslibrary.Maths.AngleMath.getCompress;
+import static com.sgc.graphslibrary.util.AttributeUtil.getAttribute;
 
 public class PieChart extends View {
 
@@ -62,21 +64,6 @@ public class PieChart extends View {
         }
 
         arr.recycle();  // Do this when done.
-    }
-
-    /**
-     * get xml attribute
-     * @param arr R.styleable attribute
-     * @param attr context.obtainStyledAttributes
-     * @return string value attribute
-     */
-    protected String getAttribute(TypedArray arr, int attr) {
-        CharSequence startAngleArr = arr.getString(attr);
-        String valueStr = null;
-        if (startAngleArr != null) {
-            valueStr = startAngleArr.toString();
-        }
-        return valueStr;
     }
 
     /**

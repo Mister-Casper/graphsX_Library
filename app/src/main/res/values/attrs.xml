@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="PieChart">
         <attr name="startAngle" format="integer" />
         <attr name="descriptionColor" format="color" />
         <attr name="distanceDescription" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="BaseCoordinateSystem">
+        <attr name="colorAbscissaAxis" format="color" />
+        <attr name="colorOrdinateAxis" format="color" />
+        <attr name="showDivisionAbscissaAxis" format="boolean" />
+        <attr name="showDivisionOrdinateAxis" format="boolean" />
+        <attr name="divisionLineLengthTheAxis" format="integer" />
+        <attr name="lineThicknessAbscissa" format="integer" />
+        <attr name="lineThicknessOrdinate" format="integer" />
+        <attr name="abscissaAxisShiftUp" format="integer" />
+        <attr name="ordinateAxisShiftRight" format="integer" />
+</declare-styleable>
+
 </resources>

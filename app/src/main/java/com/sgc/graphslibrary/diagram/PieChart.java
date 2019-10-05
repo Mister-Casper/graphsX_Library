@@ -60,7 +60,7 @@ public class PieChart extends View {
                     distanceDescriptionSectorFactor);
 
             descriptionTextSize = arr.getDimensionPixelSize(
-                    R.styleable.PieChart_distanceDescription,
+                    R.styleable.PieChart_descriptionTextSize,
                     descriptionTextSize);
         } finally {
             arr.recycle();

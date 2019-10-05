@@ -42,8 +42,8 @@ public class PieChart extends View {
     //
 
     /**
-     *   load and set xml attribute
-      */
+     * load and set xml attribute
+     */
     protected void loadAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PieChart);
         try {
@@ -58,13 +58,17 @@ public class PieChart extends View {
             distanceDescriptionSectorFactor = arr.getFloat(
                     R.styleable.PieChart_distanceDescription,
                     distanceDescriptionSectorFactor);
-        }finally {
+
+            descriptionTextSize = arr.getDimensionPixelSize(
+                    R.styleable.PieChart_distanceDescription,
+                    descriptionTextSize);
+        } finally {
             arr.recycle();
         }
     }
 
     /**
-     *  coordinates of the beginning and end of the pie chart
+     * coordinates of the beginning and end of the pie chart
      */
     protected RectF circle = new RectF();
 
@@ -73,24 +77,43 @@ public class PieChart extends View {
      */
     protected int descriptionColor = Color.BLACK;
 
+    /**
+     * sector description text size
+     */
+    protected int descriptionTextSize = 16;
+
     /*
-    * angle rotation pie chart
+     * angle rotation pie chart
      */
     protected float startAngle = 0;
 
     /*
-    * Remoteness factor of the description of sectors of the chart.
-    * Recommend value 1.2 - 1.7
+     * Remoteness factor of the description of sectors of the chart.
+     * Recommend value 1.2 - 1.7
      */
     protected float distanceDescriptionSectorFactor = 1.5f;
 
     /**
-     *data to build pie chart
+     * data to build pie chart
      */
     protected ArrayList<PieChartData> data;
 
     /**
-     * @return  sector description text color
+     * @return sector description text size
+     */
+    public int getDescriptionTextSize() {
+        return descriptionTextSize;
+    }
+
+    /**
+     * @param descriptionTextSize sector description text size
+     */
+    public void setDescriptionTextSize(int descriptionTextSize) {
+        this.descriptionTextSize = descriptionTextSize;
+    }
+
+    /**
+     * @return sector description text color
      */
     public int getDescriptionColor() {
         return descriptionColor;
@@ -182,6 +205,7 @@ public class PieChart extends View {
 
     /**
      * draw pie chart
+     *
      * @param canvas canvas on which need to draw pie chart
      */
     protected void drawCircle(Canvas canvas) {
@@ -202,17 +226,18 @@ public class PieChart extends View {
 
     /**
      * draw description of each sector
+     *
      * @param canvas canvas on which need to draw description of each sector
      */
     protected void drawText(Canvas canvas) {
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(40);
+        paint.setTextSize(descriptionTextSize);
         paint.setColor(descriptionColor);
         int diameter = getDiameter();
 
         for (int i = 0; i < data.size(); i++) {
-            float angle = getAngleOfSectorCenter(i,startAngle,data);
+            float angle = getAngleOfSectorCenter(i, startAngle, data);
             float cosY = (float) Math.cos(Math.toRadians(angle));
             float sinX = (float) Math.sin(Math.toRadians(angle));
             canvas.drawText(data.get(i).getText(),
@@ -223,7 +248,7 @@ public class PieChart extends View {
 
 
     /**
-     * @param value cos Y or sin X
+     * @param value    cos Y or sin X
      * @param diameter diameter pie chart
      * @return offset x or y
      */
@@ -237,7 +262,7 @@ public class PieChart extends View {
     protected int getDiameter() {
         int width = getWidth();
         int height = getHeight();
-        
+
         if (width >= height)
             return height;
         else

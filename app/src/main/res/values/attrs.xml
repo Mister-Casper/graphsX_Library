@@ -5,6 +5,7 @@
         <attr name="startAngle" format="integer" />
         <attr name="descriptionColor" format="color" />
         <attr name="distanceDescription" format="float" />
+        <attr name="descriptionTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="BaseCoordinateSystem">

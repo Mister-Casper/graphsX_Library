@@ -107,7 +107,6 @@ public class BaseCoordinateSystem extends View {
         } finally {
             arr.recycle();
         }
-        arr.recycle();
     }
 
     /**

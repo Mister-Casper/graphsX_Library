@@ -2,7 +2,6 @@ package com.sgc.graphslibrary.diagram;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 import static com.sgc.graphslibrary.Maths.AngleMath.getAngleOfSectorCenter;
 import static com.sgc.graphslibrary.Maths.AngleMath.getCompress;
-import static com.sgc.graphslibrary.util.AttributeUtil.getAttribute;
 
 public class PieChart extends View {
 

@@ -1,7 +1,6 @@
 package com.sgc.graphslibrary.graph;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.sgc.graphslibrary.R;
-
-import static com.sgc.graphslibrary.util.AttributeUtil.getAttribute;
 
 public class BaseCoordinateSystem extends View {
 
@@ -75,9 +72,17 @@ public class BaseCoordinateSystem extends View {
                     R.styleable.BaseCoordinateSystem_abscissaAxisShiftUp,
                     abscissaAxisShiftUp);
 
-            ordinateAxisShiftRight  = arr.getInt(
+            ordinateAxisShiftRight = arr.getInt(
                     R.styleable.BaseCoordinateSystem_ordinateAxisShiftRight,
                     ordinateAxisShiftRight);
+
+            isAbscissaInCenter = arr.getBoolean(
+                    R.styleable.BaseCoordinateSystem_isAbscissaInCenter,
+                    isAbscissaInCenter);
+
+            isOrdinateInCenter = arr.getBoolean(
+                    R.styleable.BaseCoordinateSystem_isOrdinateInCenter,
+                    isOrdinateInCenter);
         } finally {
             arr.recycle();
         }
@@ -134,6 +139,46 @@ public class BaseCoordinateSystem extends View {
      * center of the abscissa axis
      */
     protected int ordinateAxisShiftRight = 0;
+
+    /**
+     * = true if the abscissa axis is in the center
+     * of the ordinate axis
+     */
+    protected boolean isAbscissaInCenter = false;
+
+    /*
+     * = true if the ordinate axis is in the center
+     *  of the abscissa axis
+     */
+    protected boolean isOrdinateInCenter = false;
+
+    /**
+     * @return true if the abscissa axis is in the center
+     */
+    public boolean isAbscissaInCenter() {
+        return isAbscissaInCenter;
+    }
+
+    /**
+     * @param abscissaInCenter true if you want the abscissa axis to be in the center
+     */
+    public void setAbscissaInCenter(boolean abscissaInCenter) {
+        isAbscissaInCenter = abscissaInCenter;
+    }
+
+    /**
+     * @return true if the ordinate axis is in the center
+     */
+    public boolean isOrdinateInCenter() {
+        return isOrdinateInCenter;
+    }
+
+    /**
+     * @param ordinateInCenter true if you want the ordinate axis to be in the center
+     */
+    public void setOrdinateInCenter(boolean ordinateInCenter) {
+        isOrdinateInCenter = ordinateInCenter;
+    }
 
     /**
      * @return The abscissa axis shift to the up the axis ordinate.
@@ -273,9 +318,15 @@ public class BaseCoordinateSystem extends View {
     }
 
     protected void drawOrdinateAxis(Canvas canvas) {
-        float startX = ordinateAxisShiftRight;
+        float startX;
+
+        if (isOrdinateInCenter)
+            startX = getWidth() / 2 + ordinateAxisShiftRight;
+        else
+            startX = ordinateAxisShiftRight;
+
         float startY = 0;
-        float endX = ordinateAxisShiftRight;
+        float endX = startX;
         float endY = getHeight();
 
         Paint paint = new Paint();
@@ -285,10 +336,16 @@ public class BaseCoordinateSystem extends View {
     }
 
     protected void drawAbscissaAxis(Canvas canvas) {
+        float startY;
+
+        if (isAbscissaInCenter) {
+            startY = getHeight() / 2 - abscissaAxisShiftUp;
+        } else
+            startY = getHeight() - abscissaAxisShiftUp;
+
         float startX = 0;
-        float startY = getHeight() - abscissaAxisShiftUp;
         float endX = getWidth();
-        float endY = getHeight() - abscissaAxisShiftUp;
+        float endY = startY;
 
         Paint paint = new Paint();
         paint.setColor(colorAbscissaAxis);

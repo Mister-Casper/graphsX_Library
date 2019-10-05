@@ -17,6 +17,8 @@
         <attr name="lineThicknessOrdinate" format="integer" />
         <attr name="abscissaAxisShiftUp" format="integer" />
         <attr name="ordinateAxisShiftRight" format="integer" />
+        <attr name="isAbscissaInCenter" format="boolean" />
+        <attr name="isOrdinateInCenter" format="boolean" />
 </declare-styleable>
 
 </resources>

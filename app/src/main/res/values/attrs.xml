@@ -10,8 +10,6 @@
     <declare-styleable name="BaseCoordinateSystem">
         <attr name="colorAbscissaAxis" format="color" />
         <attr name="colorOrdinateAxis" format="color" />
-        <attr name="colorDivisionAbscissaAxis" format="color" />
-        <attr name="colorDivisionOrdinateAxis" format="color" />
         <attr name="showDivisionAbscissaAxis" format="boolean" />
         <attr name="showDivisionOrdinateAxis" format="boolean" />
         <attr name="divisionLineLengthTheAxis" format="integer" />

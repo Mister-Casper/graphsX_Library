@@ -48,22 +48,21 @@ public class PieChart extends View {
       */
     protected void loadAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PieChart);
+        try {
+            descriptionColor = arr.getColor(
+                    R.styleable.PieChart_descriptionColor,
+                    descriptionColor);
 
-        String attributeStr = getAttribute(arr, R.styleable.PieChart_startAngle);
+            startAngle = arr.getFloat(
+                    R.styleable.PieChart_startAngle,
+                    startAngle);
 
-        if (attributeStr != null) {
-            startAngle = Integer.parseInt(getAttribute(arr, R.styleable.PieChart_startAngle));
+            distanceDescriptionSectorFactor = arr.getFloat(
+                    R.styleable.PieChart_distanceDescription,
+                    distanceDescriptionSectorFactor);
+        }finally {
+            arr.recycle();
         }
-        attributeStr = getAttribute(arr, R.styleable.PieChart_descriptionColor);
-        if (attributeStr != null) {
-            descriptionColor = Color.parseColor(attributeStr);
-        }
-        attributeStr = getAttribute(arr, R.styleable.PieChart_distanceDescription);
-        if (attributeStr != null) {
-            distanceDescriptionSectorFactor = Float.parseFloat(attributeStr);
-        }
-
-        arr.recycle();  // Do this when done.
     }
 
     /**

@@ -494,7 +494,7 @@ public class BaseCoordinateSystem extends View {
 
             if (stepDivisionsAbscissaAxis > 0) {
                 for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += stepDivisionsAbscissaAxis) {
-                    drawLine(i, startLineY, i, endLineY, Color.BLACK, divisionLineThicknessTheAxis, canvas);
+                    drawLine(i, startLineY, i, endLineY, colorDivisionAbscissaAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
         }
@@ -516,7 +516,7 @@ public class BaseCoordinateSystem extends View {
 
             if (stepDivisionsOrdinateAxis > 0) {
                 for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
-                    drawLine(startLineX, i,endLineX, i, Color.BLACK, divisionLineThicknessTheAxis, canvas);
+                    drawLine(startLineX, i,endLineX, i, colorDivisionOrdinateAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
         }

@@ -60,6 +60,11 @@ public class BaseCoordinateSystem extends View {
                     R.styleable.BaseCoordinateSystem_divisionLineLengthTheAxis,
                     divisionLineLengthTheAxis);
 
+            divisionLineThicknessTheAxis =
+                    arr.getInt(
+                            R.styleable.BaseCoordinateSystem_divisionLineThicknessTheAxis,
+                            divisionLineThicknessTheAxis);
+
             abscissaAxisLineThickness = arr.getInt(
                     R.styleable.BaseCoordinateSystem_lineThicknessAbscissa,
                     abscissaAxisLineThickness);
@@ -83,6 +88,14 @@ public class BaseCoordinateSystem extends View {
             isOrdinateInCenter = arr.getBoolean(
                     R.styleable.BaseCoordinateSystem_isOrdinateInCenter,
                     isOrdinateInCenter);
+
+            stepDivisionsAbscissaAxis = arr.getInt(
+                    R.styleable.BaseCoordinateSystem_stepDivisionsAbscissaAxis,
+                    stepDivisionsAbscissaAxis);
+
+            stepDivisionsOrdinateAxis = arr.getInt(
+                    R.styleable.BaseCoordinateSystem_stepDivisionsOrdinateAxis,
+                    stepDivisionsOrdinateAxis);
         } finally {
             arr.recycle();
         }
@@ -115,6 +128,11 @@ public class BaseCoordinateSystem extends View {
      * division line length the axis ordinate and abscissa
      */
     protected int divisionLineLengthTheAxis = 5;
+
+    /**
+     * division line length the axis ordinate and abscissa
+     */
+    protected int divisionLineThicknessTheAxis = 2;
 
     /**
      * Line thickness abscissa axis
@@ -151,6 +169,44 @@ public class BaseCoordinateSystem extends View {
      *  of the abscissa axis
      */
     protected boolean isOrdinateInCenter = false;
+
+    /**
+     * step of divisions of the abscissa axis
+     */
+    protected int stepDivisionsAbscissaAxis = 25;
+
+    /**
+     * step of divisions of the ordinate axis
+     */
+    protected int stepDivisionsOrdinateAxis = 25;
+
+    /**
+     * @return step of divisions of the abscissa axis
+     */
+    public int getStepDivisionsAbscissaAxis() {
+        return stepDivisionsAbscissaAxis;
+    }
+
+    /**
+     * @param stepDivisionsAbscissaAxis step of divisions of the abscissa axis
+     */
+    public void setStepDivisionsAbscissaAxis(int stepDivisionsAbscissaAxis) {
+        this.stepDivisionsAbscissaAxis = stepDivisionsAbscissaAxis;
+    }
+
+    /**
+     * @return step of divisions of the ordinate axis
+     */
+    public int getStepDivisionsOrdinateAxis() {
+        return stepDivisionsOrdinateAxis;
+    }
+
+    /**
+     * @param stepDivisionsOrdinateAxis step of divisions of the ordinate axis
+     */
+    public void setStepDivisionsOrdinateAxis(int stepDivisionsOrdinateAxis) {
+        this.stepDivisionsOrdinateAxis = stepDivisionsOrdinateAxis;
+    }
 
     /**
      * @return true if the abscissa axis is in the center
@@ -293,6 +349,14 @@ public class BaseCoordinateSystem extends View {
         isShowDivisionOrdinateAxis = showDivisionOrdinateAxis;
     }
 
+    public int getDivisionLineThicknessTheAxis() {
+        return divisionLineThicknessTheAxis;
+    }
+
+    public void setDivisionLineThicknessTheAxis(int divisionLineThicknessTheAxis) {
+        this.divisionLineThicknessTheAxis = divisionLineThicknessTheAxis;
+    }
+
     /**
      * @return division line length the axis ordinate and abscissa
      */
@@ -315,42 +379,106 @@ public class BaseCoordinateSystem extends View {
     protected void drawAxis(Canvas canvas) {
         drawOrdinateAxis(canvas);
         drawAbscissaAxis(canvas);
+        drawDivisions(canvas);
     }
 
     protected void drawOrdinateAxis(Canvas canvas) {
-        float startX;
+        float startX = getStartX();
+
+        float startY = 0;
+        float endX = startX;
+        float endY = getHeight();
+
+        drawLine(startX, startY, endX, endY, colorOrdinateAxis, ordinateAxisLineThickness, canvas);
+    }
+
+    protected float getStartX() {
+        int startX;
 
         if (isOrdinateInCenter)
             startX = getWidth() / 2 + ordinateAxisShiftRight;
         else
             startX = ordinateAxisShiftRight;
 
-        float startY = 0;
-        float endX = startX;
-        float endY = getHeight();
-
-        Paint paint = new Paint();
-        paint.setColor(colorOrdinateAxis);
-        paint.setStrokeWidth(ordinateAxisLineThickness);
-        canvas.drawLine(startX, startY, endX, endY, paint);
+        return startX;
     }
 
     protected void drawAbscissaAxis(Canvas canvas) {
-        float startY;
+        float startY = getStartY();
+
+        float startX = 0;
+        float endX = getWidth();
+        float endY = startY;
+
+        drawLine(startX, startY, endX, endY, colorAbscissaAxis, abscissaAxisLineThickness, canvas);
+    }
+
+    protected float getStartY() {
+        int startY;
 
         if (isAbscissaInCenter) {
             startY = getHeight() / 2 - abscissaAxisShiftUp;
         } else
             startY = getHeight() - abscissaAxisShiftUp;
 
-        float startX = 0;
-        float endX = getWidth();
-        float endY = startY;
-
-        Paint paint = new Paint();
-        paint.setColor(colorAbscissaAxis);
-        paint.setStrokeWidth(abscissaAxisLineThickness);
-        canvas.drawLine(startX, startY, endX, endY, paint);
+        return startY;
     }
 
+    protected void drawLine(float x1, float y1, float x2, float y2, int lineColor, int lineStroke, Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(lineColor);
+        paint.setStrokeWidth(lineStroke);
+        canvas.drawLine(x1, y1, x2, y2, paint);
+    }
+
+    protected void drawDivisions(Canvas canvas) {
+        drawAbscissaDivisions(canvas);
+        drawOrdinateDivisions(canvas);
+    }
+
+    protected void drawAbscissaDivisions(Canvas canvas) {
+        if (isShowDivisionAbscissaAxis) {
+            float endX = getWidth();
+            float startY = getStartY();
+
+            float startLineY = startY - divisionLineLengthTheAxis / 2f;
+            float endLineY = startY + divisionLineLengthTheAxis / 2f;
+
+            if (stepDivisionsAbscissaAxis > 0) {
+                for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += stepDivisionsAbscissaAxis) {
+                    drawLine(i, startLineY, i, endLineY, Color.BLACK, divisionLineThicknessTheAxis, canvas);
+                }
+            }
+        }
+    }
+
+    protected float getStartRelativelyCentreAbscissaAxis() {
+        float centerX = getStartX();
+        while (centerX >= 0) {
+            centerX -= stepDivisionsAbscissaAxis;
+        }
+        return centerX;
+    }
+
+    protected void drawOrdinateDivisions(Canvas canvas) {
+        if (isShowDivisionOrdinateAxis) {
+            float startX = getStartX();
+            float startLineX = startX - divisionLineLengthTheAxis / 2f;
+            float endLineX = startX + divisionLineLengthTheAxis / 2f;
+
+            if (stepDivisionsOrdinateAxis > 0) {
+                for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
+                    drawLine(startLineX, i,endLineX, i, Color.BLACK, divisionLineThicknessTheAxis, canvas);
+                }
+            }
+        }
+    }
+
+    protected float getStartRelativelyCentreOrdinateAxis() {
+        float centerY = getStartY();
+        while (centerY >= 0) {
+            centerY -= stepDivisionsOrdinateAxis;
+        }
+        return centerY;
+    }
 }

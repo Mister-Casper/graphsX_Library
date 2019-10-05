@@ -13,6 +13,9 @@
         <attr name="showDivisionAbscissaAxis" format="boolean" />
         <attr name="showDivisionOrdinateAxis" format="boolean" />
         <attr name="divisionLineLengthTheAxis" format="integer" />
+        <attr name="divisionLineThicknessTheAxis" format="integer" />
+        <attr name="stepDivisionsAbscissaAxis" format="integer" />
+        <attr name="stepDivisionsOrdinateAxis" format="integer" />
         <attr name="lineThicknessAbscissa" format="integer" />
         <attr name="lineThicknessOrdinate" format="integer" />
         <attr name="abscissaAxisShiftUp" format="integer" />

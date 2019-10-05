@@ -68,9 +68,6 @@ public class PieChart extends View {
      */
     protected RectF circle = new RectF();
 
-    protected int width;
-    protected int height;
-
     /**
      * sector description text color
      */
@@ -150,16 +147,6 @@ public class PieChart extends View {
     public void setData(ArrayList<PieChartData> data) {
         this.data = data;
         super.invalidate();
-    }
-
-    /**
-     *  save width and height upon change width and height
-     */
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        this.width = w;
-        this.height = h;
-        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     /**
@@ -248,6 +235,9 @@ public class PieChart extends View {
      * @return Diameter pie chart
      */
     protected int getDiameter() {
+        int width = getWidth();
+        int height = getHeight();
+        
         if (width >= height)
             return height;
         else

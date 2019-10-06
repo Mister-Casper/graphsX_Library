@@ -367,11 +367,11 @@ public class LineGraph extends BaseCoordinateSystem {
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
             int numberDivisions = (int) (getWidth() / step);
-            int startValue = (int) (-((int) (getStartX() / getStepDivisionsAbscissaAxis())) * scaleDivisionDescriptionAxisX);
+            float startValue =  (-((int) (getStartX() / getStepDivisionsAbscissaAxis())) * scaleDivisionDescriptionAxisX);
 
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {
-                int xCurrentDescription = (startValue + (int) (i * scaleDivisionDescriptionAxisX));
+                float xCurrentDescription = startValue +  i * scaleDivisionDescriptionAxisX;
                 float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
@@ -390,11 +390,11 @@ public class LineGraph extends BaseCoordinateSystem {
             float startY = super.getStartRelativelyCentreOrdinateAxis();
             float step = super.getStepDivisionsOrdinateAxis();
             int numberDivisions = (int) (getHeight() / step);
-            int startValue = (int) (-((int) (getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY);
+            float startValue =  ( (getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
 
             float xDivision = getStartX() + xOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {
-                int yCurrentDescription = startValue + (int) (i * scaleDivisionDescriptionAxisY);
+                float yCurrentDescription = startValue - i * scaleDivisionDescriptionAxisY;
                 float yCurrentPosition = startY + i * step + stepDivisionsAbscissaAxis / 5f;
                 if (yCurrentDescription != 0) {
                     canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);

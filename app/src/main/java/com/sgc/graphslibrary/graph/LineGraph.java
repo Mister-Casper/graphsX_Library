@@ -122,7 +122,7 @@ public class LineGraph extends BaseCoordinateSystem {
      * distance from axis x to description division
      * on x axis
      */
-    protected int xOffsetDescriptionDivision = 20;
+    protected int xOffsetDescriptionDivision = -20;
 
     /**
      * distance from axis x to description division

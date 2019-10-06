@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.sgc.graphslibrary.R;
 
-public class BaseCoordinateSystem extends View {
+ public class BaseCoordinateSystem extends View {
 
     //
     // Constructors
@@ -21,12 +21,12 @@ public class BaseCoordinateSystem extends View {
 
     public BaseCoordinateSystem(Context context, AttributeSet attrs) {
         super(context, attrs);
-        loadAttribute(context, attrs);
+        this.loadBaseAttribute(context, attrs);
     }
 
     public BaseCoordinateSystem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        loadAttribute(context, attrs);
+        this.loadBaseAttribute(context, attrs);
     }
     //
     // Constructors
@@ -36,7 +36,7 @@ public class BaseCoordinateSystem extends View {
     /**
      * load and set xml attribute
      */
-    protected void loadAttribute(Context context, AttributeSet attrs) {
+    protected void loadBaseAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.BaseCoordinateSystem);
 
         try {
@@ -502,7 +502,7 @@ public class BaseCoordinateSystem extends View {
 
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
-        while (centerX >= 0) {
+        while (centerX >= stepDivisionsAbscissaAxis) {
             centerX -= stepDivisionsAbscissaAxis;
         }
         return centerX;
@@ -524,7 +524,7 @@ public class BaseCoordinateSystem extends View {
 
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
-        while (centerY >= 0) {
+        while (centerY >= stepDivisionsAbscissaAxis) {
             centerY -= stepDivisionsOrdinateAxis;
         }
         return centerY;

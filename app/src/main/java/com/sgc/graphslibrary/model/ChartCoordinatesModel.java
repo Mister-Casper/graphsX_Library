@@ -1,10 +1,10 @@
 package com.sgc.graphslibrary.model;
 
-public class ChartCoordinates {
+public class ChartCoordinatesModel {
     private int valueX;
     private int valueY;
 
-    public ChartCoordinates(int valueX, int valueY) {
+    public ChartCoordinatesModel(int valueX, int valueY) {
         this.valueX = valueX;
         this.valueY = valueY;
     }

@@ -4,12 +4,12 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 
-public class LineData {
+public class LineGraphModel {
 
     /**
      * array points all graph
      */
-    private ArrayList<ChartCoordinates> dataLine;
+    private ArrayList<ChartCoordinatesModel> dataLine;
 
     /**
      * graph color
@@ -21,26 +21,26 @@ public class LineData {
      */
     private int lineThickness = 2;
 
-    public LineData(ArrayList<ChartCoordinates> dataLine, int lineColor) {
+    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine, int lineColor) {
         this.dataLine = dataLine;
         this.lineColor = lineColor;
     }
 
-    public LineData(ArrayList<ChartCoordinates> dataLine) {
+    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine) {
         this.dataLine = dataLine;
     }
 
     /**
      * @return array points all graph
      */
-    public ArrayList<ChartCoordinates> getDataLine() {
+    public ArrayList<ChartCoordinatesModel> getDataLine() {
         return dataLine;
     }
 
     /**
      * @param dataLine array points all graph
      */
-    public void setDataLine(ArrayList<ChartCoordinates> dataLine) {
+    public void setDataLine(ArrayList<ChartCoordinatesModel> dataLine) {
         this.dataLine = dataLine;
     }
 

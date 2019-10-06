@@ -1,27 +1,27 @@
 package com.sgc.graphslibrary.model;
 
 public class ChartCoordinatesModel {
-    private int valueX;
-    private int valueY;
+    private float valueX;
+    private float valueY;
 
-    public ChartCoordinatesModel(int valueX, int valueY) {
+    public ChartCoordinatesModel(float valueX, float valueY) {
         this.valueX = valueX;
         this.valueY = valueY;
     }
 
-    public int getValueY() {
+    public float getValueY() {
         return valueY;
     }
 
-    public void setValueY(int valueY) {
+    public void setValueY(float valueY) {
         this.valueY = valueY;
     }
 
-    public int getValueX() {
+    public float getValueX() {
         return valueX;
     }
 
-    public void setValueX(int valueX) {
+    public void setValueX(float valueX) {
         this.valueX = valueX;
     }
 }

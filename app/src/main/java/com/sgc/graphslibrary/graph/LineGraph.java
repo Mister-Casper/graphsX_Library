@@ -8,8 +8,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 
 import com.sgc.graphslibrary.R;
-import com.sgc.graphslibrary.model.LineData;
-import com.sgc.graphslibrary.model.ChartCoordinates;
+import com.sgc.graphslibrary.model.LineGraphModel;
+import com.sgc.graphslibrary.model.ChartCoordinatesModel;
 
 import java.util.ArrayList;
 
@@ -133,7 +133,7 @@ public class LineGraph extends BaseCoordinateSystem {
     /**
      * array chart coordinates
      */
-    protected ArrayList<LineData> data = new ArrayList<>();
+    protected ArrayList<LineGraphModel> data = new ArrayList<>();
 
     /**
      * @return true if show description division on x axis else false
@@ -288,14 +288,14 @@ public class LineGraph extends BaseCoordinateSystem {
     /**
      * @return array chart coordinates
      */
-    public ArrayList<LineData> getData() {
+    public ArrayList<LineGraphModel> getData() {
         return data;
     }
 
     /**
      * @param data array chart coordinates
      */
-    public void setData(ArrayList<LineData> data) {
+    public void setData(ArrayList<LineGraphModel> data) {
         this.data = data;
         super.invalidate();
     }
@@ -317,8 +317,8 @@ public class LineGraph extends BaseCoordinateSystem {
         paint.setAntiAlias(true);
 
         for (int q = 0; q < data.size(); q++) {
-            LineData line = data.get(q);
-            ArrayList<ChartCoordinates> graphPoints = line.getDataLine();
+            LineGraphModel line = data.get(q);
+            ArrayList<ChartCoordinatesModel> graphPoints = line.getDataLine();
             paint.setColor(line.getLineColor());
             paint.setStrokeWidth(line.getLineThickness());
             drawGraphLine(canvas, graphPoints, paint);
@@ -331,7 +331,7 @@ public class LineGraph extends BaseCoordinateSystem {
      * @param graphPoints
      * @param paint
      */
-    protected void drawGraphLine(Canvas canvas, ArrayList<ChartCoordinates> graphPoints, Paint paint) {
+    protected void drawGraphLine(Canvas canvas, ArrayList<ChartCoordinatesModel> graphPoints, Paint paint) {
         if (graphPoints.size() >= 2) {
             for (int i = 0; i < graphPoints.size() - 1; i++) {
                 float startX = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(i).getValueX();

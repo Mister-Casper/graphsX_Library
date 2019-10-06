@@ -212,6 +212,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setColorDivisionAbscissaAxis(int colorDivisionAbscissaAxis) {
         this.colorDivisionAbscissaAxis = colorDivisionAbscissaAxis;
+        super.invalidate();
     }
 
     /**
@@ -226,6 +227,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setColorDivisionOrdinateAxis(int colorDivisionOrdinateAxis) {
         this.colorDivisionOrdinateAxis = colorDivisionOrdinateAxis;
+        super.invalidate();
     }
 
     /**
@@ -240,6 +242,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setStepDivisionsAbscissaAxis(int stepDivisionsAbscissaAxis) {
         this.stepDivisionsAbscissaAxis = stepDivisionsAbscissaAxis;
+        super.invalidate();
     }
 
     /**
@@ -254,6 +257,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setStepDivisionsOrdinateAxis(int stepDivisionsOrdinateAxis) {
         this.stepDivisionsOrdinateAxis = stepDivisionsOrdinateAxis;
+        super.invalidate();
     }
 
     /**
@@ -267,7 +271,8 @@ import com.sgc.graphslibrary.R;
      * @param abscissaInCenter true if you want the abscissa axis to be in the center
      */
     public void setAbscissaInCenter(boolean abscissaInCenter) {
-        isAbscissaInCenter = abscissaInCenter;
+        this.isAbscissaInCenter = abscissaInCenter;
+        super.invalidate();
     }
 
     /**
@@ -281,7 +286,8 @@ import com.sgc.graphslibrary.R;
      * @param ordinateInCenter true if you want the ordinate axis to be in the center
      */
     public void setOrdinateInCenter(boolean ordinateInCenter) {
-        isOrdinateInCenter = ordinateInCenter;
+        this.isOrdinateInCenter = ordinateInCenter;
+        super.invalidate();
     }
 
     /**
@@ -296,6 +302,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setAbscissaAxisShiftUp(int abscissaAxisShiftUp) {
         this.abscissaAxisShiftUp = abscissaAxisShiftUp;
+        super.invalidate();
     }
 
     /**
@@ -311,6 +318,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setOrdinateAxisShiftRight(int ordinateAxisShiftRight) {
         this.ordinateAxisShiftRight = ordinateAxisShiftRight;
+        super.invalidate();
     }
 
     /**
@@ -325,6 +333,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setAbscissaAxisLineThickness(int abscissaAxisLineThickness) {
         this.abscissaAxisLineThickness = abscissaAxisLineThickness;
+        super.invalidate();
     }
 
     /**
@@ -339,6 +348,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setOrdinateAxisLineThickness(int ordinateAxisLineThickness) {
         this.ordinateAxisLineThickness = ordinateAxisLineThickness;
+        super.invalidate();
     }
 
     /**
@@ -353,6 +363,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setColorAbscissaAxis(int colorAbscissaAxis) {
         this.colorAbscissaAxis = colorAbscissaAxis;
+        super.invalidate();
     }
 
     /**
@@ -367,6 +378,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setColorOrdinateAxis(int colorOrdinateAxis) {
         this.colorOrdinateAxis = colorOrdinateAxis;
+        super.invalidate();
     }
 
     /**
@@ -381,6 +393,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setShowDivisionAbscissaAxis(boolean showDivisionAbscissaAxis) {
         isShowDivisionAbscissaAxis = showDivisionAbscissaAxis;
+        super.invalidate();
     }
 
     /**
@@ -394,7 +407,8 @@ import com.sgc.graphslibrary.R;
      * @param showDivisionOrdinateAxis the divisions are shown on the abscissa.
      */
     public void setShowDivisionOrdinateAxis(boolean showDivisionOrdinateAxis) {
-        isShowDivisionOrdinateAxis = showDivisionOrdinateAxis;
+        this.isShowDivisionOrdinateAxis = showDivisionOrdinateAxis;
+        super.invalidate();
     }
 
     public int getDivisionLineThicknessTheAxis() {
@@ -403,6 +417,7 @@ import com.sgc.graphslibrary.R;
 
     public void setDivisionLineThicknessTheAxis(int divisionLineThicknessTheAxis) {
         this.divisionLineThicknessTheAxis = divisionLineThicknessTheAxis;
+        super.invalidate();
     }
 
     /**
@@ -417,6 +432,7 @@ import com.sgc.graphslibrary.R;
      */
     public void setDivisionLineLengthTheAxis(int divisionLineLengthTheAxis) {
         this.divisionLineLengthTheAxis = divisionLineLengthTheAxis;
+        super.invalidate();
     }
 
     @Override

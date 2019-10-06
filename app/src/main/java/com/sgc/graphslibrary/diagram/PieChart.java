@@ -110,6 +110,7 @@ public class PieChart extends View {
      */
     public void setDescriptionTextSize(int descriptionTextSize) {
         this.descriptionTextSize = descriptionTextSize;
+        super.invalidate();
     }
 
     /**

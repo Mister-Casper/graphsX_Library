@@ -27,13 +27,12 @@ public class MathGraph extends LineGraph {
 
     public void setFunctions(ArrayList<MathModel> functions) {
         this.functions = functions;
-        super.invalidate();
+        super.setData(calculatedCoordinates());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        super.setData(calculatedCoordinates());
     }
 
     protected ArrayList<LineGraphModel> calculatedCoordinates() {

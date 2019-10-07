@@ -30,6 +30,7 @@
     <declare-styleable name="LineGraph" parent="BaseCoordinateSystem">
         <attr name="isDivisionDescriptionAxisX" format="boolean" />
         <attr name="isDivisionDescriptionAxisY" format="boolean" />
+        <attr name="isShowCoordinateGrid" format="boolean" />
         <attr name="scaleDivisionDescriptionAxisX" format="float" />
         <attr name="scaleDivisionDescriptionAxisY" format="float" />
         <attr name="colorDivisionDescriptionAxisX" format="color" />
@@ -37,6 +38,7 @@
         <attr name="divisionDescriptionSize" format="dimension" />
         <attr name="xOffsetDescriptionDivision" format="integer" />
         <attr name="yOffsetDescriptionDivision" format="integer" />
+
     </declare-styleable>
 
 </resources>

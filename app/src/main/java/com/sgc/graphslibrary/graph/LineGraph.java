@@ -390,7 +390,7 @@ public class LineGraph extends BaseCoordinateSystem {
             float startY = super.getStartRelativelyCentreOrdinateAxis();
             float step = super.getStepDivisionsOrdinateAxis();
             int numberDivisions = (int) (getHeight() / step);
-            float startValue =  ( (getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
+            float startValue =  (int)((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
 
             float xDivision = getStartX() + xOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {

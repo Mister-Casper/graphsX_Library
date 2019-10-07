@@ -1,6 +1,24 @@
 package com.sgc.graphslibrary.model;
 
+import android.graphics.Color;
+
 public class MathModel {
+
+    public int getColorGraph() {
+        return colorGraph;
+    }
+
+    public void setColorGraph(int colorGraph) {
+        this.colorGraph = colorGraph;
+    }
+
+    public int getLineThicknessGraph() {
+        return lineThicknessGraph;
+    }
+
+    public void setLineThicknessGraph(int lineThicknessGraph) {
+        this.lineThicknessGraph = lineThicknessGraph;
+    }
 
     public interface MathFunctionInterface {
         float function(float x);
@@ -10,6 +28,8 @@ public class MathModel {
     private int maxX = 50;
     private int accuracy = 4;
     private MathFunctionInterface mathFunctionInterface;
+    private int colorGraph = Color.BLACK;
+    private int lineThicknessGraph = 2;
 
     public MathModel( int accuracy,MathFunctionInterface mathFunctionInterface){
         this.accuracy = accuracy;

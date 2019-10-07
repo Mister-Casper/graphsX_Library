@@ -53,7 +53,7 @@ public class MathGraph extends LineGraph {
                     coordinatesFunctionGraph.add(coordinates);
                 }
             }
-            graphs.add(new LineGraphModel(coordinatesFunctionGraph));
+            graphs.add(new LineGraphModel(coordinatesFunctionGraph,function.getColorGraph(),function.getLineThicknessGraph()));
         }
 
         return graphs;

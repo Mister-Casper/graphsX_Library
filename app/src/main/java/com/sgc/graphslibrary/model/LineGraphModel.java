@@ -21,6 +21,12 @@ public class LineGraphModel {
      */
     private int lineThickness = 2;
 
+    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine, int lineColor,int lineThickness) {
+        this.dataLine = dataLine;
+        this.lineColor = lineColor;
+        this.lineThickness = lineThickness;
+    }
+
     public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine, int lineColor) {
         this.dataLine = dataLine;
         this.lineColor = lineColor;

@@ -57,6 +57,10 @@ public class LineGraph extends BaseCoordinateSystem {
             yOffsetDescriptionDivision = arr.getInt(
                     R.styleable.LineGraph_yOffsetDescriptionDivision,
                     yOffsetDescriptionDivision);
+
+            isShowCoordinateGrid =  arr.getBoolean(
+                    R.styleable.LineGraph_isShowCoordinateGrid,
+                    isShowCoordinateGrid);
         } finally {
             arr.recycle();
         }
@@ -78,6 +82,10 @@ public class LineGraph extends BaseCoordinateSystem {
         loadLineGraphAttribute(context, attrs);
     }
 
+    /**
+     * if = true then on the coordinate field is displayed on the coordinate grid
+     */
+    protected boolean isShowCoordinateGrid = false;
 
     /**
      * = true if show description division on x axis
@@ -136,6 +144,20 @@ public class LineGraph extends BaseCoordinateSystem {
     protected ArrayList<LineGraphModel> data = new ArrayList<>();
 
     /**
+     * @return if = true then on the coordinate field is displayed on the coordinate grid
+     */
+    public boolean isShowCoordinateGrid() {
+        return isShowCoordinateGrid;
+    }
+
+    /**
+     * @param showCoordinateGrid is displayed on the coordinate field is displayed on the coordinate grid
+     */
+    public void setShowCoordinateGrid(boolean showCoordinateGrid) {
+        isShowCoordinateGrid = showCoordinateGrid;
+    }
+
+    /**
      * @return true if show description division on x axis else false
      */
     public boolean isDivisionDescriptionAxisX() {
@@ -143,7 +165,7 @@ public class LineGraph extends BaseCoordinateSystem {
     }
 
     /**
-     * @param divisionDescriptionAxisX  true if do you went show description division on x axis
+     * @param divisionDescriptionAxisX true if do you went show description division on x axis
      */
     public void setDivisionDescriptionAxisX(boolean divisionDescriptionAxisX) {
         this.isDivisionDescriptionAxisX = divisionDescriptionAxisX;
@@ -158,7 +180,7 @@ public class LineGraph extends BaseCoordinateSystem {
     }
 
     /**
-     * @param divisionDescriptionAxisY  true if do you went show description division on y axis
+     * @param divisionDescriptionAxisY true if do you went show description division on y axis
      */
     public void setDivisionDescriptionAxisY(boolean divisionDescriptionAxisY) {
         this.isDivisionDescriptionAxisY = divisionDescriptionAxisY;
@@ -166,11 +188,9 @@ public class LineGraph extends BaseCoordinateSystem {
     }
 
     /**
-     * @return
-     *         the difference in numbers between
-     *        the two closest descriptions division
-     *        on x axis
-     *
+     * @return the difference in numbers between
+     * the two closest descriptions division
+     * on x axis
      */
     public float getScaleDivisionDescriptionAxisX() {
         return scaleDivisionDescriptionAxisX;
@@ -178,8 +198,8 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * @param scaleDivisionDescriptionAxisX the difference in numbers between
-     *              the two closest descriptions division
-     *              on x axis
+     *                                      the two closest descriptions division
+     *                                      on x axis
      */
     public void setScaleDivisionDescriptionAxisX(float scaleDivisionDescriptionAxisX) {
         this.scaleDivisionDescriptionAxisX = scaleDivisionDescriptionAxisX;
@@ -187,11 +207,9 @@ public class LineGraph extends BaseCoordinateSystem {
     }
 
     /**
-     * @return
-     *         the difference in numbers between
-     *        the two closest descriptions division
-     *        on y axis
-     *
+     * @return the difference in numbers between
+     * the two closest descriptions division
+     * on y axis
      */
     public float getScaleDivisionDescriptionAxisY() {
         return scaleDivisionDescriptionAxisY;
@@ -199,8 +217,8 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * @param scaleDivisionDescriptionAxisY the difference in numbers between
-     *              the two closest descriptions division
-     *              on y axis
+     *                                      the two closest descriptions division
+     *                                      on y axis
      */
     public void setScaleDivisionDescriptionAxisY(float scaleDivisionDescriptionAxisY) {
         this.scaleDivisionDescriptionAxisY = scaleDivisionDescriptionAxisY;
@@ -253,17 +271,15 @@ public class LineGraph extends BaseCoordinateSystem {
     }
 
     /**
-     * @return
-     *       distance from axis x to description division
-     *       on x axis
-     *
+     * @return distance from axis x to description division
+     * on x axis
      */
     public int getxOffsetDescriptionDivision() {
         return xOffsetDescriptionDivision;
     }
 
     /**
-     * @param xOffsetDescriptionDivision   distance from axis x to description division on x axis
+     * @param xOffsetDescriptionDivision distance from axis x to description division on x axis
      */
     public void setxOffsetDescriptionDivision(int xOffsetDescriptionDivision) {
         this.xOffsetDescriptionDivision = xOffsetDescriptionDivision;
@@ -305,10 +321,12 @@ public class LineGraph extends BaseCoordinateSystem {
         super.onDraw(canvas);
         drawDivisionDescription(canvas);
         drawGraph(canvas);
+        showCoordinateGrid(canvas);
     }
 
     /**
      * draw graphs by chart coordinates
+     *
      * @param canvas
      */
     protected void drawGraph(Canvas canvas) {
@@ -327,6 +345,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * draw graph
+     *
      * @param canvas
      * @param graphPoints
      * @param paint
@@ -348,6 +367,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * draw division description on axis x and y
+     *
      * @param canvas
      */
     protected void drawDivisionDescription(Canvas canvas) {
@@ -357,6 +377,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * draw division description on axis x
+     *
      * @param canvas
      */
     protected void drawDivisionDescriptionAxisX(Canvas canvas) {
@@ -367,11 +388,11 @@ public class LineGraph extends BaseCoordinateSystem {
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
             int numberDivisions = (int) (getWidth() / step);
-            float startValue =  (-((int) (getStartX() / getStepDivisionsAbscissaAxis())) * scaleDivisionDescriptionAxisX);
+            float startValue = (-((int) (getStartX() / getStepDivisionsAbscissaAxis())) * scaleDivisionDescriptionAxisX);
 
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {
-                float xCurrentDescription = startValue +  i * scaleDivisionDescriptionAxisX;
+                float xCurrentDescription = startValue + i * scaleDivisionDescriptionAxisX;
                 float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
@@ -380,6 +401,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
     /**
      * draw division description on axis y
+     *
      * @param canvas
      */
     protected void drawDivisionDescriptionAxisY(Canvas canvas) {
@@ -390,7 +412,7 @@ public class LineGraph extends BaseCoordinateSystem {
             float startY = super.getStartRelativelyCentreOrdinateAxis();
             float step = super.getStepDivisionsOrdinateAxis();
             int numberDivisions = (int) (getHeight() / step);
-            float startValue =  (int)((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
+            float startValue = (int) ((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
 
             float xDivision = getStartX() + xOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {
@@ -400,6 +422,14 @@ public class LineGraph extends BaseCoordinateSystem {
                     canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);
                 }
             }
+        }
+    }
+
+    protected void showCoordinateGrid(Canvas canvas)
+    {
+        if(isShowCoordinateGrid) {
+            super.drawVerticalLine(canvas, 0, getHeight(), Color.LTGRAY, 1);
+            super.drawHorizontalLine(canvas, 0, getWidth(), Color.LTGRAY, 1);
         }
     }
 

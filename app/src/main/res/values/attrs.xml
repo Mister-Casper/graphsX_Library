@@ -35,10 +35,11 @@
         <attr name="scaleDivisionDescriptionAxisY" format="float" />
         <attr name="colorDivisionDescriptionAxisX" format="color" />
         <attr name="colorDivisionDescriptionAxisY" format="color" />
+        <attr name="colorCoordinateGrid" format="color" />
         <attr name="divisionDescriptionSize" format="dimension" />
         <attr name="xOffsetDescriptionDivision" format="integer" />
         <attr name="yOffsetDescriptionDivision" format="integer" />
-
+        <attr name="thicknessCoordinateGrid" format="integer" />
     </declare-styleable>
 
 </resources>

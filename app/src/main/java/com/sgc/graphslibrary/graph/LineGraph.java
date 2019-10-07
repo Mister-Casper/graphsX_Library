@@ -58,9 +58,17 @@ public class LineGraph extends BaseCoordinateSystem {
                     R.styleable.LineGraph_yOffsetDescriptionDivision,
                     yOffsetDescriptionDivision);
 
-            isShowCoordinateGrid =  arr.getBoolean(
+            isShowCoordinateGrid = arr.getBoolean(
                     R.styleable.LineGraph_isShowCoordinateGrid,
                     isShowCoordinateGrid);
+
+            colorCoordinateGrid = arr.getColor(
+                    R.styleable.LineGraph_colorCoordinateGrid,
+                    colorCoordinateGrid);
+
+            thicknessCoordinateGrid = arr.getInt(
+                    R.styleable.LineGraph_thicknessCoordinateGrid,
+                    thicknessCoordinateGrid);
         } finally {
             arr.recycle();
         }
@@ -86,6 +94,16 @@ public class LineGraph extends BaseCoordinateSystem {
      * if = true then on the coordinate field is displayed on the coordinate grid
      */
     protected boolean isShowCoordinateGrid = false;
+
+    /**
+     * color coordinate grid
+     */
+    protected int colorCoordinateGrid = Color.LTGRAY;
+
+    /**
+     * thickness of the lines of which the grid coordinate
+     */
+    protected int thicknessCoordinateGrid = 1;
 
     /**
      * = true if show description division on x axis
@@ -144,6 +162,36 @@ public class LineGraph extends BaseCoordinateSystem {
     protected ArrayList<LineGraphModel> data = new ArrayList<>();
 
     /**
+     * @return color coordinate grid
+     */
+    public int getColorCoordinateGrid() {
+        return colorCoordinateGrid;
+    }
+
+    /**
+     * @param colorCoordinateGrid color coordinate grid
+     */
+    public void setColorCoordinateGrid(int colorCoordinateGrid) {
+        this.colorCoordinateGrid = colorCoordinateGrid;
+        super.invalidate();
+    }
+
+    /**
+     * @return thickness of the lines of which the grid coordinate
+     */
+    public int getThicknessCoordinateGrid() {
+        return thicknessCoordinateGrid;
+    }
+
+    /**
+     * @param thicknessCoordinateGrid thickness of the lines of which the grid coordinate
+     */
+    public void setThicknessCoordinateGrid(int thicknessCoordinateGrid) {
+        this.thicknessCoordinateGrid = thicknessCoordinateGrid;
+        super.invalidate();
+    }
+
+    /**
      * @return if = true then on the coordinate field is displayed on the coordinate grid
      */
     public boolean isShowCoordinateGrid() {
@@ -155,6 +203,7 @@ public class LineGraph extends BaseCoordinateSystem {
      */
     public void setShowCoordinateGrid(boolean showCoordinateGrid) {
         isShowCoordinateGrid = showCoordinateGrid;
+        super.invalidate();
     }
 
     /**
@@ -425,11 +474,10 @@ public class LineGraph extends BaseCoordinateSystem {
         }
     }
 
-    protected void showCoordinateGrid(Canvas canvas)
-    {
-        if(isShowCoordinateGrid) {
-            super.drawVerticalLine(canvas, 0, getHeight(), Color.LTGRAY, 1);
-            super.drawHorizontalLine(canvas, 0, getWidth(), Color.LTGRAY, 1);
+    protected void showCoordinateGrid(Canvas canvas) {
+        if (isShowCoordinateGrid) {
+            super.drawVerticalLine(canvas, 0, getHeight(), colorCoordinateGrid, thicknessCoordinateGrid);
+            super.drawHorizontalLine(canvas, 0, getWidth(), colorCoordinateGrid, thicknessCoordinateGrid);
         }
     }
 

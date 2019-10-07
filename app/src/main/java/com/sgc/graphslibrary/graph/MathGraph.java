@@ -47,7 +47,7 @@ public class MathGraph extends LineGraph {
                 float stepAccuracy = scaleX / function.getAccuracy();
 
                 for (float x = function.getMinX(); x <= function.getMaxX(); x += stepAccuracy) {
-                    float Y = function.getMathFunctionInterface().function(x) / super.getScaleDivisionDescriptionAxisY();
+                    float Y = function.getMathFunctionInterface().function(Math.round(x * 100f) / 100f) / super.getScaleDivisionDescriptionAxisY();
                     float X = x / super.getScaleDivisionDescriptionAxisX();
                     ChartCoordinatesModel coordinates = new ChartCoordinatesModel(X,Y);
                     coordinatesFunctionGraph.add(coordinates);

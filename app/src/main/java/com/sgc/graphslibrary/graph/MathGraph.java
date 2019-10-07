@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 
-import com.sgc.graphslibrary.model.ChartCoordinatesModel;
-import com.sgc.graphslibrary.model.LineGraphModel;
-import com.sgc.graphslibrary.model.MathModel;
+import com.sgc.graphslibrary.data.ChartCoordinatesData;
+import com.sgc.graphslibrary.data.LineGraphData;
+import com.sgc.graphslibrary.data.MathData;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ public class MathGraph extends LineGraph {
         super(context, attrs, defStyleAttr);
     }
 
-    protected ArrayList<MathModel> functions = new ArrayList<>();
+    protected ArrayList<MathData> functions = new ArrayList<>();
 
-    public void setFunctions(ArrayList<MathModel> functions) {
+    public void setFunctions(ArrayList<MathData> functions) {
         this.functions = functions;
         super.setData(calculatedCoordinates());
     }
@@ -35,12 +35,12 @@ public class MathGraph extends LineGraph {
         super.onDraw(canvas);
     }
 
-    protected ArrayList<LineGraphModel> calculatedCoordinates() {
-        ArrayList<LineGraphModel> graphs = new ArrayList<>();
+    protected ArrayList<LineGraphData> calculatedCoordinates() {
+        ArrayList<LineGraphData> graphs = new ArrayList<>();
 
         for (int i = 0; i < functions.size(); i++) {
-            MathModel function = functions.get(i);
-            ArrayList<ChartCoordinatesModel> coordinatesFunctionGraph = new ArrayList<>();
+            MathData function = functions.get(i);
+            ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
 
             if (function.getAccuracy() >= 1) {
                 float scaleX = super.getScaleDivisionDescriptionAxisX();
@@ -49,11 +49,11 @@ public class MathGraph extends LineGraph {
                 for (float x = function.getMinX(); x <= function.getMaxX(); x += stepAccuracy) {
                     float Y = function.getMathFunctionInterface().function(Math.round(x * 100f) / 100f) / super.getScaleDivisionDescriptionAxisY();
                     float X = x / super.getScaleDivisionDescriptionAxisX();
-                    ChartCoordinatesModel coordinates = new ChartCoordinatesModel(X,Y);
+                    ChartCoordinatesData coordinates = new ChartCoordinatesData(X,Y);
                     coordinatesFunctionGraph.add(coordinates);
                 }
             }
-            graphs.add(new LineGraphModel(coordinatesFunctionGraph,function.getColorGraph(),function.getLineThicknessGraph()));
+            graphs.add(new LineGraphData(coordinatesFunctionGraph,function.getColorGraph(),function.getLineThicknessGraph()));
         }
 
         return graphs;

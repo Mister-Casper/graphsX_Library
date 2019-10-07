@@ -1,8 +1,8 @@
-package com.sgc.graphslibrary.model;
+package com.sgc.graphslibrary.data;
 
 import android.graphics.Color;
 
-public class MathModel {
+public class MathData {
 
     /**
      * coordinate  of the begin of the graph
@@ -37,12 +37,12 @@ public class MathModel {
      */
     private int lineThicknessGraph = 2;
 
-    public MathModel(int accuracy, MathFunctionInterface mathFunctionInterface) {
+    public MathData(int accuracy, MathFunctionInterface mathFunctionInterface) {
         this.accuracy = accuracy;
         this.mathFunctionInterface = mathFunctionInterface;
     }
 
-    public MathModel(MathFunctionInterface mathFunctionInterface) {
+    public MathData(MathFunctionInterface mathFunctionInterface) {
         this.mathFunctionInterface = mathFunctionInterface;
     }
 

@@ -1,15 +1,15 @@
-package com.sgc.graphslibrary.model;
+package com.sgc.graphslibrary.data;
 
 import android.graphics.Color;
 
 import java.util.ArrayList;
 
-public class LineGraphModel {
+public class LineGraphData {
 
     /**
      * array points all graph
      */
-    private ArrayList<ChartCoordinatesModel> dataLine;
+    private ArrayList<ChartCoordinatesData> dataLine;
 
     /**
      * graph color
@@ -21,32 +21,32 @@ public class LineGraphModel {
      */
     private int lineThickness = 2;
 
-    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine, int lineColor,int lineThickness) {
+    public LineGraphData(ArrayList<ChartCoordinatesData> dataLine, int lineColor, int lineThickness) {
         this.dataLine = dataLine;
         this.lineColor = lineColor;
         this.lineThickness = lineThickness;
     }
 
-    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine, int lineColor) {
+    public LineGraphData(ArrayList<ChartCoordinatesData> dataLine, int lineColor) {
         this.dataLine = dataLine;
         this.lineColor = lineColor;
     }
 
-    public LineGraphModel(ArrayList<ChartCoordinatesModel> dataLine) {
+    public LineGraphData(ArrayList<ChartCoordinatesData> dataLine) {
         this.dataLine = dataLine;
     }
 
     /**
      * @return array points all graph
      */
-    public ArrayList<ChartCoordinatesModel> getDataLine() {
+    public ArrayList<ChartCoordinatesData> getDataLine() {
         return dataLine;
     }
 
     /**
      * @param dataLine array points all graph
      */
-    public void setDataLine(ArrayList<ChartCoordinatesModel> dataLine) {
+    public void setDataLine(ArrayList<ChartCoordinatesData> dataLine) {
         this.dataLine = dataLine;
     }
 

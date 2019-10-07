@@ -1,10 +1,10 @@
-package com.sgc.graphslibrary.model;
+package com.sgc.graphslibrary.data;
 
-public class ChartCoordinatesModel {
+public class ChartCoordinatesData {
     private float valueX;
     private float valueY;
 
-    public ChartCoordinatesModel(float valueX, float valueY) {
+    public ChartCoordinatesData(float valueX, float valueY) {
         this.valueX = valueX;
         this.valueY = valueY;
     }

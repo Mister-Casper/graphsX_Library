@@ -1,8 +1,6 @@
-package com.sgc.graphslibrary.model;
+package com.sgc.graphslibrary.data;
 
-import android.graphics.Color;
-
-public class PieChartModel {
+public class PieChartData {
     /**
      *percentage of space occupied by a segment diagram
      */
@@ -18,12 +16,12 @@ public class PieChartModel {
      */
     private String text;
 
-    public PieChartModel(int percentageSpace, int colorDedicatedSpace) {
+    public PieChartData(int percentageSpace, int colorDedicatedSpace) {
         this.percentageSpace = percentageSpace;
         this.colorDedicatedSpace = colorDedicatedSpace;
     }
 
-    public PieChartModel(int percentageSpace, int colorDedicatedSpace, String text) {
+    public PieChartData(int percentageSpace, int colorDedicatedSpace, String text) {
         this.percentageSpace = percentageSpace;
         this.colorDedicatedSpace = colorDedicatedSpace;
         this.text = text;

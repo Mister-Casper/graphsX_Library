@@ -1,6 +1,6 @@
 package com.sgc.graphslibrary.Maths;
 
-import com.sgc.graphslibrary.model.PieChartModel;
+import com.sgc.graphslibrary.data.PieChartData;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class AngleMath {
      * @param numberSector number sector for which the average angle is calculated
      * @return average angle sector
      */
-    public static float getAngleOfSectorCenter(int numberSector, float startAngle, ArrayList<PieChartModel> data) {
+    public static float getAngleOfSectorCenter(int numberSector, float startAngle, ArrayList<PieChartData> data) {
         float compress = getCompress(data);
         float startAngleSector = startAngle + 90;
 
@@ -32,7 +32,7 @@ public class AngleMath {
      *Example: If getPercentageSpace () return 10,
      *getCompress () return 5. 10 * 5 angles of space occupied by the sector
      */
-    public static float getCompress(ArrayList<PieChartModel> data) {
+    public static float getCompress(ArrayList<PieChartData> data) {
         float sumPercent = 0;
 
         for (int i = 0; i < data.size(); i++) {

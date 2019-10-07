@@ -516,6 +516,19 @@ import com.sgc.graphslibrary.R;
         }
     }
 
+    protected void drawVerticalLine(Canvas canvas, float startLineY, float endLineY,int color,int thickness) {
+        if (isShowDivisionAbscissaAxis) {
+            if (stepDivisionsAbscissaAxis > 0) {
+                for (float i = getStartRelativelyCentreAbscissaAxis(); i < getWidth(); i += stepDivisionsAbscissaAxis) {
+                    drawLine(i, startLineY, i, endLineY, color, thickness, canvas);
+                }
+            }
+        }
+    }
+
+    /**
+     * @return returns the coordinate of the first division along the x axis
+     */
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
         while (centerX >= stepDivisionsAbscissaAxis) {
@@ -532,12 +545,23 @@ import com.sgc.graphslibrary.R;
 
             if (stepDivisionsOrdinateAxis > 0) {
                 for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
-                    drawLine(startLineX, i,endLineX, i, colorDivisionOrdinateAxis, divisionLineThicknessTheAxis, canvas);
+                    drawLine(startLineX, i, endLineX, i, colorDivisionOrdinateAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
         }
     }
 
+    protected void drawHorizontalLine(Canvas canvas, float startLineX, float endLineX,int color,int thickness) {
+        if (stepDivisionsOrdinateAxis > 0) {
+            for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
+                drawLine(startLineX, i, endLineX, i, color, thickness, canvas);
+            }
+        }
+    }
+
+    /**
+     * @return returns the coordinate of the first division along the y axis
+     */
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
         while (centerY >= stepDivisionsAbscissaAxis) {

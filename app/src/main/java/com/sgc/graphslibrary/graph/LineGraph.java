@@ -438,8 +438,14 @@ public class LineGraph extends BaseCoordinateSystem {
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
             int countShowDescription = (int) (getWidth() / step) + 4;
-            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
-            drawDivisionDescriptionAxis(canvas,paint,startX, step, countShowDescription, startValue);
+            float startValue = (-((int)getStartX()  / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+
+            float yDivision = getStartY() + yOffsetDescriptionDivision;
+            for (int i = 0; i < countShowDescription + 1; i++) {
+                float xCurrentDescription = startValue + i * scaleDivisionDescriptionAxisX;
+                float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f ;
+                canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
+            }
         }
     }
 
@@ -458,26 +464,13 @@ public class LineGraph extends BaseCoordinateSystem {
             float step = super.getStepDivisionsOrdinateAxis();
             int countShowDescription = (int) (getHeight() / step) + 4;
             float startValue = (int) ((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
-            drawDivisionDescriptionAxis(canvas,paint,startY, step, countShowDescription, startValue);
-        }
-    }
-
-    /**
-     * draw division description on any axis
-     * @param canvas
-     * @param paint
-     * @param start coordinate of the first show value
-     * @param step distance between description
-     * @param countShowDescription the count of divisions that each frame is drawn
-     * @param startValue value for the leftmost division
-     */
-    protected void drawDivisionDescriptionAxis(Canvas canvas, Paint paint, float start, float step, int countShowDescription, float startValue) {
-        float xDivision = getStartX() + xOffsetDescriptionDivision;
-        for (int i = 0; i < countShowDescription + 1; i++) {
-            float yCurrentDescription = startValue - i * scaleDivisionDescriptionAxisY;
-            float yCurrentPosition = start + i * step + stepDivisionsAbscissaAxis / 5f;
-            if (yCurrentDescription != 0) {
-                canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);
+            float xDivision = getStartX() + xOffsetDescriptionDivision;
+            for (int i = 0; i < countShowDescription + 1; i++) {
+                float yCurrentDescription = startValue - i * scaleDivisionDescriptionAxisY;
+                float yCurrentPosition = startY + i * step + stepDivisionsAbscissaAxis / 5f;
+                if (yCurrentDescription != 0) {
+                    canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);
+                }
             }
         }
     }

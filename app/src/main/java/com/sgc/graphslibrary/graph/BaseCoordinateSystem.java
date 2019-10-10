@@ -105,6 +105,15 @@ public class BaseCoordinateSystem extends View {
             colorDivisionOrdinateAxis = arr.getInt(
                     R.styleable.BaseCoordinateSystem_colorDivisionOrdinateAxis,
                     colorDivisionOrdinateAxis);
+
+            isHorizontalScroll = arr.getBoolean(
+                    R.styleable.BaseCoordinateSystem_isHorizontalScroll,
+                    isHorizontalScroll);
+
+            isVerticalScroll = arr.getBoolean(
+                    R.styleable.BaseCoordinateSystem_isVerticalScroll,
+                    isVerticalScroll);
+
         } finally {
             arr.recycle();
         }
@@ -200,6 +209,25 @@ public class BaseCoordinateSystem extends View {
      * step of divisions of the ordinate axis
      */
     protected int stepDivisionsOrdinateAxis = 25;
+
+    protected boolean isHorizontalScroll = false;
+    protected boolean isVerticalScroll = false;
+
+    public boolean isHorizontalScroll() {
+        return isHorizontalScroll;
+    }
+
+    public void setHorizontalScroll(boolean horizontalScroll) {
+        isHorizontalScroll = horizontalScroll;
+    }
+
+    public boolean isVerticalScroll() {
+        return isVerticalScroll;
+    }
+
+    public void setVerticalScroll(boolean verticalScroll) {
+        isVerticalScroll = verticalScroll;
+    }
 
     /**
      * @return Abscissa division axis color.
@@ -532,7 +560,7 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
-        int countStepToCenter = (int)(centerX / stepDivisionsAbscissaAxis);
+        int countStepToCenter = (int) (centerX / stepDivisionsAbscissaAxis);
         float start = centerX - countStepToCenter * stepDivisionsAbscissaAxis;
         return start;
     }
@@ -564,7 +592,7 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
-        int countStepToCenter = (int)(centerY / stepDivisionsAbscissaAxis);
+        int countStepToCenter = (int) (centerY / stepDivisionsAbscissaAxis);
         float start = centerY - countStepToCenter * stepDivisionsAbscissaAxis;
         return start;
     }
@@ -573,25 +601,31 @@ public class BaseCoordinateSystem extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        switch (event.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-                dX = event.getX();
-                dY = event.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float distanceX = event.getX() - dX;
-                float distanceY = event.getY() - dY;
-                dX = event.getX();
-                dY = event.getY();
-                ordinateAxisShiftRight += distanceX;
-                abscissaAxisShiftUp -= distanceY;
+        if (event.getAction()  == MotionEvent.ACTION_DOWN) {
+            dX = event.getX();
+            dY = event.getY();
+        }
+        if (event.getAction()  == MotionEvent.ACTION_MOVE) {
+                horizontalScroll(event);
+                verticalScroll(event);
                 invalidate();
-                break;
-            default:
-                return false;
         }
         return true;
+    }
+
+    private void horizontalScroll(MotionEvent event) {
+        if (isHorizontalScroll) {
+            float distanceX = event.getX() - dX;
+            ordinateAxisShiftRight += distanceX;
+            dX = event.getX();
+        }
+    }
+
+    private void verticalScroll(MotionEvent event) {
+        if (isVerticalScroll) {
+            float distanceY = event.getY() - dY;
+            dY = event.getY();
+            abscissaAxisShiftUp -= distanceY;
+        }
     }
 }

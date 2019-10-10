@@ -6,11 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.sgc.graphslibrary.R;
 
- public class BaseCoordinateSystem extends View {
+public class BaseCoordinateSystem extends View {
 
     //
     // Constructors
@@ -516,7 +517,7 @@ import com.sgc.graphslibrary.R;
         }
     }
 
-    protected void drawVerticalLine(Canvas canvas, float startLineY, float endLineY,int color,int thickness) {
+    protected void drawVerticalLine(Canvas canvas, float startLineY, float endLineY, int color, int thickness) {
         if (isShowDivisionAbscissaAxis) {
             if (stepDivisionsAbscissaAxis > 0) {
                 for (float i = getStartRelativelyCentreAbscissaAxis(); i < getWidth(); i += stepDivisionsAbscissaAxis) {
@@ -531,6 +532,9 @@ import com.sgc.graphslibrary.R;
      */
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
+        while (centerX < -stepDivisionsAbscissaAxis) {
+            centerX += stepDivisionsAbscissaAxis;
+        }
         while (centerX >= stepDivisionsAbscissaAxis) {
             centerX -= stepDivisionsAbscissaAxis;
         }
@@ -551,7 +555,7 @@ import com.sgc.graphslibrary.R;
         }
     }
 
-    protected void drawHorizontalLine(Canvas canvas, float startLineX, float endLineX,int color,int thickness) {
+    protected void drawHorizontalLine(Canvas canvas, float startLineX, float endLineX, int color, int thickness) {
         if (stepDivisionsOrdinateAxis > 0) {
             for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
                 drawLine(startLineX, i, endLineX, i, color, thickness, canvas);
@@ -564,9 +568,38 @@ import com.sgc.graphslibrary.R;
      */
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
+        while (centerY < -stepDivisionsAbscissaAxis) {
+            centerY += stepDivisionsAbscissaAxis;
+        }
         while (centerY >= stepDivisionsAbscissaAxis) {
             centerY -= stepDivisionsOrdinateAxis;
         }
         return centerY;
+    }
+
+    float dX, dY;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                dX = event.getX();
+                dY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float distanceX = event.getX() - dX;
+                float distanceY = event.getY() - dY;
+                dX = event.getX();
+                dY = event.getY();
+                ordinateAxisShiftRight += distanceX;
+                abscissaAxisShiftUp -= distanceY;
+                invalidate();
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 }

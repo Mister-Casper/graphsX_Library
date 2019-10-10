@@ -532,13 +532,9 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
-        while (centerX < -stepDivisionsAbscissaAxis) {
-            centerX += stepDivisionsAbscissaAxis;
-        }
-        while (centerX >= stepDivisionsAbscissaAxis) {
-            centerX -= stepDivisionsAbscissaAxis;
-        }
-        return centerX;
+        int countStepToCenter = (int)(centerX / stepDivisionsAbscissaAxis);
+        float start = centerX - countStepToCenter * stepDivisionsAbscissaAxis;
+        return start;
     }
 
     protected void drawOrdinateDivisions(Canvas canvas) {
@@ -568,13 +564,9 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
-        while (centerY < -stepDivisionsAbscissaAxis) {
-            centerY += stepDivisionsAbscissaAxis;
-        }
-        while (centerY >= stepDivisionsAbscissaAxis) {
-            centerY -= stepDivisionsOrdinateAxis;
-        }
-        return centerY;
+        int countStepToCenter = (int)(centerY / stepDivisionsAbscissaAxis);
+        float start = centerY - countStepToCenter * stepDivisionsAbscissaAxis;
+        return start;
     }
 
     float dX, dY;

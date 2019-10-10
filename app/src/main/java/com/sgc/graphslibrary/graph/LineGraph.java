@@ -204,6 +204,7 @@ public class LineGraph extends BaseCoordinateSystem {
     public void setShowCoordinateGrid(boolean showCoordinateGrid) {
         isShowCoordinateGrid = showCoordinateGrid;
         super.invalidate();
+        super.invalidate();
     }
 
     /**
@@ -436,31 +437,30 @@ public class LineGraph extends BaseCoordinateSystem {
             paint.setTextSize(divisionDescriptionSize);
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
-            int numberDivisions = (int) (getWidth() / step);
-            float startValue = (-((int) (getStartX() / getStepDivisionsAbscissaAxis())) * scaleDivisionDescriptionAxisX);
+            int numberDivisions = (int) (getWidth() / step) + 4;
+            float startValue = (-((int)getStartX()  / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
 
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < numberDivisions + 1; i++) {
                 float xCurrentDescription = startValue + i * scaleDivisionDescriptionAxisX;
-                float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
+                float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f ;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
         }
     }
-
     /**
      * draw division description on axis y
-     *
      * @param canvas
      */
     protected void drawDivisionDescriptionAxisY(Canvas canvas) {
         if (isDivisionDescriptionAxisY) {
             Paint paint = new Paint();
+
             paint.setColor(colorDivisionDescriptionAxisY);
             paint.setTextSize(divisionDescriptionSize);
             float startY = super.getStartRelativelyCentreOrdinateAxis();
             float step = super.getStepDivisionsOrdinateAxis();
-            int numberDivisions = (int) (getHeight() / step);
+            int numberDivisions = (int) (getHeight() / step) + 4;
             float startValue = (int) ((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
 
             float xDivision = getStartX() + xOffsetDescriptionDivision;

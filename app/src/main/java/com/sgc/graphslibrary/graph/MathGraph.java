@@ -33,6 +33,7 @@ public class MathGraph extends LineGraph {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        super.setData(calculatedCoordinates());
     }
 
     protected ArrayList<LineGraphData> calculatedCoordinates() {
@@ -42,18 +43,21 @@ public class MathGraph extends LineGraph {
             MathData function = functions.get(i);
             ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
 
-            if (function.getAccuracy() >= 1) {
-                float scaleX = super.getScaleDivisionDescriptionAxisX();
-                float stepAccuracy = scaleX / function.getAccuracy();
+            float stepAccuracy = 1f / function.getAccuracy();
+            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+            float step = super.getStepDivisionsAbscissaAxis();
+            int countShowDescription = (int) (getWidth() / step) +4;
 
-                for (float x = function.getMinX(); x <= function.getMaxX(); x += stepAccuracy) {
-                    float Y = function.getMathFunctionInterface().function(Math.round(x * 100f) / 100f) / super.getScaleDivisionDescriptionAxisY();
+            for (float x = startValue - countShowDescription; x <= startValue + countShowDescription; x += stepAccuracy) {
+                if (x >= function.getMinX() && x <= function.getMaxX()) {
+                    x = Math.round(x * 100f) / 100f;
+                    float Y = function.getMathFunctionInterface().function(x) / super.getScaleDivisionDescriptionAxisY();
                     float X = x / super.getScaleDivisionDescriptionAxisX();
-                    ChartCoordinatesData coordinates = new ChartCoordinatesData(X,Y);
+                    ChartCoordinatesData coordinates = new ChartCoordinatesData(X, Y);
                     coordinatesFunctionGraph.add(coordinates);
                 }
             }
-            graphs.add(new LineGraphData(coordinatesFunctionGraph,function.getColorGraph(),function.getLineThicknessGraph()));
+            graphs.add(new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph()));
         }
 
         return graphs;

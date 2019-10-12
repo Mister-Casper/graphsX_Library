@@ -477,4 +477,15 @@ public class LineGraph extends BaseCoordinateSystem {
         }
     }
 
+    protected float getStartValue(){
+        float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+        return startValue;
+    }
+
+    protected int getCountShowDescription(){
+        float step = getStepDivisionsAbscissaAxis();
+        int countShowDescription = (int) ((getWidth() / step) + 4);
+        return countShowDescription;
+    }
+
 }

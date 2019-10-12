@@ -51,29 +51,33 @@ public class MathGraph extends LineGraph {
 
     protected ArrayList<LineGraphData> calculatedCoordinates() {
         ArrayList<LineGraphData> graphs = new ArrayList<>();
-
         for (int i = 0; i < functions.size(); i++) {
             MathData function = functions.get(i);
             ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
-
             float stepAccuracy = 1f / function.getAccuracy();
-            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
-            float step = getStepDivisionsAbscissaAxis();
-            int countShowDescription = (int) ((getWidth() / step) + 4) / 2;
+            float startValue = super.getStartValue();
+            int countShowDescription = getCountShowDescription();
 
-            for (float x = startValue - countShowDescription; x <= startValue + countShowDescription * 2; x += stepAccuracy) {
-                if (x >= function.getMinX() && x <= function.getMaxX()) {
-                    x = Math.round(x * 100f) / 100f;
-                    float Y = function.getMathFunctionInterface().function(x) / super.getScaleDivisionDescriptionAxisY();
-                    float X = x / super.getScaleDivisionDescriptionAxisX();
-                    ChartCoordinatesData coordinates = new ChartCoordinatesData(X, Y);
+            for (float x = startValue - 1; x <= startValue + countShowDescription; x += stepAccuracy) {
+                ChartCoordinatesData coordinates = calculatedCoordinate(x, function);
+                if (coordinates != null)
                     coordinatesFunctionGraph.add(coordinates);
-                }
             }
+
             graphs.add(new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph()));
         }
-
         return graphs;
+    }
+
+    private ChartCoordinatesData calculatedCoordinate(float x, MathData function) {
+        if (x >= function.getMinX() && x <= function.getMaxX()) {
+            x = Math.round(x * 100f) / 100f;
+            float Y = function.getMathFunctionInterface().function(x) / super.getScaleDivisionDescriptionAxisY();
+            float X = x / super.getScaleDivisionDescriptionAxisX();
+            ChartCoordinatesData coordinates = new ChartCoordinatesData(X, Y);
+            return coordinates;
+        } else
+            return null;
     }
 
 }

@@ -382,7 +382,6 @@ public class LineGraph extends BaseCoordinateSystem {
     protected void drawGraph(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setAntiAlias(true);
 
         for (int q = 0; q < data.size(); q++) {
             LineGraphData line = data.get(q);
@@ -401,17 +400,14 @@ public class LineGraph extends BaseCoordinateSystem {
      * @param paint
      */
     protected void drawGraphLine(Canvas canvas, ArrayList<ChartCoordinatesData> graphPoints, Paint paint) {
-        if (graphPoints.size() >= 2) {
-            for (int i = 0; i < graphPoints.size() - 1; i++) {
-                float startX = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(i).getValueX();
-                float startY = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(i).getValueY();
-
-                float endX = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(i + 1).getValueX();
-                float endY = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(i + 1).getValueY();
-
-                canvas.drawLine(startX, startY, endX, endY, paint);
-            }
+        float[] points = new float[graphPoints.size() * 4];
+        for (int q = 0; q < points.length - 4;q++ ) {
+            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q/4).getValueX();
+            points[q++] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q/4).getValueY();
+            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q/4 + 1).getValueX();
+            points[q] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q/4 + 1).getValueY();
         }
+        canvas.drawLines(points, paint);
     }
 
     /**
@@ -437,12 +433,12 @@ public class LineGraph extends BaseCoordinateSystem {
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
             int countShowDescription = (int) (getWidth() / step) + 4;
-            float startValue = (-((int)getStartX()  / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
 
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < countShowDescription + 1; i++) {
                 float xCurrentDescription = startValue + i * scaleDivisionDescriptionAxisX;
-                float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f ;
+                float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
         }

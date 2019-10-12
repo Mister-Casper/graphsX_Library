@@ -45,7 +45,7 @@ public class MathGraph extends LineGraph {
 
             float stepAccuracy = 1f / function.getAccuracy();
             float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
-            float step = super.getStepDivisionsAbscissaAxis();
+            float step = getScaleDivisionDescriptionAxisX();
             int countShowDescription = (int) (getWidth() / step) +4;
 
             for (float x = startValue - countShowDescription; x <= startValue + countShowDescription; x += stepAccuracy) {

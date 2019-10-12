@@ -411,8 +411,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
                 canvas.drawLine(startX, startY, endX, endY, paint);
             }
-        } else
-            throw new RuntimeException("impossible to build graph by one point. Points count = " + graphPoints.size());
+        }
     }
 
     /**

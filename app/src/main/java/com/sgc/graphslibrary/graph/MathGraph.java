@@ -53,20 +53,24 @@ public class MathGraph extends LineGraph {
         ArrayList<LineGraphData> graphs = new ArrayList<>();
         for (int i = 0; i < functions.size(); i++) {
             MathData function = functions.get(i);
-            ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
-            float stepAccuracy = 1f / function.getAccuracy();
-            float startValue = super.getStartValue();
-            int countShowDescription = getCountShowDescription();
-
-            for (float x = startValue - 1; x <= startValue + countShowDescription; x += stepAccuracy) {
-                ChartCoordinatesData coordinates = calculatedCoordinate(x, function);
-                if (coordinates != null)
-                    coordinatesFunctionGraph.add(coordinates);
-            }
-
-            graphs.add(new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph()));
+            graphs.add(calculatedFunctionCoordinates(function));
         }
         return graphs;
+    }
+
+    private LineGraphData calculatedFunctionCoordinates(MathData function ){
+        ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
+        float stepAccuracy = 1f / function.getAccuracy();
+        float startValue = super.getStartValue();
+        int countShowDescription = getCountShowDescription();
+
+        for (float x = startValue - 1; x <= startValue + countShowDescription; x += stepAccuracy) {
+            ChartCoordinatesData coordinates = calculatedCoordinate(x, function);
+            if (coordinates != null)
+                coordinatesFunctionGraph.add(coordinates);
+        }
+
+        return new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph());
     }
 
     private ChartCoordinatesData calculatedCoordinate(float x, MathData function) {

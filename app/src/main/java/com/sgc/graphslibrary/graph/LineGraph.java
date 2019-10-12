@@ -363,7 +363,7 @@ public class LineGraph extends BaseCoordinateSystem {
      */
     public void setData(ArrayList<LineGraphData> data) {
         this.data = data;
-        super.invalidate();
+        invalidate();
     }
 
     @Override
@@ -401,11 +401,11 @@ public class LineGraph extends BaseCoordinateSystem {
      */
     protected void drawGraphLine(Canvas canvas, ArrayList<ChartCoordinatesData> graphPoints, Paint paint) {
         float[] points = new float[graphPoints.size() * 4];
-        for (int q = 0; q < points.length - 4;q++ ) {
-            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q/4).getValueX();
-            points[q++] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q/4).getValueY();
-            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q/4 + 1).getValueX();
-            points[q] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q/4 + 1).getValueY();
+        for (int q = 0; q < points.length - 4; q++) {
+            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q / 4).getValueX();
+            points[q++] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q / 4).getValueY();
+            points[q++] = super.getStartX() + super.getStepDivisionsAbscissaAxis() * graphPoints.get(q / 4 + 1).getValueX();
+            points[q] = super.getStartY() - super.getStepDivisionsOrdinateAxis() * graphPoints.get(q / 4 + 1).getValueY();
         }
         canvas.drawLines(points, paint);
     }

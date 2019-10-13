@@ -13,10 +13,7 @@ import android.view.View;
 import com.sgc.graphslibrary.R;
 
 public class BaseCoordinateSystem extends View {
-
-    //
-    // Constructors
-    //
+    //<editor-fold desc="Constructors">
     public BaseCoordinateSystem(Context context) {
         super(context);
     }
@@ -30,11 +27,8 @@ public class BaseCoordinateSystem extends View {
         super(context, attrs, defStyleAttr);
         this.loadBaseAttribute(context, attrs);
     }
-    //
-    // Constructors
-    //
-
-    private ScaleGestureDetector scaleGestureDetector;
+    //</editor-fold>
+    //<editor-fold desc="load attribute">
 
     /**
      * load and set xml attribute
@@ -135,7 +129,9 @@ public class BaseCoordinateSystem extends View {
             arr.recycle();
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Color axes">
     /**
      * Abscissa axis color.
      * Default : Black.
@@ -148,6 +144,38 @@ public class BaseCoordinateSystem extends View {
      */
     protected int colorOrdinateAxis = Color.BLACK;
 
+
+    /**
+     * @return Abscissa axis color.
+     */
+    public int getColorAbscissaAxis() {
+        return colorAbscissaAxis;
+    }
+
+    /**
+     * @param colorAbscissaAxis Abscissa axis color.
+     */
+    public void setColorAbscissaAxis(int colorAbscissaAxis) {
+        this.colorAbscissaAxis = colorAbscissaAxis;
+        super.invalidate();
+    }
+
+    /**
+     * @return Ordinate axis color.
+     */
+    public int getColorOrdinateAxis() {
+        return colorOrdinateAxis;
+    }
+
+    /**
+     * @param colorOrdinateAxis Ordinate axis color.
+     */
+    public void setColorOrdinateAxis(int colorOrdinateAxis) {
+        this.colorOrdinateAxis = colorOrdinateAxis;
+        super.invalidate();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Division color">
     /**
      * Abscissa division axis color.
      * Default : Black.
@@ -159,74 +187,6 @@ public class BaseCoordinateSystem extends View {
      * Default : Black.
      */
     protected int colorDivisionOrdinateAxis = Color.BLACK;
-
-
-    /*
-     * if = true The divisions are shown on the abscissa.
-     */
-    protected boolean isShowDivisionAbscissaAxis = true;
-
-    /*
-     * if = true The divisions are shown on the ordinate.
-     */
-    protected boolean isShowDivisionOrdinateAxis = true;
-
-    /**
-     * division line length the axis ordinate and abscissa
-     */
-    protected int divisionLineLengthTheAxis = 5;
-
-    /**
-     * division line length the axis ordinate and abscissa
-     */
-    protected int divisionLineThicknessTheAxis = 2;
-
-    /**
-     * Line thickness abscissa axis
-     */
-    protected int abscissaAxisLineThickness = 2;
-
-    /**
-     * Line thickness ordinate axis
-     */
-    protected int ordinateAxisLineThickness = 2;
-
-    /**
-     * The abscissa axis shift to the up the axis ordinate.
-     * With match_parent / 2, the abscissa axis is in the
-     * center of the ordinate axis
-     */
-    protected int abscissaAxisShiftUp = 0;
-
-    /**
-     * The ordinate axis shift to the right the axis abscissa.
-     * With match_parent / 2, the ordinate axis is in the
-     * center of the abscissa axis
-     */
-    protected int ordinateAxisShiftRight = 0;
-
-    /**
-     * = true if the abscissa axis is in the center
-     * of the ordinate axis
-     */
-    protected boolean isAbscissaInCenter = false;
-
-    /*
-     * = true if the ordinate axis is in the center
-     *  of the abscissa axis
-     */
-    protected boolean isOrdinateInCenter = false;
-
-    /**
-     * step of divisions of the abscissa axis
-     */
-    protected int stepDivisionsAbscissaAxis = 25;
-
-    /**
-     * step of divisions of the ordinate axis
-     */
-    protected int stepDivisionsOrdinateAxis = 25;
-
 
     /**
      * @return Abscissa division axis color.
@@ -258,35 +218,150 @@ public class BaseCoordinateSystem extends View {
         super.invalidate();
     }
 
-    /**
-     * @return step of divisions of the abscissa axis
+    //</editor-fold>
+    //<editor-fold desc="Is show division">
+    /*
+     * if = true The divisions are shown on the abscissa.
      */
-    public int getStepDivisionsAbscissaAxis() {
-        return (int) (stepDivisionsAbscissaAxis * scaleFactor);
+    protected boolean isShowDivisionAbscissaAxis = true;
+
+    /*
+     * if = true The divisions are shown on the ordinate.
+     */
+    protected boolean isShowDivisionOrdinateAxis = true;
+
+    /**
+     * @return true if the divisions are shown on the abscissa.
+     */
+    public boolean isShowDivisionAbscissaAxis() {
+        return isShowDivisionAbscissaAxis;
     }
 
     /**
-     * @param stepDivisionsAbscissaAxis step of divisions of the abscissa axis
+     * @param showDivisionAbscissaAxis the divisions are shown on the abscissa.
      */
-    public void setStepDivisionsAbscissaAxis(int stepDivisionsAbscissaAxis) {
-        this.stepDivisionsAbscissaAxis = stepDivisionsAbscissaAxis;
+    public void setShowDivisionAbscissaAxis(boolean showDivisionAbscissaAxis) {
+        isShowDivisionAbscissaAxis = showDivisionAbscissaAxis;
         super.invalidate();
     }
 
     /**
-     * @return step of divisions of the ordinate axis
+     * @return true if the divisions are shown on the abscissa.
      */
-    public int getStepDivisionsOrdinateAxis() {
-        return (int) (stepDivisionsOrdinateAxis * scaleFactor);
+    public boolean isShowDivisionOrdinateAxis() {
+        return isShowDivisionOrdinateAxis;
     }
 
     /**
-     * @param stepDivisionsOrdinateAxis step of divisions of the ordinate axis
+     * @param showDivisionOrdinateAxis the divisions are shown on the abscissa.
      */
-    public void setStepDivisionsOrdinateAxis(int stepDivisionsOrdinateAxis) {
-        this.stepDivisionsOrdinateAxis = stepDivisionsOrdinateAxis;
+    public void setShowDivisionOrdinateAxis(boolean showDivisionOrdinateAxis) {
+        this.isShowDivisionOrdinateAxis = showDivisionOrdinateAxis;
         super.invalidate();
     }
+    //</editor-fold>
+    //<editor-fold desc="Division parameters">
+    /**
+     * division line length the axis ordinate and abscissa
+     */
+    protected int divisionLineLengthTheAxis = 5;
+
+    /**
+     * division line length the axis ordinate and abscissa
+     */
+    protected int divisionLineThicknessTheAxis = 2;
+
+    public int getDivisionLineThicknessTheAxis() {
+        return divisionLineThicknessTheAxis;
+    }
+
+    public void setDivisionLineThicknessTheAxis(int divisionLineThicknessTheAxis) {
+        this.divisionLineThicknessTheAxis = divisionLineThicknessTheAxis;
+        super.invalidate();
+    }
+
+    /**
+     * @return division line length the axis ordinate and abscissa
+     */
+    public int getDivisionLineLengthTheAxis() {
+        return divisionLineLengthTheAxis;
+    }
+
+    /**
+     * @param divisionLineLengthTheAxis division line length the axis ordinate and abscissa
+     */
+    public void setDivisionLineLengthTheAxis(int divisionLineLengthTheAxis) {
+        this.divisionLineLengthTheAxis = divisionLineLengthTheAxis;
+        super.invalidate();
+    }
+    //</editor-fold>
+    //<editor-fold desc="axes thickness">
+    /**
+     * Line thickness abscissa axis
+     */
+    protected int abscissaAxisLineThickness = 2;
+
+    /**
+     * Line thickness ordinate axis
+     */
+    protected int ordinateAxisLineThickness = 2;
+
+    /**
+     * @return Line thickness abscissa axis
+     */
+    public int getAbscissaAxisLineThickness() {
+        return abscissaAxisLineThickness;
+    }
+
+    /**
+     * @param abscissaAxisLineThickness Line thickness abscissa axis
+     */
+    public void setAbscissaAxisLineThickness(int abscissaAxisLineThickness) {
+        this.abscissaAxisLineThickness = abscissaAxisLineThickness;
+        super.invalidate();
+    }
+
+    /**
+     * @return Line thickness ordinate axis
+     */
+    public int getOrdinateAxisLineThickness() {
+        return ordinateAxisLineThickness;
+    }
+
+    /**
+     * @param ordinateAxisLineThickness Line thickness ordinate axis
+     */
+    public void setOrdinateAxisLineThickness(int ordinateAxisLineThickness) {
+        this.ordinateAxisLineThickness = ordinateAxisLineThickness;
+        super.invalidate();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Axes location">
+    /**
+     * The abscissa axis shift to the up the axis ordinate.
+     * With match_parent / 2, the abscissa axis is in the
+     * center of the ordinate axis
+     */
+    protected int abscissaAxisShiftUp = 0;
+
+    /**
+     * The ordinate axis shift to the right the axis abscissa.
+     * With match_parent / 2, the ordinate axis is in the
+     * center of the abscissa axis
+     */
+    protected int ordinateAxisShiftRight = 0;
+
+    /**
+     * = true if the abscissa axis is in the center
+     * of the ordinate axis
+     */
+    protected boolean isAbscissaInCenter = false;
+
+    /*
+     * = true if the ordinate axis is in the center
+     *  of the abscissa axis
+     */
+    protected boolean isOrdinateInCenter = false;
 
     /**
      * @return true if the abscissa axis is in the center
@@ -348,121 +423,50 @@ public class BaseCoordinateSystem extends View {
         this.ordinateAxisShiftRight = ordinateAxisShiftRight;
         super.invalidate();
     }
+    //</editor-fold>
+    //<editor-fold desc="Division step">
+    /**
+     * step of divisions of the abscissa axis
+     */
+    protected int stepDivisionsAbscissaAxis = 25;
 
     /**
-     * @return Line thickness abscissa axis
+     * step of divisions of the ordinate axis
      */
-    public int getAbscissaAxisLineThickness() {
-        return abscissaAxisLineThickness;
+    protected int stepDivisionsOrdinateAxis = 25;
+
+    /**
+     * @return step of divisions of the abscissa axis
+     */
+    public int getStepDivisionsAbscissaAxis() {
+        return (int) (stepDivisionsAbscissaAxis * scaleFactor);
     }
 
     /**
-     * @param abscissaAxisLineThickness Line thickness abscissa axis
+     * @param stepDivisionsAbscissaAxis step of divisions of the abscissa axis
      */
-    public void setAbscissaAxisLineThickness(int abscissaAxisLineThickness) {
-        this.abscissaAxisLineThickness = abscissaAxisLineThickness;
+    public void setStepDivisionsAbscissaAxis(int stepDivisionsAbscissaAxis) {
+        this.stepDivisionsAbscissaAxis = stepDivisionsAbscissaAxis;
         super.invalidate();
     }
 
     /**
-     * @return Line thickness ordinate axis
+     * @return step of divisions of the ordinate axis
      */
-    public int getOrdinateAxisLineThickness() {
-        return ordinateAxisLineThickness;
+    public int getStepDivisionsOrdinateAxis() {
+        return (int) (stepDivisionsOrdinateAxis * scaleFactor);
     }
 
     /**
-     * @param ordinateAxisLineThickness Line thickness ordinate axis
+     * @param stepDivisionsOrdinateAxis step of divisions of the ordinate axis
      */
-    public void setOrdinateAxisLineThickness(int ordinateAxisLineThickness) {
-        this.ordinateAxisLineThickness = ordinateAxisLineThickness;
+    public void setStepDivisionsOrdinateAxis(int stepDivisionsOrdinateAxis) {
+        this.stepDivisionsOrdinateAxis = stepDivisionsOrdinateAxis;
         super.invalidate();
     }
 
-    /**
-     * @return Abscissa axis color.
-     */
-    public int getColorAbscissaAxis() {
-        return colorAbscissaAxis;
-    }
-
-    /**
-     * @param colorAbscissaAxis Abscissa axis color.
-     */
-    public void setColorAbscissaAxis(int colorAbscissaAxis) {
-        this.colorAbscissaAxis = colorAbscissaAxis;
-        super.invalidate();
-    }
-
-    /**
-     * @return Ordinate axis color.
-     */
-    public int getColorOrdinateAxis() {
-        return colorOrdinateAxis;
-    }
-
-    /**
-     * @param colorOrdinateAxis Ordinate axis color.
-     */
-    public void setColorOrdinateAxis(int colorOrdinateAxis) {
-        this.colorOrdinateAxis = colorOrdinateAxis;
-        super.invalidate();
-    }
-
-    /**
-     * @return true if the divisions are shown on the abscissa.
-     */
-    public boolean isShowDivisionAbscissaAxis() {
-        return isShowDivisionAbscissaAxis;
-    }
-
-    /**
-     * @param showDivisionAbscissaAxis the divisions are shown on the abscissa.
-     */
-    public void setShowDivisionAbscissaAxis(boolean showDivisionAbscissaAxis) {
-        isShowDivisionAbscissaAxis = showDivisionAbscissaAxis;
-        super.invalidate();
-    }
-
-    /**
-     * @return true if the divisions are shown on the abscissa.
-     */
-    public boolean isShowDivisionOrdinateAxis() {
-        return isShowDivisionOrdinateAxis;
-    }
-
-    /**
-     * @param showDivisionOrdinateAxis the divisions are shown on the abscissa.
-     */
-    public void setShowDivisionOrdinateAxis(boolean showDivisionOrdinateAxis) {
-        this.isShowDivisionOrdinateAxis = showDivisionOrdinateAxis;
-        super.invalidate();
-    }
-
-    public int getDivisionLineThicknessTheAxis() {
-        return divisionLineThicknessTheAxis;
-    }
-
-    public void setDivisionLineThicknessTheAxis(int divisionLineThicknessTheAxis) {
-        this.divisionLineThicknessTheAxis = divisionLineThicknessTheAxis;
-        super.invalidate();
-    }
-
-    /**
-     * @return division line length the axis ordinate and abscissa
-     */
-    public int getDivisionLineLengthTheAxis() {
-        return divisionLineLengthTheAxis;
-    }
-
-    /**
-     * @param divisionLineLengthTheAxis division line length the axis ordinate and abscissa
-     */
-    public void setDivisionLineLengthTheAxis(int divisionLineLengthTheAxis) {
-        this.divisionLineLengthTheAxis = divisionLineLengthTheAxis;
-        super.invalidate();
-    }
-
+    //</editor-fold>
+    //<editor-fold desc="scroll">
     protected boolean isHorizontalScroll = false;
     protected boolean isVerticalScroll = false;
 
@@ -482,6 +486,8 @@ public class BaseCoordinateSystem extends View {
         isVerticalScroll = verticalScroll;
     }
 
+    //</editor-fold>
+    //<editor-fold desc="scale">
     protected boolean isScaling = false;
     protected float minScaling = 0.5f;
     protected float maxScaling = 2.0f;
@@ -490,6 +496,7 @@ public class BaseCoordinateSystem extends View {
     public boolean isScaling() {
         return isScaling;
     }
+
 
     public void setScaling(boolean scaling) {
         isScaling = scaling;
@@ -518,7 +525,9 @@ public class BaseCoordinateSystem extends View {
     public void setScaleFactor(float scaleFactor) {
         this.scaleFactor = scaleFactor;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Draw">
     @Override
     protected void onDraw(Canvas canvas) {
         drawAxis(canvas);
@@ -540,17 +549,6 @@ public class BaseCoordinateSystem extends View {
         drawLine(startX, startY, endX, endY, colorOrdinateAxis, ordinateAxisLineThickness, canvas);
     }
 
-    protected float getStartX() {
-        int startX;
-
-        if (isOrdinateInCenter)
-            startX = getWidth() / 2 + ordinateAxisShiftRight;
-        else
-            startX = ordinateAxisShiftRight;
-
-        return startX;
-    }
-
     protected void drawAbscissaAxis(Canvas canvas) {
         float startY = getStartY();
 
@@ -559,17 +557,6 @@ public class BaseCoordinateSystem extends View {
         float endY = startY;
 
         drawLine(startX, startY, endX, endY, colorAbscissaAxis, abscissaAxisLineThickness, canvas);
-    }
-
-    protected float getStartY() {
-        int startY;
-
-        if (isAbscissaInCenter) {
-            startY = getHeight() / 2 - abscissaAxisShiftUp;
-        } else
-            startY = getHeight() - abscissaAxisShiftUp;
-
-        return startY;
     }
 
     protected void drawLine(float x1, float y1, float x2, float y2, int lineColor, int lineStroke, Canvas canvas) {
@@ -610,16 +597,6 @@ public class BaseCoordinateSystem extends View {
         }
     }
 
-    /**
-     * @return returns the coordinate of the first division along the x axis
-     */
-    protected float getStartRelativelyCentreAbscissaAxis() {
-        float centerX = getStartX();
-        int countStepToCenter = (int) (centerX / getStepDivisionsAbscissaAxis());
-        float start = centerX - countStepToCenter * getStepDivisionsAbscissaAxis();
-        return start;
-    }
-
     protected void drawOrdinateDivisions(Canvas canvas) {
         if (isShowDivisionOrdinateAxis) {
             float startX = getStartX();
@@ -641,6 +618,43 @@ public class BaseCoordinateSystem extends View {
             }
         }
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Axes start coordinates">
+    protected float getStartX() {
+        int startX;
+
+        if (isOrdinateInCenter)
+            startX = getWidth() / 2 + ordinateAxisShiftRight;
+        else
+            startX = ordinateAxisShiftRight;
+
+        return startX;
+    }
+
+
+    protected float getStartY() {
+        int startY;
+
+        if (isAbscissaInCenter) {
+            startY = getHeight() / 2 - abscissaAxisShiftUp;
+        } else
+            startY = getHeight() - abscissaAxisShiftUp;
+
+        return startY;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Start division cordinates">
+    /**
+     * @return returns the coordinate of the first division along the x axis
+     */
+    protected float getStartRelativelyCentreAbscissaAxis() {
+        float centerX = getStartX();
+        int countStepToCenter = (int) (centerX / getStepDivisionsAbscissaAxis());
+        float start = centerX - countStepToCenter * getStepDivisionsAbscissaAxis();
+        return start;
+    }
 
     /**
      * @return returns the coordinate of the first division along the y axis
@@ -651,8 +665,11 @@ public class BaseCoordinateSystem extends View {
         float start = centerY - countStepToCenter * getStepDivisionsOrdinateAxis();
         return start;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Touch , scroll, scale ">
     float dX, dY;
+    private ScaleGestureDetector scaleGestureDetector;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -676,7 +693,7 @@ public class BaseCoordinateSystem extends View {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(minScaling, Math.min(scaleFactor,maxScaling));
+            scaleFactor = Math.max(minScaling, Math.min(scaleFactor, maxScaling));
             return true;
         }
     }
@@ -697,4 +714,5 @@ public class BaseCoordinateSystem extends View {
             abscissaAxisShiftUp -= distanceY;
         }
     }
+    //</editor-fold>
 }

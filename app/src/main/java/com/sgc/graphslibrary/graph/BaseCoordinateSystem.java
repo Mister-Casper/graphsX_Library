@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import com.sgc.graphslibrary.R;
@@ -33,13 +34,14 @@ public class BaseCoordinateSystem extends View {
     // Constructors
     //
 
+    private ScaleGestureDetector scaleGestureDetector;
 
     /**
      * load and set xml attribute
      */
     protected void loadBaseAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.BaseCoordinateSystem);
-
+        scaleGestureDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
         try {
             colorAbscissaAxis = arr.getColor(
                     R.styleable.BaseCoordinateSystem_colorAbscissaAxis,
@@ -114,6 +116,21 @@ public class BaseCoordinateSystem extends View {
                     R.styleable.BaseCoordinateSystem_isVerticalScroll,
                     isVerticalScroll);
 
+            isScaling = arr.getBoolean(
+                    R.styleable.BaseCoordinateSystem_isScaling,
+                    isScaling);
+
+            minScaling = arr.getFloat(
+                    R.styleable.BaseCoordinateSystem_minScaling,
+                    minScaling);
+
+            maxScaling = arr.getFloat(
+                    R.styleable.BaseCoordinateSystem_maxScaling,
+                    maxScaling);
+
+            scaleFactor = arr.getFloat(
+                    R.styleable.BaseCoordinateSystem_scaleFactor,
+                    scaleFactor);
         } finally {
             arr.recycle();
         }
@@ -210,24 +227,6 @@ public class BaseCoordinateSystem extends View {
      */
     protected int stepDivisionsOrdinateAxis = 25;
 
-    protected boolean isHorizontalScroll = false;
-    protected boolean isVerticalScroll = false;
-
-    public boolean isHorizontalScroll() {
-        return isHorizontalScroll;
-    }
-
-    public void setHorizontalScroll(boolean horizontalScroll) {
-        isHorizontalScroll = horizontalScroll;
-    }
-
-    public boolean isVerticalScroll() {
-        return isVerticalScroll;
-    }
-
-    public void setVerticalScroll(boolean verticalScroll) {
-        isVerticalScroll = verticalScroll;
-    }
 
     /**
      * @return Abscissa division axis color.
@@ -263,7 +262,7 @@ public class BaseCoordinateSystem extends View {
      * @return step of divisions of the abscissa axis
      */
     public int getStepDivisionsAbscissaAxis() {
-        return stepDivisionsAbscissaAxis;
+        return (int) (stepDivisionsAbscissaAxis * scaleFactor);
     }
 
     /**
@@ -278,7 +277,7 @@ public class BaseCoordinateSystem extends View {
      * @return step of divisions of the ordinate axis
      */
     public int getStepDivisionsOrdinateAxis() {
-        return stepDivisionsOrdinateAxis;
+        return (int) (stepDivisionsOrdinateAxis * scaleFactor);
     }
 
     /**
@@ -464,6 +463,62 @@ public class BaseCoordinateSystem extends View {
         super.invalidate();
     }
 
+    protected boolean isHorizontalScroll = false;
+    protected boolean isVerticalScroll = false;
+
+    public boolean isHorizontalScroll() {
+        return isHorizontalScroll;
+    }
+
+    public void setHorizontalScroll(boolean horizontalScroll) {
+        isHorizontalScroll = horizontalScroll;
+    }
+
+    public boolean isVerticalScroll() {
+        return isVerticalScroll;
+    }
+
+    public void setVerticalScroll(boolean verticalScroll) {
+        isVerticalScroll = verticalScroll;
+    }
+
+    protected boolean isScaling = false;
+    protected float minScaling = 0.5f;
+    protected float maxScaling = 2.0f;
+    protected float scaleFactor = 1f;
+
+    public boolean isScaling() {
+        return isScaling;
+    }
+
+    public void setScaling(boolean scaling) {
+        isScaling = scaling;
+    }
+
+    public float getMinScaling() {
+        return minScaling;
+    }
+
+    public void setMinScaling(float minScaling) {
+        this.minScaling = minScaling;
+    }
+
+    public float getMaxScaling() {
+        return maxScaling;
+    }
+
+    public void setMaxScaling(float maxScaling) {
+        this.maxScaling = maxScaling;
+    }
+
+    public float getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public void setScaleFactor(float scaleFactor) {
+        this.scaleFactor = scaleFactor;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         drawAxis(canvas);
@@ -538,7 +593,7 @@ public class BaseCoordinateSystem extends View {
             float endLineY = startY + divisionLineLengthTheAxis / 2f;
 
             if (stepDivisionsAbscissaAxis > 0) {
-                for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += stepDivisionsAbscissaAxis) {
+                for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += getStepDivisionsOrdinateAxis()) {
                     drawLine(i, startLineY, i, endLineY, colorDivisionAbscissaAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
@@ -548,7 +603,7 @@ public class BaseCoordinateSystem extends View {
     protected void drawVerticalLine(Canvas canvas, float startLineY, float endLineY, int color, int thickness) {
         if (isShowDivisionAbscissaAxis) {
             if (stepDivisionsAbscissaAxis > 0) {
-                for (float i = getStartRelativelyCentreAbscissaAxis(); i < getWidth(); i += stepDivisionsAbscissaAxis) {
+                for (float i = getStartRelativelyCentreAbscissaAxis(); i < getWidth(); i += getStepDivisionsAbscissaAxis()) {
                     drawLine(i, startLineY, i, endLineY, color, thickness, canvas);
                 }
             }
@@ -560,8 +615,8 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreAbscissaAxis() {
         float centerX = getStartX();
-        int countStepToCenter = (int) (centerX / stepDivisionsAbscissaAxis);
-        float start = centerX - countStepToCenter * stepDivisionsAbscissaAxis;
+        int countStepToCenter = (int) (centerX / getStepDivisionsAbscissaAxis());
+        float start = centerX - countStepToCenter * getStepDivisionsAbscissaAxis();
         return start;
     }
 
@@ -572,7 +627,7 @@ public class BaseCoordinateSystem extends View {
             float endLineX = startX + divisionLineLengthTheAxis / 2f;
 
             if (stepDivisionsOrdinateAxis > 0) {
-                for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
+                for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += getStepDivisionsAbscissaAxis()) {
                     drawLine(startLineX, i, endLineX, i, colorDivisionOrdinateAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
@@ -581,7 +636,7 @@ public class BaseCoordinateSystem extends View {
 
     protected void drawHorizontalLine(Canvas canvas, float startLineX, float endLineX, int color, int thickness) {
         if (stepDivisionsOrdinateAxis > 0) {
-            for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += stepDivisionsOrdinateAxis) {
+            for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += getStepDivisionsOrdinateAxis()) {
                 drawLine(startLineX, i, endLineX, i, color, thickness, canvas);
             }
         }
@@ -592,8 +647,8 @@ public class BaseCoordinateSystem extends View {
      */
     protected float getStartRelativelyCentreOrdinateAxis() {
         float centerY = getStartY();
-        int countStepToCenter = (int) (centerY / stepDivisionsAbscissaAxis);
-        float start = centerY - countStepToCenter * stepDivisionsAbscissaAxis;
+        int countStepToCenter = (int) (centerY / getStepDivisionsOrdinateAxis());
+        float start = centerY - countStepToCenter * getStepDivisionsOrdinateAxis();
         return start;
     }
 
@@ -601,17 +656,31 @@ public class BaseCoordinateSystem extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction()  == MotionEvent.ACTION_DOWN) {
+        if (isScaling)
+            scaleGestureDetector.onTouchEvent(event);
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             dX = event.getX();
             dY = event.getY();
         }
-        if (event.getAction()  == MotionEvent.ACTION_MOVE) {
-                horizontalScroll(event);
-                verticalScroll(event);
-                invalidate();
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            horizontalScroll(event);
+            verticalScroll(event);
+            invalidate();
         }
         return true;
     }
+
+    private class ScaleListener extends ScaleGestureDetector.
+            SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = Math.max(minScaling, Math.min(scaleFactor,maxScaling));
+            return true;
+        }
+    }
+
 
     private void horizontalScroll(MotionEvent event) {
         if (isHorizontalScroll) {

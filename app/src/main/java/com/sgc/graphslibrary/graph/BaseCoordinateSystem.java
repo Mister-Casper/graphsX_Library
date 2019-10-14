@@ -1,10 +1,13 @@
 package com.sgc.graphslibrary.graph;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -713,6 +716,171 @@ public class BaseCoordinateSystem extends View {
             dY = event.getY();
             abscissaAxisShiftUp -= distanceY;
         }
+    }
+    //</editor-fold>
+
+
+    //<editor-fold desc="Save state">
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        //begin boilerplate code so parent classes can restore state
+        if(!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        this.colorAbscissaAxis = ss.colorAbscissaAxis;
+        this.colorOrdinateAxis = ss.colorOrdinateAxis;
+        this.colorDivisionAbscissaAxis = ss.colorDivisionAbscissaAxis;
+        this.colorDivisionOrdinateAxis = ss.colorDivisionOrdinateAxis;
+        this.isShowDivisionAbscissaAxis = ss.isShowDivisionAbscissaAxis;
+        this.isShowDivisionOrdinateAxis = ss.isShowDivisionOrdinateAxis;
+        this.divisionLineLengthTheAxis = ss.divisionLineLengthTheAxis;
+        this.divisionLineThicknessTheAxis = ss.divisionLineThicknessTheAxis;
+        this.abscissaAxisLineThickness = ss.abscissaAxisLineThickness;
+        this.ordinateAxisLineThickness = ss.ordinateAxisLineThickness;
+        this.abscissaAxisShiftUp = ss.abscissaAxisShiftUp;
+        this.ordinateAxisShiftRight = ss.ordinateAxisShiftRight;
+        this.isAbscissaInCenter = ss.isAbscissaInCenter;
+        this.isOrdinateInCenter = ss.isOrdinateInCenter;
+        this.stepDivisionsAbscissaAxis = ss.stepDivisionsAbscissaAxis;
+        this.stepDivisionsOrdinateAxis = ss.stepDivisionsOrdinateAxis;
+        this.isHorizontalScroll = ss.isHorizontalScroll;
+        this.isVerticalScroll = ss.isVerticalScroll;
+        this.isScaling = ss.isScaling;
+        this.minScaling = ss.minScaling;
+        this.maxScaling = ss.maxScaling;
+        this.scaleFactor = ss.scaleFactor;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        //begin boilerplate code that allows parent classes to save state
+        Parcelable superState = super.onSaveInstanceState();
+
+        SavedState ss = new SavedState(superState);
+        //end
+
+        ss.colorAbscissaAxis = this.colorAbscissaAxis;
+        ss.colorOrdinateAxis = this.colorOrdinateAxis;
+        ss.colorDivisionAbscissaAxis = this.colorDivisionAbscissaAxis;
+        ss.colorDivisionOrdinateAxis = this.colorDivisionOrdinateAxis;
+        ss.isShowDivisionAbscissaAxis = this.isShowDivisionAbscissaAxis;
+        ss.isShowDivisionOrdinateAxis = this.isShowDivisionOrdinateAxis;
+        ss.divisionLineLengthTheAxis = this.divisionLineLengthTheAxis;
+        ss.divisionLineThicknessTheAxis = this.divisionLineThicknessTheAxis;
+        ss.abscissaAxisLineThickness = this.abscissaAxisLineThickness;
+        ss.ordinateAxisLineThickness = this.ordinateAxisLineThickness;
+        ss.abscissaAxisShiftUp = this.abscissaAxisShiftUp;
+        ss.ordinateAxisShiftRight = this.ordinateAxisShiftRight;
+        ss.isAbscissaInCenter = this.isAbscissaInCenter;
+        ss.isOrdinateInCenter = this.isOrdinateInCenter;
+        ss.stepDivisionsAbscissaAxis = this.stepDivisionsAbscissaAxis;
+        ss.stepDivisionsOrdinateAxis = this.stepDivisionsOrdinateAxis;
+        ss.isHorizontalScroll = this.isHorizontalScroll;
+        ss.isVerticalScroll = this.isVerticalScroll;
+        ss.isScaling = this.isScaling;
+        ss.minScaling = this.minScaling;
+        ss.maxScaling = this.maxScaling;
+        ss.scaleFactor = this.scaleFactor;
+        return ss;
+    }
+
+    static class SavedState extends BaseSavedState {
+        int colorAbscissaAxis;
+        int colorOrdinateAxis;
+        int colorDivisionAbscissaAxis;
+        int colorDivisionOrdinateAxis;
+        boolean isShowDivisionAbscissaAxis;
+        boolean isShowDivisionOrdinateAxis;
+        int divisionLineLengthTheAxis;
+        int divisionLineThicknessTheAxis;
+        int abscissaAxisLineThickness;
+        int ordinateAxisLineThickness;
+        int abscissaAxisShiftUp;
+        int ordinateAxisShiftRight;
+        boolean isAbscissaInCenter;
+        boolean isOrdinateInCenter;
+        int stepDivisionsAbscissaAxis;
+        int stepDivisionsOrdinateAxis;
+        boolean isHorizontalScroll;
+        boolean isVerticalScroll;
+        boolean isScaling;
+        float minScaling;
+        float maxScaling;
+        float scaleFactor;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.colorAbscissaAxis = in.readInt();
+            this.colorOrdinateAxis = in.readInt();
+            this.colorDivisionAbscissaAxis = in.readInt();
+            this.colorDivisionOrdinateAxis = in.readInt();
+            this.isShowDivisionAbscissaAxis = in.readInt() == 1;
+            this.isShowDivisionOrdinateAxis = in.readInt() == 1;
+            this.divisionLineLengthTheAxis = in.readInt();
+            this.divisionLineThicknessTheAxis = in.readInt();
+            this.abscissaAxisLineThickness = in.readInt();
+            this.ordinateAxisLineThickness = in.readInt();
+            this.abscissaAxisShiftUp = in.readInt();
+            this.ordinateAxisShiftRight = in.readInt();
+            this.isAbscissaInCenter = in.readInt() == 1;
+            this.isOrdinateInCenter = in.readInt() == 1;
+            this.stepDivisionsAbscissaAxis = in.readInt();
+            this.stepDivisionsOrdinateAxis = in.readInt();
+            this.isHorizontalScroll = in.readInt() == 1;
+            this.isVerticalScroll = in.readInt() == 1;
+            this.isScaling = in.readInt() == 1;
+            this.minScaling = in.readFloat();
+            this.maxScaling = in.readFloat();
+            this.scaleFactor = in.readFloat();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.colorAbscissaAxis);
+            out.writeInt(this.colorOrdinateAxis);
+            out.writeInt(this.colorDivisionAbscissaAxis);
+            out.writeInt(this.colorDivisionOrdinateAxis);
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isShowDivisionAbscissaAxis)));
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isShowDivisionOrdinateAxis)));
+            out.writeInt(this.divisionLineLengthTheAxis);
+            out.writeInt(this.divisionLineThicknessTheAxis);
+            out.writeInt(this.abscissaAxisLineThickness);
+            out.writeInt(this.ordinateAxisLineThickness);
+            out.writeInt(this.abscissaAxisShiftUp);
+            out.writeInt(this.ordinateAxisShiftRight);
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isAbscissaInCenter)));
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isOrdinateInCenter)));
+            out.writeInt(this.stepDivisionsAbscissaAxis);
+            out.writeInt(this.stepDivisionsOrdinateAxis);
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isHorizontalScroll)));
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isVerticalScroll)));
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isScaling)));
+            out.writeFloat(this.minScaling);
+            out.writeFloat(this.maxScaling);
+            out.writeFloat(this.scaleFactor);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
     //</editor-fold>
 }

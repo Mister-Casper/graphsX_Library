@@ -400,7 +400,7 @@ public class BaseCoordinateSystem extends View {
      * @return The abscissa axis shift to the up the axis ordinate.
      */
     public int getAbscissaAxisShiftUp() {
-        return abscissaAxisShiftUp;
+        return (int) (abscissaAxisShiftUp * scaleFactor);
     }
 
     /**
@@ -415,7 +415,7 @@ public class BaseCoordinateSystem extends View {
      * @return The ordinate axis shift to the right the axis abscissa.
      */
     public int getOrdinateAxisShiftRight() {
-        return ordinateAxisShiftRight;
+        return (int) (ordinateAxisShiftRight * scaleFactor);
     }
 
     /**
@@ -628,9 +628,9 @@ public class BaseCoordinateSystem extends View {
         int startX;
 
         if (isOrdinateInCenter)
-            startX = getWidth() / 2 + ordinateAxisShiftRight;
+            startX = getWidth() / 2 + getOrdinateAxisShiftRight();
         else
-            startX = ordinateAxisShiftRight;
+            startX = getOrdinateAxisShiftRight();
 
         return startX;
     }
@@ -640,15 +640,16 @@ public class BaseCoordinateSystem extends View {
         int startY;
 
         if (isAbscissaInCenter) {
-            startY = getHeight() / 2 - abscissaAxisShiftUp;
+            startY = getHeight() / 2 - getAbscissaAxisShiftUp();
         } else
-            startY = getHeight() - abscissaAxisShiftUp;
+            startY = getHeight() - getAbscissaAxisShiftUp();
 
         return startY;
     }
     //</editor-fold>
 
     //<editor-fold desc="Start division cordinates">
+
     /**
      * @return returns the coordinate of the first division along the x axis
      */
@@ -674,10 +675,12 @@ public class BaseCoordinateSystem extends View {
     float dX, dY;
     private ScaleGestureDetector scaleGestureDetector;
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (isScaling)
+        if (isScaling) {
             scaleGestureDetector.onTouchEvent(event);
+        }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             dX = event.getX();
@@ -686,10 +689,12 @@ public class BaseCoordinateSystem extends View {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             horizontalScroll(event);
             verticalScroll(event);
-            invalidate();
         }
+
+        invalidate();
         return true;
     }
+
 
     private class ScaleListener extends ScaleGestureDetector.
             SimpleOnScaleGestureListener {
@@ -697,6 +702,7 @@ public class BaseCoordinateSystem extends View {
         public boolean onScale(ScaleGestureDetector detector) {
             scaleFactor *= detector.getScaleFactor();
             scaleFactor = Math.max(minScaling, Math.min(scaleFactor, maxScaling));
+            scaleFactor = Math.round(scaleFactor * 100f) / 100f;
             return true;
         }
     }
@@ -705,7 +711,7 @@ public class BaseCoordinateSystem extends View {
     private void horizontalScroll(MotionEvent event) {
         if (isHorizontalScroll) {
             float distanceX = event.getX() - dX;
-            ordinateAxisShiftRight += distanceX;
+            ordinateAxisShiftRight += distanceX * (1f / scaleFactor);
             dX = event.getX();
         }
     }
@@ -714,7 +720,7 @@ public class BaseCoordinateSystem extends View {
         if (isVerticalScroll) {
             float distanceY = event.getY() - dY;
             dY = event.getY();
-            abscissaAxisShiftUp -= distanceY;
+            abscissaAxisShiftUp -= distanceY * (1f / scaleFactor);
         }
     }
     //</editor-fold>
@@ -725,12 +731,12 @@ public class BaseCoordinateSystem extends View {
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         //begin boilerplate code so parent classes can restore state
-        if(!(state instanceof SavedState)) {
+        if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
             return;
         }
 
-        SavedState ss = (SavedState)state;
+        SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
 
         this.colorAbscissaAxis = ss.colorAbscissaAxis;
@@ -877,6 +883,7 @@ public class BaseCoordinateSystem extends View {
                     public SavedState createFromParcel(Parcel in) {
                         return new SavedState(in);
                     }
+
                     public SavedState[] newArray(int size) {
                         return new SavedState[size];
                     }

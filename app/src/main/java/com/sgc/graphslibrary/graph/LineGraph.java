@@ -370,8 +370,8 @@ public class LineGraph extends BaseCoordinateSystem {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawDivisionDescription(canvas);
-        drawGraph(canvas);
         showCoordinateGrid(canvas);
+        drawGraph(canvas);
     }
 
     /**

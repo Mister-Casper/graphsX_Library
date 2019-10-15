@@ -442,6 +442,7 @@ public class LineGraph extends BaseCoordinateSystem {
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < countShowDescription + 1; i++) {
                 float xCurrentDescription = startValue + i * getScaleDivisionDescriptionAxisX();
+                xCurrentDescription = Math.round(xCurrentDescription * 100f) / 100f;
                 float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
@@ -466,6 +467,7 @@ public class LineGraph extends BaseCoordinateSystem {
             float xDivision = getStartX() + xOffsetDescriptionDivision;
             for (int i = 0; i < countShowDescription + 1; i++) {
                 float yCurrentDescription = startValue - i * getScaleDivisionDescriptionAxisY();
+                yCurrentDescription = Math.round(yCurrentDescription * 100f) / 100f;
                 float yCurrentPosition = startY + i * step + stepDivisionsAbscissaAxis / 5f;
                 if (yCurrentDescription != 0) {
                     canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);

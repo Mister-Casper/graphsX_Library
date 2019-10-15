@@ -445,7 +445,10 @@ public class BaseCoordinateSystem extends View {
      * @return step of divisions of the abscissa axis
      */
     public int getStepDivisionsAbscissaAxis() {
-        return (int) (stepDivisionsAbscissaAxis * scaleFactor);
+        if (scaleFactor <= 1f)
+            return (int) (stepDivisionsAbscissaAxis * scaleFactor) *(int)(1f/scaleFactor);
+        else
+            return (int) (stepDivisionsAbscissaAxis * scaleFactor) / (int)scaleFactor;
     }
 
     /**
@@ -460,7 +463,10 @@ public class BaseCoordinateSystem extends View {
      * @return step of divisions of the ordinate axis
      */
     public int getStepDivisionsOrdinateAxis() {
-        return (int) (stepDivisionsOrdinateAxis * scaleFactor);
+        if (scaleFactor <= 1f)
+            return (int) (stepDivisionsOrdinateAxis * scaleFactor) *(int)(1f/scaleFactor);
+        else
+            return (int) (stepDivisionsOrdinateAxis * scaleFactor)/ (int)scaleFactor;
     }
 
     /**
@@ -610,7 +616,7 @@ public class BaseCoordinateSystem extends View {
             float endLineX = startX + divisionLineLengthTheAxis / 2f;
 
             if (stepDivisionsOrdinateAxis > 0) {
-                for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += getStepDivisionsAbscissaAxis()) {
+                for (float i = getStartRelativelyCentreOrdinateAxis(); i < getHeight(); i += getStepDivisionsOrdinateAxis()) {
                     drawLine(startLineX, i, endLineX, i, colorDivisionOrdinateAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }
@@ -686,7 +692,7 @@ public class BaseCoordinateSystem extends View {
             scaleGestureDetector.onTouchEvent(event);
         }
 
-        if(!scaleGestureDetector.isInProgress()){
+        if (!scaleGestureDetector.isInProgress()) {
             mGestureDetector.onTouchEvent(event);
         }
 

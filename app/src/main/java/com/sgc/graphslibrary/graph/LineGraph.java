@@ -243,7 +243,9 @@ public class LineGraph extends BaseCoordinateSystem {
      * on x axis
      */
     public float getScaleDivisionDescriptionAxisX() {
-        return scaleDivisionDescriptionAxisX;
+        if (scaleFactor <= 1f)
+            return scaleDivisionDescriptionAxisX *(int)(1f/scaleFactor);
+        return scaleDivisionDescriptionAxisX / (int) scaleFactor;
     }
 
     /**
@@ -262,7 +264,9 @@ public class LineGraph extends BaseCoordinateSystem {
      * on y axis
      */
     public float getScaleDivisionDescriptionAxisY() {
-        return scaleDivisionDescriptionAxisY;
+        if (scaleFactor <= 1f)
+            return scaleDivisionDescriptionAxisY *(int)(1f/scaleFactor);
+        return scaleDivisionDescriptionAxisY / (int) scaleFactor;
     }
 
     /**
@@ -433,11 +437,11 @@ public class LineGraph extends BaseCoordinateSystem {
             float startX = super.getStartRelativelyCentreAbscissaAxis();
             float step = super.getStepDivisionsAbscissaAxis();
             int countShowDescription = (int) (getWidth() / step) + 4;
-            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+            float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * getScaleDivisionDescriptionAxisX());
 
             float yDivision = getStartY() + yOffsetDescriptionDivision;
             for (int i = 0; i < countShowDescription + 1; i++) {
-                float xCurrentDescription = startValue + i * scaleDivisionDescriptionAxisX;
+                float xCurrentDescription = startValue + i * getScaleDivisionDescriptionAxisX();
                 float xCurrentPosition = startX + i * step - stepDivisionsAbscissaAxis / 5f;
                 canvas.drawText("" + xCurrentDescription, xCurrentPosition, yDivision, paint);
             }
@@ -458,10 +462,10 @@ public class LineGraph extends BaseCoordinateSystem {
             float startY = super.getStartRelativelyCentreOrdinateAxis();
             float step = super.getStepDivisionsOrdinateAxis();
             int countShowDescription = (int) (getHeight() / step) + 4;
-            float startValue = (int) ((getStartY() / getStepDivisionsOrdinateAxis())) * scaleDivisionDescriptionAxisY;
+            float startValue = (int) ((getStartY() / getStepDivisionsOrdinateAxis())) * getScaleDivisionDescriptionAxisY();
             float xDivision = getStartX() + xOffsetDescriptionDivision;
             for (int i = 0; i < countShowDescription + 1; i++) {
-                float yCurrentDescription = startValue - i * scaleDivisionDescriptionAxisY;
+                float yCurrentDescription = startValue - i * getScaleDivisionDescriptionAxisY();
                 float yCurrentPosition = startY + i * step + stepDivisionsAbscissaAxis / 5f;
                 if (yCurrentDescription != 0) {
                     canvas.drawText("" + yCurrentDescription, xDivision, yCurrentPosition, paint);
@@ -477,14 +481,20 @@ public class LineGraph extends BaseCoordinateSystem {
         }
     }
 
-    protected float getStartValue(){
-        float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * scaleDivisionDescriptionAxisX);
+    protected float getStartValue() {
+        float startValue = (-((int) getStartX() / getStepDivisionsAbscissaAxis()) * getScaleDivisionDescriptionAxisX());
         return startValue;
     }
 
-    protected int getCountShowDescription(){
+    protected int getCountShowDescription() {
         float step = getStepDivisionsAbscissaAxis();
         int countShowDescription = (int) ((getWidth() / step) + 4);
+
+        if(scaleFactor<=1f)
+            countShowDescription*=(int) (1f/scaleFactor);
+        else
+            countShowDescription /= (int)scaleFactor;
+
         return countShowDescription;
     }
 

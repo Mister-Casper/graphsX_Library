@@ -1,5 +1,6 @@
 package com.sgc.graphslibrary.graph;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,6 +10,7 @@ import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -39,6 +41,7 @@ public class BaseCoordinateSystem extends View {
     protected void loadBaseAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.BaseCoordinateSystem);
         scaleGestureDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        mGestureDetector = new GestureDetector(context, mGestureListener);
         try {
             colorAbscissaAxis = arr.getColor(
                     R.styleable.BaseCoordinateSystem_colorAbscissaAxis,
@@ -672,29 +675,34 @@ public class BaseCoordinateSystem extends View {
     //</editor-fold>
 
     //<editor-fold desc="Touch , scroll, scale ">
-    float dX, dY;
+
     private ScaleGestureDetector scaleGestureDetector;
+    private GestureDetector mGestureDetector;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (isScaling) {
             scaleGestureDetector.onTouchEvent(event);
         }
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            dX = event.getX();
-            dY = event.getY();
-        }
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            horizontalScroll(event);
-            verticalScroll(event);
+        if(!scaleGestureDetector.isInProgress()){
+            mGestureDetector.onTouchEvent(event);
         }
 
         invalidate();
         return true;
     }
 
+    private GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            horizontalScroll(-distanceX);
+            verticalScroll(-distanceY);
+            return true;
+        }
+    };
 
     private class ScaleListener extends ScaleGestureDetector.
             SimpleOnScaleGestureListener {
@@ -708,19 +716,15 @@ public class BaseCoordinateSystem extends View {
     }
 
 
-    private void horizontalScroll(MotionEvent event) {
+    private void horizontalScroll(float distanceX) {
         if (isHorizontalScroll) {
-            float distanceX = event.getX() - dX;
             ordinateAxisShiftRight += distanceX * (1f / scaleFactor);
-            dX = event.getX();
         }
     }
 
-    private void verticalScroll(MotionEvent event) {
+    private void verticalScroll(float distanceX) {
         if (isVerticalScroll) {
-            float distanceY = event.getY() - dY;
-            dY = event.getY();
-            abscissaAxisShiftUp -= distanceY * (1f / scaleFactor);
+            abscissaAxisShiftUp -= distanceX * (1f / scaleFactor);
         }
     }
     //</editor-fold>

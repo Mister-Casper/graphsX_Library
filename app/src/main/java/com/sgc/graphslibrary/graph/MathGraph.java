@@ -64,7 +64,7 @@ public class MathGraph extends LineGraph {
         float startValue = super.getStartValue();
         int countShowDescription = getCountShowDescription();
 
-        for (float x = startValue - 1; x <= startValue + countShowDescription; x += stepAccuracy) {
+        for (float x = startValue - 1 / scaleFactor; x <= startValue + countShowDescription; x += stepAccuracy) {
             ChartCoordinatesData coordinates = calculatedCoordinate(x, function);
             if (coordinates != null)
                 coordinatesFunctionGraph.add(coordinates);

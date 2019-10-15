@@ -490,7 +490,7 @@ public class LineGraph extends BaseCoordinateSystem {
 
     protected int getCountShowDescription() {
         float step = getStepDivisionsAbscissaAxis();
-        int countShowDescription = (int) ((getWidth() / step) + 4);
+        int countShowDescription = (int) ((getWidth() / step) + 4 * scaleFactor);
 
         if(scaleFactor<=1f)
             countShowDescription*=(int) (1f/scaleFactor);

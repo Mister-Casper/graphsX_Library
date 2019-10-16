@@ -61,6 +61,8 @@ public class MathGraph extends LineGraph {
     private LineGraphData calculatedFunctionCoordinates(MathData function ){
         ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
         float stepAccuracy = 1f / function.getAccuracy();
+        if(stepAccuracy < 1f)
+            stepAccuracy /= scaleFactor;
         float startValue = super.getStartValue();
         int countShowDescription = getCountShowDescription();
 

@@ -58,11 +58,9 @@ public class MathGraph extends LineGraph {
         return graphs;
     }
 
-    private LineGraphData calculatedFunctionCoordinates(MathData function ){
+    private LineGraphData calculatedFunctionCoordinates(MathData function) {
         ArrayList<ChartCoordinatesData> coordinatesFunctionGraph = new ArrayList<>();
-        float stepAccuracy = 1f / function.getAccuracy();
-        if(stepAccuracy < 1f)
-            stepAccuracy /= scaleFactor;
+        float stepAccuracy = getStepAccuracy(function);
         float startValue = super.getStartValue();
         int countShowDescription = getCountShowDescription();
 
@@ -73,6 +71,15 @@ public class MathGraph extends LineGraph {
         }
 
         return new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph());
+    }
+
+    private float getStepAccuracy(MathData function) {
+        float stepAccuracy = 1f / function.getAccuracy();
+
+        if (stepAccuracy < 1f)
+            stepAccuracy /= scaleFactor;
+
+        return stepAccuracy;
     }
 
     private ChartCoordinatesData calculatedCoordinate(float x, MathData function) {

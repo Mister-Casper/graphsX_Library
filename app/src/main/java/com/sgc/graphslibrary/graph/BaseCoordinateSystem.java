@@ -76,11 +76,11 @@ public class BaseCoordinateSystem extends View {
                     R.styleable.BaseCoordinateSystem_lineThicknessOrdinate,
                     ordinateAxisLineThickness);
 
-            abscissaAxisShiftUp = arr.getInt(
+            abscissaAxisShiftUp = arr.getFloat(
                     R.styleable.BaseCoordinateSystem_abscissaAxisShiftUp,
                     abscissaAxisShiftUp);
 
-            ordinateAxisShiftRight = arr.getInt(
+            ordinateAxisShiftRight = arr.getFloat(
                     R.styleable.BaseCoordinateSystem_ordinateAxisShiftRight,
                     ordinateAxisShiftRight);
 
@@ -348,14 +348,14 @@ public class BaseCoordinateSystem extends View {
      * With match_parent / 2, the abscissa axis is in the
      * center of the ordinate axis
      */
-    protected int abscissaAxisShiftUp = 0;
+    protected float abscissaAxisShiftUp = 0;
 
     /**
      * The ordinate axis shift to the right the axis abscissa.
      * With match_parent / 2, the ordinate axis is in the
      * center of the abscissa axis
      */
-    protected int ordinateAxisShiftRight = 0;
+    protected float ordinateAxisShiftRight = 0;
 
     /**
      * = true if the abscissa axis is in the center
@@ -724,13 +724,13 @@ public class BaseCoordinateSystem extends View {
 
     private void horizontalScroll(float distanceX) {
         if (isHorizontalScroll) {
-            ordinateAxisShiftRight += distanceX * (1f / scaleFactor);
+            ordinateAxisShiftRight += distanceX/scaleFactor;
         }
     }
 
     private void verticalScroll(float distanceX) {
         if (isVerticalScroll) {
-            abscissaAxisShiftUp -= distanceX * (1f / scaleFactor);
+            abscissaAxisShiftUp -= distanceX/scaleFactor;
         }
     }
     //</editor-fold>
@@ -817,8 +817,8 @@ public class BaseCoordinateSystem extends View {
         int divisionLineThicknessTheAxis;
         int abscissaAxisLineThickness;
         int ordinateAxisLineThickness;
-        int abscissaAxisShiftUp;
-        int ordinateAxisShiftRight;
+        float abscissaAxisShiftUp;
+        float ordinateAxisShiftRight;
         boolean isAbscissaInCenter;
         boolean isOrdinateInCenter;
         int stepDivisionsAbscissaAxis;
@@ -873,8 +873,8 @@ public class BaseCoordinateSystem extends View {
             out.writeInt(this.divisionLineThicknessTheAxis);
             out.writeInt(this.abscissaAxisLineThickness);
             out.writeInt(this.ordinateAxisLineThickness);
-            out.writeInt(this.abscissaAxisShiftUp);
-            out.writeInt(this.ordinateAxisShiftRight);
+            out.writeFloat(this.abscissaAxisShiftUp);
+            out.writeFloat(this.ordinateAxisShiftRight);
             out.writeInt(Integer.parseInt(Boolean.toString(this.isAbscissaInCenter)));
             out.writeInt(Integer.parseInt(Boolean.toString(this.isOrdinateInCenter)));
             out.writeInt(this.stepDivisionsAbscissaAxis);

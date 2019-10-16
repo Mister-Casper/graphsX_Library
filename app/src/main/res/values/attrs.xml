@@ -21,8 +21,8 @@
         <attr name="stepDivisionsOrdinateAxis" format="integer" />
         <attr name="lineThicknessAbscissa" format="integer" />
         <attr name="lineThicknessOrdinate" format="integer" />
-        <attr name="abscissaAxisShiftUp" format="integer" />
-        <attr name="ordinateAxisShiftRight" format="integer" />
+        <attr name="abscissaAxisShiftUp" format="float" />
+        <attr name="ordinateAxisShiftRight" format="float" />
         <attr name="isAbscissaInCenter" format="boolean" />
         <attr name="isOrdinateInCenter" format="boolean" />
         <attr name="isHorizontalScroll" format="boolean" />

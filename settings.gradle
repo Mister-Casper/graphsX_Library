@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':example'
 rootProject.name='graphsX_Library'

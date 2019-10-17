@@ -299,7 +299,7 @@ public class PieChart extends View {
     private boolean isGoBeyond(float center, MotionEvent event, float radius) {
         float offsetX = event.getX() - center;
         float offsetY = event.getY() - center;
-        double length = Math.abs(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)));
+        double length = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
         return length > radius;
     }
 }

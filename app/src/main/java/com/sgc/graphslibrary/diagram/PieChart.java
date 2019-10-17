@@ -1,5 +1,6 @@
 package com.sgc.graphslibrary.diagram;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -7,8 +8,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
+import com.sgc.graphslibrary.Maths.AngleMath;
+import com.sgc.graphslibrary.Maths.Line;
 import com.sgc.graphslibrary.R;
 import com.sgc.graphslibrary.data.PieChartData;
 
@@ -241,9 +245,11 @@ public class PieChart extends View {
             float angle = getAngleOfSectorCenter(i, startAngle, data);
             float cosY = (float) Math.cos(Math.toRadians(angle));
             float sinX = (float) Math.sin(Math.toRadians(angle));
-            canvas.drawText(data.get(i).getText(),
-                    getSectorDescriptionPosition(sinX, diameter),
-                    getSectorDescriptionPosition(-cosY, diameter), paint);
+            if (data.get(i).getText() != null) {
+                canvas.drawText(data.get(i).getText(),
+                        getSectorDescriptionPosition(sinX, diameter),
+                        getSectorDescriptionPosition(-cosY, diameter), paint);
+            }
         }
     }
 
@@ -270,4 +276,30 @@ public class PieChart extends View {
             return width;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float centerX = getDiameter() / 2;
+        float centerY = getDiameter() / 2;
+
+        if (!isGoBeyond(centerX, event, centerX)) {
+
+            Line line1 = new Line(centerX, 0, centerX, centerY);
+            Line line2 = new Line(event.getX(), event.getY(), centerX, centerY);
+            double angle = AngleMath.getAngleBetweenTwoLines(line2, line1, startAngle);
+            PieChartData clickSector = AngleMath.findSectorByAngle(angle, getData());
+
+            if (clickSector.getClickListener() != null)
+                clickSector.getClickListener().click();
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    private boolean isGoBeyond(float center, MotionEvent event, float radius) {
+        float offsetX = event.getX() - center;
+        float offsetY = event.getY() - center;
+        double length = Math.abs(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)));
+        return length > radius;
+    }
 }

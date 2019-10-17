@@ -1,5 +1,7 @@
 package com.sgc.graphslibrary.data;
 
+import android.view.View;
+
 public class PieChartData {
     /**
      *percentage of space occupied by a segment diagram
@@ -15,6 +17,8 @@ public class PieChartData {
      * description segment pie chart
      */
     private String text;
+
+    private clickSectorListener clickListener;
 
     public PieChartData(int percentageSpace, int colorDedicatedSpace) {
         this.percentageSpace = percentageSpace;
@@ -68,5 +72,17 @@ public class PieChartData {
      */
     public void setText(String text) {
         this.text = text;
+    }
+
+    public clickSectorListener getClickListener() {
+        return clickListener;
+    }
+
+    public void setClickListener(clickSectorListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface clickSectorListener{
+        void click();
     }
 }

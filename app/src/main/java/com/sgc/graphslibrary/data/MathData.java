@@ -1,5 +1,6 @@
 package com.sgc.graphslibrary.data;
 
+import android.content.Intent;
 import android.graphics.Color;
 
 public class MathData {
@@ -7,12 +8,12 @@ public class MathData {
     /**
      * coordinate  of the begin of the graph
      */
-    private int minX = -50;
+    private int minX = Integer.MIN_VALUE;
 
     /**
      * coordinate of the end of the graph
      */
-    private int maxX = 50;
+    private int maxX = Integer.MAX_VALUE;
 
     /**
      * graph accuracy . Shows how often will x will be taken when build graph.

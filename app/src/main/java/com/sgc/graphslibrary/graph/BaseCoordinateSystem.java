@@ -592,7 +592,7 @@ public class BaseCoordinateSystem extends View {
             float endLineY = startY + divisionLineLengthTheAxis / 2f;
 
             if (stepDivisionsAbscissaAxis > 0) {
-                for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += getStepDivisionsOrdinateAxis()) {
+                for (float i = getStartRelativelyCentreAbscissaAxis(); i < endX; i += getStepDivisionsAbscissaAxis()) {
                     drawLine(i, startLineY, i, endLineY, colorDivisionAbscissaAxis, divisionLineThicknessTheAxis, canvas);
                 }
             }

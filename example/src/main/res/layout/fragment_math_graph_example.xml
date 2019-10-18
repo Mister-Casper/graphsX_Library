@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MathGraphExample">
+
+
+    <com.sgc.graphslibrary.graph.MathGraph
+        android:id="@+id/math"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isAbscissaInCenter="true"
+        app:isOrdinateInCenter="true"
+        app:isScaling="true"
+        app:isHorizontalScroll="true"
+        app:isVerticalScroll="true"
+        app:minScaling="0.5"
+        app:maxScaling="2"
+        app:stepDivisionsAbscissaAxis="100"
+        app:stepDivisionsOrdinateAxis="100"
+        app:scaleDivisionDescriptionAxisY="1"
+        app:scaleDivisionDescriptionAxisX="1"
+        app:isShowCoordinateGrid="true"/>
+
+</FrameLayout>

@@ -8,7 +8,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class viewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = new Fragment[]{
-            new PieChartExampleFragment()
+            new PieChartExampleFragment(),
+            new MathGraphExample()
     };
 
     public viewPagerAdapter(FragmentManager fm) {

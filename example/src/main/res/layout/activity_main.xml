@@ -17,14 +17,21 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/alarm"
+                android:id="@+id/pieChart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pie chart" />
+                android:text="pie chart" />
+
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/mathGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Math graph" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.sgc.example.NonScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

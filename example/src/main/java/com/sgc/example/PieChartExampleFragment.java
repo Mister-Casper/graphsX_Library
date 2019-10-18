@@ -12,6 +12,7 @@ import butterknife.Unbinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sgc.graphslibrary.data.PieChartData;
 import com.sgc.graphslibrary.diagram.PieChart;
@@ -42,10 +43,38 @@ public class PieChartExampleFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         ArrayList<PieChartData> data = new ArrayList<>();
 
-        data.add(new PieChartData(50, Color.rgb(1, 87, 155), "синий"));
-        data.add(new PieChartData(50, Color.rgb(74, 20, 140), "фиолетовый"));
-        data.add(new PieChartData(50, Color.rgb(230, 81, 0), "оранжевый"));
-        data.add(new PieChartData(50, Color.rgb(27, 94, 32), "зелёный"));
+        PieChartData blue = new PieChartData(50, Color.rgb(1, 87, 155), "синий");
+        blue.setClickListener(new PieChartData.clickSectorListener() {
+            @Override
+            public void click() {
+                Toast.makeText(getContext(),"Синий", Toast.LENGTH_SHORT).show();
+            }
+        });
+        data.add(blue);
+        PieChartData violet = new PieChartData(50, Color.rgb(74, 20, 140), "фиолетовый");
+        violet.setClickListener(new PieChartData.clickSectorListener() {
+            @Override
+            public void click() {
+                Toast.makeText(getContext(),"Фиолетовый", Toast.LENGTH_SHORT).show();
+            }
+        });
+        data.add(violet);
+        PieChartData orange = new PieChartData(50, Color.rgb(230, 81, 0), "оранжевый");
+        orange.setClickListener(new PieChartData.clickSectorListener() {
+            @Override
+            public void click() {
+                Toast.makeText(getContext(),"Оранжевый", Toast.LENGTH_SHORT).show();
+            }
+        });
+        data.add(orange);
+        PieChartData green = new PieChartData(50, Color.rgb(27, 94, 32), "зелёный");
+        green.setClickListener(new PieChartData.clickSectorListener() {
+            @Override
+            public void click() {
+                Toast.makeText(getContext(),"Зелёный", Toast.LENGTH_SHORT).show();
+            }
+        });
+        data.add(green);
 
         testDiagram.setData(data);
         return view;

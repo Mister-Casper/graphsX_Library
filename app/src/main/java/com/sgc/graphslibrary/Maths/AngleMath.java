@@ -47,7 +47,7 @@ public class AngleMath {
                 line1.getX1() - line1.getX2());
         double angle2 = Math.atan2(line2.getY1() - line2.getY2(),
                 line2.getX1() - line2.getX2());
-        double angle = Math.toDegrees(angle1 - angle2) + 270 - startAngle;
+        double angle = Math.toDegrees(angle2 - angle1) - startAngle;
         if (angle < 0)
             angle = Math.abs(angle + 360);
         return angle;

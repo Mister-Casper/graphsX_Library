@@ -61,9 +61,6 @@ public class AngleMath {
             angleSector += sectors.get(i).getPercentageSpace() * compress;
             if (angleSector > angle)
                 return sectors.get(i);
-           /* if (angle <= angleSector && angle >= angleSector + sectors.get(i + 1).getPercentageSpace()*compress) {
-                return sectors.get(i);
-            }*/
         }
         return sectors.get(sectors.size() - 1);
     }

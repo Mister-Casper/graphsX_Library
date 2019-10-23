@@ -283,10 +283,8 @@ public class PieChart extends View {
         float centerY = getDiameter() / 2;
 
         if (!isGoBeyond(centerX, event, centerX)) {
-
-            Line line1 = new Line(centerX, 0, centerX, centerY);
-            Line line2 = new Line(event.getX(), event.getY(), centerX, centerY);
-            double angle = AngleMath.getAngleBetweenTwoLines(line2, line1, startAngle);
+            Line line = new Line(event.getX(), event.getY(), centerX, centerY);
+            double angle = AngleMath.getLineAtan2(line, startAngle);
             PieChartData clickSector = AngleMath.findSectorByAngle(angle, getData());
 
             if (clickSector.getClickListener() != null)

@@ -9,7 +9,8 @@ public class viewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = new Fragment[]{
             new PieChartExampleFragment(),
-            new MathGraphExample()
+            new MathGraphExample(),
+            new BarChartExample()
     };
 
     public viewPagerAdapter(FragmentManager fm) {

@@ -24,10 +24,16 @@
 
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/mathGraph"
+            android:id="@+id/mathGraph"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Math graph" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/barChart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Math graph" />
+                android:text="Bar chart " />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

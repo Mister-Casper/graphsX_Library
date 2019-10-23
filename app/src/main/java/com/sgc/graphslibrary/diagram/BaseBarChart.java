@@ -54,6 +54,60 @@ public class BaseBarChart extends BaseCoordinateSystem {
         this.loadAttribute(context,attrs);
     }
 
+    public int getColumnThickness() {
+        return columnThickness;
+    }
+
+    public void setColumnThickness(int columnThickness) {
+        this.columnThickness = columnThickness;
+        invalidate();
+    }
+
+    public float getMaxColumnValue() {
+        return maxColumnValue;
+    }
+
+    public void setMaxColumnValue(float maxColumnValue) {
+        this.maxColumnValue = maxColumnValue;
+        invalidate();
+    }
+
+    public int getColumnDescriptionTextSize() {
+        return columnDescriptionTextSize;
+    }
+
+    public void setColumnDescriptionTextSize(int columnDescriptionTextSize) {
+        this.columnDescriptionTextSize = columnDescriptionTextSize;
+        invalidate();
+    }
+
+    public int getValueColumnDescriptionTextSize() {
+        return valueColumnDescriptionTextSize;
+    }
+
+    public void setValueColumnDescriptionTextSize(int valueColumnDescriptionTextSize) {
+        this.valueColumnDescriptionTextSize = valueColumnDescriptionTextSize;
+        invalidate();
+    }
+
+    public boolean isLining() {
+        return isLining;
+    }
+
+    public void setLining(boolean lining) {
+        isLining = lining;
+        invalidate();
+    }
+
+    public int getCountShowDescription() {
+        return countShowDescription;
+    }
+
+    public void setCountShowDescription(int countShowDescription) {
+        this.countShowDescription = countShowDescription;
+        invalidate();
+    }
+
     protected int columnThickness = 77;
     protected float maxColumnValue = 1000;
     protected int columnDescriptionTextSize = 30;

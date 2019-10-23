@@ -4,14 +4,23 @@ import android.graphics.Color;
 
 public class BarChartData {
 
-    private int colorColumn;
-    private float length;
-    private int position;
+    private int colorColumn = Color.BLACK;
+    private float percentHeight;
+    private String nameColumn = "";
 
-    public BarChartData(int colorColumn ,float length , int position ){
+    public BarChartData(float percentHeight){
+        this.percentHeight = percentHeight;
+    }
+
+    public BarChartData(int colorColumn ,float percentHeight){
         this.colorColumn = colorColumn;
-        this.length = length;
-        this.position = position;
+        this.percentHeight = percentHeight;
+    }
+
+    public BarChartData(int colorColumn ,float percentHeight,String nameColumn){
+        this.colorColumn = colorColumn;
+        this.percentHeight = percentHeight;
+        this.nameColumn = nameColumn;
     }
 
     public int getColorColumn() {
@@ -22,19 +31,19 @@ public class BarChartData {
         this.colorColumn = colorColumn;
     }
 
-    public float getLength() {
-        return length;
+    public float getPercentHeight() {
+        return percentHeight;
     }
 
-    public void setLength(float length) {
-        this.length = length;
+    public void setPercentHeight(float percentHeight) {
+        this.percentHeight = percentHeight;
     }
 
-    public int getPosition() {
-        return position;
+    public String getNameColumn() {
+        return nameColumn;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setNameColumn(String nameColumn) {
+        this.nameColumn = nameColumn;
     }
 }

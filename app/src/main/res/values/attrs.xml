@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="BaseBarChart">
+        <attr name="columnThickness" format="integer" />
+        <attr name="maxColumnValue" format="float" />
+        <attr name="columnDescriptionTextSize" format="dimension" />
+        <attr name="valueTextSize" format="dimension" />
+        <attr name="isLining" format="boolean" />
+        <attr name="countShowDescription" format="integer" />
+    </declare-styleable>
+
     <declare-styleable name="PieChart">
         <attr name="startAngle" format="integer" />
         <attr name="descriptionColor" format="color" />

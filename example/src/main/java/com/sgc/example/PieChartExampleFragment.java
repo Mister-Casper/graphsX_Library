@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class PieChartExampleFragment extends Fragment {
 
-    Unbinder unbinder;
+    private Unbinder unbinder;
 
     @BindView(R.id.testDiagram)
     PieChart testDiagram;

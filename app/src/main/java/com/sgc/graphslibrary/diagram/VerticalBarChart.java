@@ -66,7 +66,7 @@ public class VerticalBarChart extends BaseBarChart {
         paint.setTextSize(columnDescriptionTextSize);
         paint.setTextAlign(Paint.Align.LEFT);
 
-        float yDivision = getStartY() + 50;
+        float yDivision = getStartY() + indentColumnDescription;
         for (int i = 0; i < data.size(); i++) {
             float x = getStartX() + getStepDivisionsAbscissaAxis() * (i + 1) - columnThickness / 2f;
             canvas.drawText("" + data.get(i).getNameColumn(), x, yDivision, paint);
@@ -83,7 +83,7 @@ public class VerticalBarChart extends BaseBarChart {
         for (int i = 1; i <= countShowDescription; i++) {
             int yCurrentDescription = (int) (i * (maxColumnValue / countShowDescription));
             currentY -= step;
-            canvas.drawText("" + yCurrentDescription, getStartX() - 50, currentY, paint);
+            canvas.drawText("" + yCurrentDescription, getStartX() - indentValueColumnDescription, currentY, paint);
         }
     }
 

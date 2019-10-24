@@ -8,6 +8,8 @@
         <attr name="valueTextSize" format="dimension" />
         <attr name="isLining" format="boolean" />
         <attr name="countShowDescription" format="integer" />
+        <attr name="indentColumnDescription" format="float" />
+        <attr name="indentValueColumnDescription" format="float" />
     </declare-styleable>
 
     <declare-styleable name="PieChart">

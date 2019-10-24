@@ -35,6 +35,14 @@ public class BaseBarChart extends BaseCoordinateSystem {
             countShowDescription = arr.getInt(
                     R.styleable.BaseBarChart_countShowDescription,
                     countShowDescription);
+
+            indentValueColumnDescription = arr.getFloat(
+                    R.styleable.BaseBarChart_indentValueColumnDescription,
+                    indentValueColumnDescription);
+
+            indentColumnDescription = arr.getFloat(
+                    R.styleable.BaseBarChart_indentColumnDescription,
+                    indentColumnDescription);
         } finally {
             arr.recycle();
         }
@@ -53,6 +61,25 @@ public class BaseBarChart extends BaseCoordinateSystem {
         super(context, attrs, defStyleAttr);
         this.loadAttribute(context,attrs);
     }
+
+    public float getIndentColumnDescription() {
+        return indentColumnDescription;
+    }
+
+    public void setIndentColumnDescription(float indentColumnDescription) {
+        this.indentColumnDescription = indentColumnDescription;
+        invalidate();
+    }
+
+    public float getIndentValueColumnDescription() {
+        return indentValueColumnDescription;
+    }
+
+    public void setIndentValueColumnDescription(float indentValueColumnDescription) {
+        this.indentValueColumnDescription = indentValueColumnDescription;
+        invalidate();
+    }
+
 
     public int getColumnThickness() {
         return columnThickness;
@@ -111,7 +138,9 @@ public class BaseBarChart extends BaseCoordinateSystem {
     protected int columnThickness = 77;
     protected float maxColumnValue = 1000;
     protected int columnDescriptionTextSize = 30;
+    protected float indentColumnDescription = 50;
     protected int valueColumnDescriptionTextSize = 30;
+    protected float indentValueColumnDescription = 50;
     protected boolean isLining = true;
     protected int countShowDescription = 20;
 

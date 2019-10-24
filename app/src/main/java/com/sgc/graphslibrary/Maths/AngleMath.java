@@ -42,9 +42,9 @@ public class AngleMath {
         return degreesOfCircle / sumPercent;
     }
 
-    public static double getLineAtan2(Line line1, float startAngle) {
-        double angle = Math.atan2(line1.getY1() - line1.getY2(),
-                line1.getX1() - line1.getX2());
+    public static double getLineAtan2(Line line, float startAngle) {
+        double angle = Math.atan2(line.getY1() - line.getY2(),
+                line.getX1() - line.getX2());
         angle = Math.toDegrees(angle) - startAngle % 360;
         if (angle < 0) {
             angle += 360;

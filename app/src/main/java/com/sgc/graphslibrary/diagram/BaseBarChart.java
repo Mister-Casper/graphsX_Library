@@ -2,6 +2,8 @@ package com.sgc.graphslibrary.diagram;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import com.sgc.graphslibrary.R;
@@ -156,6 +158,102 @@ public class BaseBarChart extends BaseCoordinateSystem {
     public void setData(ArrayList<GroupBarChartData> data) {
         this.data = data;
         invalidate();
+    }
+
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof BaseBarChart.SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        BaseBarChart.SavedState ss = (BaseBarChart.SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.columnThickness = ss.columnThickness;
+        this.maxColumnValue = ss.maxColumnValue;
+        this.columnDescriptionTextSize = ss.columnDescriptionTextSize;
+        this.indentColumnDescription = ss.indentColumnDescription;
+        this.valueColumnDescriptionTextSize = ss.valueColumnDescriptionTextSize;
+        this.indentValueColumnDescription = ss.indentValueColumnDescription;
+        this.isLining = ss.isLining;
+        this.countShowDescription = ss.countShowDescription;
+        this.data = ss.data;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        BaseBarChart.SavedState ss = new BaseBarChart.SavedState(superState);
+
+        ss.columnThickness = this.columnThickness;
+        ss.maxColumnValue = this.maxColumnValue;
+        ss.columnDescriptionTextSize = this.columnDescriptionTextSize;
+        ss.indentColumnDescription = this.indentColumnDescription;
+        ss.valueColumnDescriptionTextSize = this.valueColumnDescriptionTextSize;
+        ss.indentValueColumnDescription = this.indentValueColumnDescription;
+        ss.isLining = this.isLining;
+        ss.countShowDescription = this.countShowDescription;
+        ss.data = this.data;
+
+        return ss;
+    }
+
+    static class SavedState extends BaseSavedState {
+        int columnThickness;
+        float maxColumnValue;
+        int columnDescriptionTextSize;
+        float indentColumnDescription;
+        int valueColumnDescriptionTextSize;
+        float indentValueColumnDescription;
+        boolean isLining;
+        int countShowDescription;
+
+        ArrayList<GroupBarChartData> data;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.columnThickness = in.readInt();
+            this.maxColumnValue = in.readFloat();
+            this.columnDescriptionTextSize = in.readInt();
+            this.indentColumnDescription = in.readFloat();
+            this.valueColumnDescriptionTextSize = in.readInt();
+            this.isLining = in.readInt() == 1;
+            this.indentValueColumnDescription = in.readFloat();
+            this.countShowDescription = in.readInt();
+            in.readTypedList(data, GroupBarChartData.CREATOR);
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.columnThickness);
+            out.writeFloat(this.maxColumnValue);
+            out.writeInt(this.columnDescriptionTextSize);
+            out.writeFloat(this.indentColumnDescription);
+            out.writeInt(Integer.parseInt(Boolean.toString(this.isLining)));
+            out.writeInt(this.valueColumnDescriptionTextSize);
+            out.writeFloat(this.indentValueColumnDescription);
+            out.writeInt(this.countShowDescription);
+            out.writeTypedList(data);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<BaseBarChart.SavedState> CREATOR =
+                new Parcelable.Creator<BaseBarChart.SavedState>() {
+                    public BaseBarChart.SavedState createFromParcel(Parcel in) {
+                        return new BaseBarChart.SavedState(in);
+                    }
+
+                    public BaseBarChart.SavedState[] newArray(int size) {
+                        return new BaseBarChart.SavedState[size];
+                    }
+                };
     }
 
 }

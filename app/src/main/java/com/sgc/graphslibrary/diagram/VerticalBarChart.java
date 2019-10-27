@@ -80,7 +80,7 @@ public class VerticalBarChart extends BaseBarChart {
     }
 
     private void drawVerticalGroup(Canvas canvas, float x, int numberGroup) {
-        float indentX = 0;
+        float indentY = 0;
         float height = 0;
 
         Paint paint = new Paint();
@@ -88,8 +88,8 @@ public class VerticalBarChart extends BaseBarChart {
             BarChartData currentBarChartData = data.get(numberGroup).getData().get(q);
             paint.setColor(currentBarChartData.getColorColumn());
             height += ((getStartY() / 100f) * currentBarChartData.getPercentHeight());
-            canvas.drawRect(x - columnThickness, getStartY() - height, x, getStartY() - indentX, paint);
-            indentX = height;
+            canvas.drawRect(x - columnThickness, getStartY() - height, x, getStartY() - indentY, paint);
+            indentY = height;
         }
     }
 
@@ -147,11 +147,5 @@ public class VerticalBarChart extends BaseBarChart {
                 canvas.drawLine(startX, currentY, endX, currentY, new Paint());
             }
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        return super.onTouchEvent(event);
     }
 }

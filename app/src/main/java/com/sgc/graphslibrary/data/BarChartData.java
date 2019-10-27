@@ -6,7 +6,6 @@ public class BarChartData {
 
     private int colorColumn = Color.BLACK;
     private float percentHeight;
-    private String nameColumn = "";
 
     public BarChartData(float percentHeight){
         this.percentHeight = percentHeight;
@@ -15,12 +14,6 @@ public class BarChartData {
     public BarChartData(int colorColumn ,float percentHeight){
         this.colorColumn = colorColumn;
         this.percentHeight = percentHeight;
-    }
-
-    public BarChartData(int colorColumn ,float percentHeight,String nameColumn){
-        this.colorColumn = colorColumn;
-        this.percentHeight = percentHeight;
-        this.nameColumn = nameColumn;
     }
 
     public int getColorColumn() {
@@ -37,13 +30,5 @@ public class BarChartData {
 
     public void setPercentHeight(float percentHeight) {
         this.percentHeight = percentHeight;
-    }
-
-    public String getNameColumn() {
-        return nameColumn;
-    }
-
-    public void setNameColumn(String nameColumn) {
-        this.nameColumn = nameColumn;
     }
 }

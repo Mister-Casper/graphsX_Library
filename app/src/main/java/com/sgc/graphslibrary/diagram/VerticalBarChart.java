@@ -3,11 +3,14 @@ package com.sgc.graphslibrary.diagram;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.sgc.graphslibrary.data.BarChartData;
 import com.sgc.graphslibrary.data.GroupBarChartData;
+import com.sgc.graphslibrary.graph.BaseCoordinateSystem;
 
 import java.util.ArrayList;
 
@@ -68,14 +71,14 @@ public class VerticalBarChart extends BaseBarChart {
     }
 
     private float getXNextColumn(int columnNum, float x) {
-        float thickness1 = 1f;
+        float thickness1 = 0f;
 
         if (columnNum >= 1) {
             if (!data.get(columnNum - 1).isVerticalLocation())
-                thickness1 = 0.5f + data.get(columnNum - 1).getData().size() * 0.5f;
+                thickness1 = data.get(columnNum - 1).getData().size() - 1f;
         }
 
-        x += getStepDivisionsAbscissaAxis() * thickness1;
+        x += getStepDivisionsAbscissaAxis() + columnThickness * thickness1;
         return x;
     }
 
@@ -99,7 +102,7 @@ public class VerticalBarChart extends BaseBarChart {
             BarChartData currentBarChartData = data.get(numberGroup).getData().get(q);
             paint.setColor(currentBarChartData.getColorColumn());
             float height = ((getStartY() / 100f) * currentBarChartData.getPercentHeight());
-            canvas.drawRect(x + columnThickness * (q - 1), getStartY() - height, x + columnThickness * (q), getStartY(), paint);
+            canvas.drawRect(x -columnThickness + columnThickness * q, getStartY() - height, x + columnThickness * (q), getStartY(), paint);
         }
     }
 
@@ -114,7 +117,7 @@ public class VerticalBarChart extends BaseBarChart {
         for (int i = 0; i < data.size(); i++) {
             x = getXNextColumn(i, x);
             if (!data.get(i).isVerticalLocation()) {
-                float centerX = x + (data.get(i).getData().size()-1f) * columnThickness/2f;
+                float centerX = x + (data.get(i).getData().size() - 1f) * columnThickness / 2f;
                 canvas.drawText("" + data.get(i).getNameColumn(), centerX, yDivision, paint);
             } else
                 canvas.drawText("" + data.get(i).getNameColumn(), x, yDivision, paint);

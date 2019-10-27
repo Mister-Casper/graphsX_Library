@@ -392,6 +392,7 @@ public class LineGraph extends BaseCoordinateSystem {
             ArrayList<ChartCoordinatesData> graphPoints = line.getDataLine();
             paint.setColor(line.getLineColor());
             paint.setStrokeWidth(line.getLineThickness());
+            paint.setAntiAlias(true);
             drawGraphLine(canvas, graphPoints, paint);
         }
     }

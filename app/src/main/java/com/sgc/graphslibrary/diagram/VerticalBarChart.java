@@ -37,17 +37,6 @@ public class VerticalBarChart extends BaseBarChart {
         init();
     }
 
-    public ArrayList<GroupBarChartData> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<GroupBarChartData> data) {
-        this.data = data;
-        invalidate();
-    }
-
-    ArrayList<GroupBarChartData> data = new ArrayList<>();
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

@@ -5,7 +5,10 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.sgc.graphslibrary.R;
+import com.sgc.graphslibrary.data.GroupBarChartData;
 import com.sgc.graphslibrary.graph.BaseCoordinateSystem;
+
+import java.util.ArrayList;
 
 public class BaseBarChart extends BaseCoordinateSystem {
 
@@ -47,6 +50,17 @@ public class BaseBarChart extends BaseCoordinateSystem {
             arr.recycle();
         }
     }
+
+    public ArrayList<GroupBarChartData> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<GroupBarChartData> data) {
+        this.data = data;
+        invalidate();
+    }
+
+    ArrayList<GroupBarChartData> data = new ArrayList<>();
 
     public BaseBarChart(Context context) {
         super(context);

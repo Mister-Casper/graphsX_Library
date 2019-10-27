@@ -67,15 +67,15 @@ public class HorizontalBarChart extends BaseBarChart {
 
     private void drawVerticalGroup(Canvas canvas, float y, int numberGroup) {
         float indentX = 0;
-        float height = 0;
+        float width = 0;
 
         Paint paint = new Paint();
         for (int q = 0; q < data.get(numberGroup).getData().size(); q++) {
             BarChartData currentBarChartData = data.get(numberGroup).getData().get(q);
             paint.setColor(currentBarChartData.getColorColumn());
-            height += ((getWidth() - getStartX()) / 100f) * currentBarChartData.getPercentHeight();
-            canvas.drawRect(getStartX()+indentX,y - columnThickness, getStartX() + height, y, paint);
-            indentX = height;
+            width += ((getWidth() - getStartX()) / 100f) * currentBarChartData.getPercentHeight();
+            canvas.drawRect(getStartX() + indentX, y - columnThickness, getStartX() + width, y, paint);
+            indentX = width;
         }
     }
 

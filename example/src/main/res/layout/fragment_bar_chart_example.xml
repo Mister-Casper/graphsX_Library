@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".BarChartExample">
 
+    <com.sgc.graphslibrary.diagram.HorizontalBarChart
+        android:id="@+id/barChart1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:abscissaAxisShiftUp="75"
+        app:columnDescriptionTextSize="10dp"
+        app:columnThickness="50"
+        app:countShowDescription="5"
+        app:divisionLineLengthTheAxis="10"
+        app:indentColumnDescription="100"
+        app:maxColumnValue="1000"
+        app:ordinateAxisShiftRight="200"
+        app:stepDivisionsAbscissaAxis="175"
+        app:stepDivisionsOrdinateAxis="100"
+        app:valueTextSize="8dp" />
+
     <com.sgc.graphslibrary.diagram.VerticalBarChart
-        android:layout_marginTop="20dp"
         android:id="@+id/barChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
         app:abscissaAxisShiftUp="300"
-        app:ordinateAxisShiftRight="100"
-        app:stepDivisionsOrdinateAxis="90"
-        app:stepDivisionsAbscissaAxis="175"
-        app:columnThickness="100"
-        app:divisionLineLengthTheAxis="10"
         app:columnDescriptionTextSize="10dp"
-        app:valueTextSize="8dp"
+        app:columnThickness="100"
+        app:countShowDescription="5"
+        app:divisionLineLengthTheAxis="10"
         app:maxColumnValue="1000"
-        app:countShowDescription="20"
-        />
-
-</FrameLayout>
+        app:ordinateAxisShiftRight="100"
+        app:stepDivisionsAbscissaAxis="175"
+        app:stepDivisionsOrdinateAxis="90"
+        app:valueTextSize="8dp" />
+</LinearLayout>

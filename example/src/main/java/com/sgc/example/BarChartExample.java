@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.sgc.graphslibrary.data.BarChartData;
 import com.sgc.graphslibrary.data.GroupBarChartData;
+import com.sgc.graphslibrary.diagram.HorizontalBarChart;
 import com.sgc.graphslibrary.diagram.VerticalBarChart;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import butterknife.Unbinder;
  */
 public class BarChartExample extends Fragment {
 
+    @BindView(R.id.barChart1)
+    HorizontalBarChart barChart1;
     private Unbinder unbinder;
 
     @BindView(R.id.barChart)
@@ -59,7 +62,10 @@ public class BarChartExample extends Fragment {
         groups.add(new GroupBarChartData(data1, GroupBarChartData.locationVertical, "Корабли"));
         groups.add(new GroupBarChartData(data2, GroupBarChartData.locationHorizontal, "Корабли"));
         groups.add(new GroupBarChartData(data1, GroupBarChartData.locationVertical, "Корабли"));
+
         barChart.setData(groups);
+        barChart1.setData(groups);
+
         return view;
     }
 

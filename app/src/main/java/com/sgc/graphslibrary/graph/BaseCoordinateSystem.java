@@ -446,9 +446,9 @@ public class BaseCoordinateSystem extends View {
      */
     public int getStepDivisionsAbscissaAxis() {
         if (scaleFactor <= 1f)
-            return (int) (stepDivisionsAbscissaAxis * scaleFactor) *(int)(1f/scaleFactor);
+            return (int) (stepDivisionsAbscissaAxis * scaleFactor) * (int) (1f / scaleFactor);
         else
-            return (int) (stepDivisionsAbscissaAxis * scaleFactor) / (int)scaleFactor;
+            return (int) (stepDivisionsAbscissaAxis * scaleFactor) / (int) scaleFactor;
     }
 
     /**
@@ -464,9 +464,9 @@ public class BaseCoordinateSystem extends View {
      */
     public int getStepDivisionsOrdinateAxis() {
         if (scaleFactor <= 1f)
-            return (int) (stepDivisionsOrdinateAxis * scaleFactor) *(int)(1f/scaleFactor);
+            return (int) (stepDivisionsOrdinateAxis * scaleFactor) * (int) (1f / scaleFactor);
         else
-            return (int) (stepDivisionsOrdinateAxis * scaleFactor)/ (int)scaleFactor;
+            return (int) (stepDivisionsOrdinateAxis * scaleFactor) / (int) scaleFactor;
     }
 
     /**
@@ -724,13 +724,13 @@ public class BaseCoordinateSystem extends View {
 
     private void horizontalScroll(float distanceX) {
         if (isHorizontalScroll) {
-            ordinateAxisShiftRight += distanceX/scaleFactor;
+            ordinateAxisShiftRight += distanceX / scaleFactor;
         }
     }
 
     private void verticalScroll(float distanceX) {
         if (isVerticalScroll) {
-            abscissaAxisShiftUp -= distanceX/scaleFactor;
+            abscissaAxisShiftUp -= distanceX / scaleFactor;
         }
     }
     //</editor-fold>

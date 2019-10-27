@@ -14,13 +14,13 @@
         app:abscissaAxisShiftUp="300"
         app:ordinateAxisShiftRight="100"
         app:stepDivisionsOrdinateAxis="90"
-        app:stepDivisionsAbscissaAxis="150"
+        app:stepDivisionsAbscissaAxis="250"
+        app:columnThickness="125"
         app:divisionLineLengthTheAxis="10"
         app:columnDescriptionTextSize="10dp"
         app:valueTextSize="8dp"
         app:maxColumnValue="1000"
         app:countShowDescription="20"
-        app:isHorizontalScroll="true"
         />
 
 </FrameLayout>

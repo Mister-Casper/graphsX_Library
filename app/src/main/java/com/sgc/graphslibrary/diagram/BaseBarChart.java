@@ -51,17 +51,6 @@ public class BaseBarChart extends BaseCoordinateSystem {
         }
     }
 
-    public ArrayList<GroupBarChartData> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<GroupBarChartData> data) {
-        this.data = data;
-        invalidate();
-    }
-
-    ArrayList<GroupBarChartData> data = new ArrayList<>();
-
     public BaseBarChart(Context context) {
         super(context);
     }
@@ -157,5 +146,16 @@ public class BaseBarChart extends BaseCoordinateSystem {
     protected float indentValueColumnDescription = 50;
     protected boolean isLining = true;
     protected int countShowDescription = 20;
+
+    ArrayList<GroupBarChartData> data = new ArrayList<>();
+
+    public ArrayList<GroupBarChartData> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<GroupBarChartData> data) {
+        this.data = data;
+        invalidate();
+    }
 
 }

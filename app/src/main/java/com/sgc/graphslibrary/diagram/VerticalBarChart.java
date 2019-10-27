@@ -16,6 +16,7 @@ import androidx.annotation.IntRange;
 public class VerticalBarChart extends BaseBarChart {
     private void init() {
         super.setShowDivisionOrdinateAxis(false);
+        super.setShowDivisionAbscissaAxis(false);
     }
 
     public VerticalBarChart(Context context) {

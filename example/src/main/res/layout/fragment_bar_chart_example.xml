@@ -30,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
-        app:abscissaAxisShiftUp="300"
+        app:abscissaAxisShiftUp="75"
         app:columnDescriptionTextSize="10dp"
         app:columnThickness="100"
         app:countShowDescription="5"

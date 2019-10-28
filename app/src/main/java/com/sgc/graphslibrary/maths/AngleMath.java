@@ -1,4 +1,4 @@
-package com.sgc.graphslibrary.Maths;
+package com.sgc.graphslibrary.maths;
 
 import com.sgc.graphslibrary.data.PieChartData;
 

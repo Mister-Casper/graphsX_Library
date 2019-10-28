@@ -11,15 +11,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.sgc.graphslibrary.Maths.AngleMath;
-import com.sgc.graphslibrary.Maths.Line;
+import com.sgc.graphslibrary.maths.AngleMath;
+import com.sgc.graphslibrary.maths.Line;
 import com.sgc.graphslibrary.R;
 import com.sgc.graphslibrary.data.PieChartData;
 
 import java.util.ArrayList;
 
-import static com.sgc.graphslibrary.Maths.AngleMath.getAngleOfSectorCenter;
-import static com.sgc.graphslibrary.Maths.AngleMath.getCompress;
+import static com.sgc.graphslibrary.maths.AngleMath.getAngleOfSectorCenter;
+import static com.sgc.graphslibrary.maths.AngleMath.getCompress;
 
 public class PieChart extends View {
 

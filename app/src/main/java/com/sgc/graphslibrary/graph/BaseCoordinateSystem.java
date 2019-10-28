@@ -696,7 +696,6 @@ public class BaseCoordinateSystem extends View {
             mGestureDetector.onTouchEvent(event);
         }
 
-        invalidate();
         return true;
     }
 
@@ -717,6 +716,7 @@ public class BaseCoordinateSystem extends View {
             scaleFactor *= detector.getScaleFactor();
             scaleFactor = Math.max(minScaling, Math.min(scaleFactor, maxScaling));
             scaleFactor = Math.round(scaleFactor * 100f) / 100f;
+            invalidate();
             return true;
         }
     }
@@ -725,12 +725,14 @@ public class BaseCoordinateSystem extends View {
     private void horizontalScroll(float distanceX) {
         if (isHorizontalScroll) {
             ordinateAxisShiftRight += distanceX / scaleFactor;
+            invalidate();
         }
     }
 
     private void verticalScroll(float distanceX) {
         if (isVerticalScroll) {
             abscissaAxisShiftUp -= distanceX / scaleFactor;
+            invalidate();
         }
     }
     //</editor-fold>

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.sgc.graphslibrary.legend.Legend;
+import com.sgc.graphslibrary.legend.LegendView;
 import com.sgc.graphslibrary.legend.SourceLegendListener;
 import com.sgc.graphslibrary.maths.AngleMath;
 import com.sgc.graphslibrary.maths.Line;
@@ -25,6 +26,8 @@ import static com.sgc.graphslibrary.maths.AngleMath.getAngleOfSectorCenter;
 import static com.sgc.graphslibrary.maths.AngleMath.getCompress;
 
 public class PieChart extends View implements SourceLegendListener {
+
+    LegendView legend;
 
     //
     // Constructors
@@ -195,6 +198,14 @@ public class PieChart extends View implements SourceLegendListener {
         drawText(canvas);
     }
 
+    @Override
+    public void invalidate() {
+        super.invalidate();
+
+        if(legend != null)
+            legend.invalidate();
+    }
+
     /**
      * check data available
      */
@@ -315,5 +326,10 @@ public class PieChart extends View implements SourceLegendListener {
         }
 
         return new Legend(legendColor, legendDescription);
+    }
+
+    @Override
+    public void connectToSourceView(LegendView legendView) {
+        legend = legendView;
     }
 }

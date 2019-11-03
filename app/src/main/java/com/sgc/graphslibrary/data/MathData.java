@@ -2,8 +2,10 @@ package com.sgc.graphslibrary.data;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class MathData {
+public class MathData implements Parcelable{
 
     /**
      * coordinate  of the begin of the graph
@@ -49,6 +51,28 @@ public class MathData {
         this.mathFunctionInterface = mathFunctionInterface;
     }
 
+    protected MathData(Parcel in) {
+        minX = in.readInt();
+        maxX = in.readInt();
+        accuracy = in.readInt();
+        mathFunctionInterface = in.readParcelable(MathFunctionInterface.class.getClassLoader());
+        colorGraph = in.readInt();
+        lineLegendDescription = in.readString();
+        lineThicknessGraph = in.readInt();
+    }
+
+    public static final Creator<MathData> CREATOR = new Creator<MathData>() {
+        @Override
+        public MathData createFromParcel(Parcel in) {
+            return new MathData(in);
+        }
+
+        @Override
+        public MathData[] newArray(int size) {
+            return new MathData[size];
+        }
+    };
+
     /**
      * @return color graph
      */
@@ -77,10 +101,26 @@ public class MathData {
         this.lineThicknessGraph = lineThicknessGraph;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(minX);
+        dest.writeInt(maxX);
+        dest.writeInt(accuracy);
+        dest.writeParcelable(mathFunctionInterface, flags);
+        dest.writeInt(colorGraph);
+        dest.writeString(lineLegendDescription);
+        dest.writeInt(lineThicknessGraph);
+    }
+
     /**
      * interface to get y
      */
-    public interface MathFunctionInterface {
+    public interface MathFunctionInterface extends Parcelable {
         float function(float x);
     }
 

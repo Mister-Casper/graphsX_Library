@@ -4,4 +4,5 @@ import java.util.ArrayList;
 
 public interface SourceLegendListener {
     Legend getLegend();
+    void connectToSourceView(LegendView legendView);
 }

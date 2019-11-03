@@ -5,11 +5,14 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import com.sgc.graphslibrary.R;
 import com.sgc.graphslibrary.data.LineGraphData;
 import com.sgc.graphslibrary.data.ChartCoordinatesData;
+import com.sgc.graphslibrary.diagram.PieChart;
 
 import java.util.ArrayList;
 
@@ -244,7 +247,7 @@ public class LineGraph extends BaseCoordinateSystem {
      */
     public float getScaleDivisionDescriptionAxisX() {
         if (scaleFactor <= 1f)
-            return scaleDivisionDescriptionAxisX *(int)(1f/scaleFactor);
+            return scaleDivisionDescriptionAxisX * (int) (1f / scaleFactor);
         return scaleDivisionDescriptionAxisX / (int) scaleFactor;
     }
 
@@ -265,7 +268,7 @@ public class LineGraph extends BaseCoordinateSystem {
      */
     public float getScaleDivisionDescriptionAxisY() {
         if (scaleFactor <= 1f)
-            return scaleDivisionDescriptionAxisY *(int)(1f/scaleFactor);
+            return scaleDivisionDescriptionAxisY * (int) (1f / scaleFactor);
         return scaleDivisionDescriptionAxisY / (int) scaleFactor;
     }
 
@@ -493,12 +496,122 @@ public class LineGraph extends BaseCoordinateSystem {
         float step = getStepDivisionsAbscissaAxis();
         int countShowDescription = (int) ((getWidth() / step) + 4 * scaleFactor);
 
-        if(scaleFactor<=1f)
-            countShowDescription*=(int) (1f/scaleFactor);
+        if (scaleFactor <= 1f)
+            countShowDescription *= (int) (1f / scaleFactor);
         else
-            countShowDescription /= (int)scaleFactor;
+            countShowDescription /= (int) scaleFactor;
 
         return countShowDescription;
     }
 
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof LineGraph.SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        LineGraph.SavedState ss = (LineGraph.SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.isDivisionDescriptionAxisX = ss.isDivisionDescriptionAxisX;
+        this.isDivisionDescriptionAxisY = ss.isDivisionDescriptionAxisY;
+        this.scaleDivisionDescriptionAxisX = ss.scaleDivisionDescriptionAxisX;
+        this.scaleDivisionDescriptionAxisY = ss.scaleDivisionDescriptionAxisY;
+        this.colorDivisionDescriptionAxisX = ss.colorDivisionDescriptionAxisX;
+        this.colorDivisionDescriptionAxisY = ss.colorDivisionDescriptionAxisY;
+        this.divisionDescriptionSize = ss.divisionDescriptionSize;
+        this.xOffsetDescriptionDivision = ss.xOffsetDescriptionDivision;
+        this.yOffsetDescriptionDivision = ss.yOffsetDescriptionDivision;
+        this.isShowCoordinateGrid = ss.isShowCoordinateGrid;
+        this.colorCoordinateGrid = ss.colorCoordinateGrid;
+        this.thicknessCoordinateGrid = ss.thicknessCoordinateGrid;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        LineGraph.SavedState ss = new LineGraph.SavedState(superState);
+
+        ss.isDivisionDescriptionAxisX = this.isDivisionDescriptionAxisX;
+        ss.isDivisionDescriptionAxisY = this.isDivisionDescriptionAxisY;
+        ss.scaleDivisionDescriptionAxisX = this.scaleDivisionDescriptionAxisX;
+        ss.scaleDivisionDescriptionAxisY = this.scaleDivisionDescriptionAxisY;
+        ss.colorDivisionDescriptionAxisX = this.colorDivisionDescriptionAxisX;
+        ss.colorDivisionDescriptionAxisY = this.colorDivisionDescriptionAxisY;
+        ss.divisionDescriptionSize = this.divisionDescriptionSize;
+        ss.xOffsetDescriptionDivision = this.xOffsetDescriptionDivision;
+        ss.yOffsetDescriptionDivision = this.yOffsetDescriptionDivision;
+        ss.isShowCoordinateGrid = this.isShowCoordinateGrid;
+        ss.colorCoordinateGrid = this.colorCoordinateGrid;
+        ss.thicknessCoordinateGrid = this.thicknessCoordinateGrid;
+
+        return ss;
+    }
+
+
+    static class SavedState extends BaseSavedState {
+        boolean isDivisionDescriptionAxisX;
+        boolean isDivisionDescriptionAxisY;
+        float scaleDivisionDescriptionAxisX;
+        float scaleDivisionDescriptionAxisY;
+        int colorDivisionDescriptionAxisX;
+        int colorDivisionDescriptionAxisY;
+        int divisionDescriptionSize;
+        int xOffsetDescriptionDivision;
+        int yOffsetDescriptionDivision;
+        boolean isShowCoordinateGrid;
+        int colorCoordinateGrid;
+        int thicknessCoordinateGrid;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.isDivisionDescriptionAxisX = in.readInt() == 1;
+            this.isDivisionDescriptionAxisY = in.readInt() == 1;
+            this.scaleDivisionDescriptionAxisX = in.readFloat();
+            this.scaleDivisionDescriptionAxisY = in.readFloat();
+            this.colorDivisionDescriptionAxisX = in.readInt();
+            this.colorDivisionDescriptionAxisY = in.readInt();
+            this.divisionDescriptionSize = in.readInt();
+            this.xOffsetDescriptionDivision = in.readInt();
+            this.yOffsetDescriptionDivision = in.readInt();
+            this.isShowCoordinateGrid = in.readInt() == 1;
+            this.colorCoordinateGrid = in.readInt();
+            this.thicknessCoordinateGrid = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeByte((byte) (this.isDivisionDescriptionAxisX ? 1 : 0));
+            out.writeByte((byte) (this.isDivisionDescriptionAxisY ? 1 : 0));
+            out.writeFloat(this.scaleDivisionDescriptionAxisX);
+            out.writeFloat(this.scaleDivisionDescriptionAxisY);
+            out.writeInt(this.colorDivisionDescriptionAxisX);
+            out.writeInt(this.colorDivisionDescriptionAxisY);
+            out.writeInt(this.divisionDescriptionSize);
+            out.writeInt(this.xOffsetDescriptionDivision);
+            out.writeInt(this.yOffsetDescriptionDivision);
+            out.writeByte((byte) (this.isShowCoordinateGrid ? 1 : 0));
+            out.writeInt(this.colorCoordinateGrid);
+            out.writeInt(this.thicknessCoordinateGrid);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<LineGraph.SavedState> CREATOR =
+                new Parcelable.Creator<LineGraph.SavedState>() {
+                    public LineGraph.SavedState createFromParcel(Parcel in) {
+                        return new LineGraph.SavedState(in);
+                    }
+
+                    public LineGraph.SavedState[] newArray(int size) {
+                        return new LineGraph.SavedState[size];
+                    }
+                };
+    }
 }

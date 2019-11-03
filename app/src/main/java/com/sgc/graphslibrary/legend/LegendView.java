@@ -69,6 +69,12 @@ public class LegendView extends View {
             drawHorizontalLegend(canvas, legend);
     }
 
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        requestLayout();
+    }
+
     private void checkSourceViewNotNull() {
         if (sourceView == null) {
             throw new RuntimeException("LegendView not connect to graph or diagram view. Call method connectToView() to make it work");

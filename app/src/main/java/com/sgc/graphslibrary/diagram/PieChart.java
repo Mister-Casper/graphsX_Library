@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.sgc.graphslibrary.legend.Legend;
+import com.sgc.graphslibrary.legend.SourceLegendListener;
 import com.sgc.graphslibrary.maths.AngleMath;
 import com.sgc.graphslibrary.maths.Line;
 import com.sgc.graphslibrary.R;
@@ -18,10 +20,11 @@ import com.sgc.graphslibrary.data.PieChartData;
 
 import java.util.ArrayList;
 
+import static androidx.appcompat.widget.LinearLayoutCompat.HORIZONTAL;
 import static com.sgc.graphslibrary.maths.AngleMath.getAngleOfSectorCenter;
 import static com.sgc.graphslibrary.maths.AngleMath.getCompress;
 
-public class PieChart extends View {
+public class PieChart extends View implements SourceLegendListener {
 
     //
     // Constructors
@@ -299,5 +302,18 @@ public class PieChart extends View {
         float offsetY = event.getY() - center;
         double lengthFromCenter = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
         return lengthFromCenter > radius;
+    }
+
+    @Override
+    public Legend getLegend() {
+        ArrayList<String> legendDescription = new ArrayList<>();
+        ArrayList<Integer> legendColor = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            legendColor.add(data.get(i).getColorDedicatedSpace());
+            legendDescription.add(data.get(i).getLegendDescription());
+        }
+
+        return new Legend(legendColor, legendDescription,HORIZONTAL);
     }
 }

@@ -18,6 +18,8 @@ public class PieChartData {
      */
     private String text;
 
+    private String legendDescription = "";
+
     private clickSectorListener clickListener;
 
     public PieChartData(int percentageSpace, int colorDedicatedSpace) {
@@ -80,6 +82,14 @@ public class PieChartData {
 
     public void setClickListener(clickSectorListener clickListener) {
         this.clickListener = clickListener;
+    }
+
+    public String getLegendDescription() {
+        return legendDescription;
+    }
+
+    public void setLegendDescription(String legendDescription) {
+        this.legendDescription = legendDescription;
     }
 
     public interface clickSectorListener{

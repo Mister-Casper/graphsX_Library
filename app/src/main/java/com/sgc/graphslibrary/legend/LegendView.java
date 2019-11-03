@@ -83,7 +83,7 @@ public class LegendView extends View {
 
     private void drawVerticalLegend(Canvas canvas, Legend legend) {
         float x = 0;
-        float y = 0;
+        float y = indent;
 
         Paint paint = new Paint();
         Paint textPaint = new Paint();
@@ -98,7 +98,7 @@ public class LegendView extends View {
     }
 
     private void drawHorizontalLegend(Canvas canvas, Legend legend) {
-        float x = 0;
+        float x = indent;
         float y = 0;
 
         Paint paint = new Paint();
@@ -152,12 +152,18 @@ public class LegendView extends View {
     }
 
     private int getLegendHeight(Legend legend) {
+        int itemHeight;
+        if (getTextHeight() > legend.getHeight())
+            itemHeight = getTextHeight();
+        else
+            itemHeight = legend.getHeight();
+
         if (legend.isVerticalOrientationMode()) {
             int count = legend.getItemsDescription().size();
-            float height = count * legend.getHeight() + (count + 1) * indent;
+            float height = count * itemHeight + (count + 1) * indent;
             return (int) height;
         } else
-            return legend.getHeight();
+            return itemHeight;
     }
 
     private int getLegendWidth(Legend legend) {
@@ -189,6 +195,18 @@ public class LegendView extends View {
         paint.setTextSize(textSize);
         paint.getTextBounds(text, 0, text.length(), bounds);
         int textWidth = bounds.width();
+
+        return textWidth;
+    }
+
+    private int getTextHeight() {
+        Paint paint = new Paint();
+        Rect bounds = new Rect();
+
+        paint.setTypeface(Typeface.DEFAULT);
+        paint.setTextSize(textSize);
+        paint.getTextBounds("STUB!", 0, 1, bounds);
+        int textWidth = bounds.height();
 
         return textWidth;
     }

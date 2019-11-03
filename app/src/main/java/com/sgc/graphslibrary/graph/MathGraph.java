@@ -2,12 +2,15 @@ package com.sgc.graphslibrary.graph;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.sgc.graphslibrary.data.ChartCoordinatesData;
 import com.sgc.graphslibrary.data.LineGraphData;
 import com.sgc.graphslibrary.data.MathData;
+import com.sgc.graphslibrary.diagram.PieChart;
 import com.sgc.graphslibrary.legend.Legend;
 import com.sgc.graphslibrary.legend.LegendView;
 import com.sgc.graphslibrary.legend.SourceLegendListener;
@@ -130,5 +133,57 @@ public class MathGraph extends LineGraph implements SourceLegendListener {
     public void connectToSourceView(LegendView legendView) {
         legendView.setWillNotDraw(false);
         legend = legendView;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof MathGraph.SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        MathGraph.SavedState ss = (MathGraph.SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.functions = ss.functions;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        MathGraph.SavedState ss = new MathGraph.SavedState(superState);
+        ss.functions = this.functions;
+        return ss;
+    }
+
+
+    static class SavedState extends BaseSavedState {
+        ArrayList<MathData> functions;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.functions = in.readArrayList(MathData.class.getClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeTypedList(this.functions);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<MathGraph.SavedState> CREATOR =
+                new Parcelable.Creator<MathGraph.SavedState>() {
+                    public MathGraph.SavedState createFromParcel(Parcel in) {
+                        return new MathGraph.SavedState(in);
+                    }
+
+                    public MathGraph.SavedState[] newArray(int size) {
+                        return new MathGraph.SavedState[size];
+                    }
+                };
     }
 }

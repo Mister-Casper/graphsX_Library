@@ -16,6 +16,8 @@ public class LineGraphData {
      */
     private int lineColor = Color.BLACK;
 
+    private String lineLegendDescription = "";
+
     /**
      * graph thickness
      */
@@ -76,5 +78,13 @@ public class LineGraphData {
      */
     public void setLineThickness(int lineThickness) {
         this.lineThickness = lineThickness;
+    }
+
+    public String getLineLegendDescription() {
+        return lineLegendDescription;
+    }
+
+    public void setLineLegendDescription(String lineLegendDescription) {
+        this.lineLegendDescription = lineLegendDescription;
     }
 }

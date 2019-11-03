@@ -33,6 +33,8 @@ public class MathData {
      */
     private int colorGraph = Color.BLACK;
 
+    private String lineLegendDescription = "";
+
     /**
      * thickness graph
      */
@@ -138,4 +140,11 @@ public class MathData {
         this.maxX = maxX;
     }
 
+    public String getLineLegendDescription() {
+        return lineLegendDescription;
+    }
+
+    public void setLineLegendDescription(String lineLegendDescription) {
+        this.lineLegendDescription = lineLegendDescription;
+    }
 }

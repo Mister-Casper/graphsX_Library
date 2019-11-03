@@ -8,10 +8,16 @@ import android.view.MotionEvent;
 import com.sgc.graphslibrary.data.ChartCoordinatesData;
 import com.sgc.graphslibrary.data.LineGraphData;
 import com.sgc.graphslibrary.data.MathData;
+import com.sgc.graphslibrary.legend.Legend;
+import com.sgc.graphslibrary.legend.LegendView;
+import com.sgc.graphslibrary.legend.SourceLegendListener;
 
 import java.util.ArrayList;
 
-public class MathGraph extends LineGraph {
+public class MathGraph extends LineGraph implements SourceLegendListener {
+
+    LegendView legend;
+
     public MathGraph(Context context) {
         super(context);
     }
@@ -28,17 +34,20 @@ public class MathGraph extends LineGraph {
 
     public void setFunctions(ArrayList<MathData> functions) {
         this.functions = functions;
-        this.post(new Runnable() {
-            @Override
-            public void run() {
-                setData(calculatedCoordinates());
-            }
-        });
+        setData(calculatedCoordinates());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+
+        if (legend != null)
+            legend.invalidate();
     }
 
     @Override
@@ -70,7 +79,10 @@ public class MathGraph extends LineGraph {
                 coordinatesFunctionGraph.add(coordinates);
         }
 
-        return new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph());
+        LineGraphData line = new LineGraphData(coordinatesFunctionGraph, function.getColorGraph(), function.getLineThicknessGraph());
+        line.setLineLegendDescription(function.getLineLegendDescription());
+
+        return line;
     }
 
     private float getStepAccuracy(MathData function) {
@@ -93,4 +105,25 @@ public class MathGraph extends LineGraph {
             return null;
     }
 
+    @Override
+    public Legend getLegend() {
+        ArrayList<String> legendDescription = new ArrayList<>();
+        ArrayList<Integer> legendColor = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            legendColor.add(data.get(i).getLineColor());
+            legendDescription.add(data.get(i).getLineLegendDescription());
+        }
+
+        Legend legend = new Legend(legendColor, legendDescription);
+        legend.setHeight(10);
+
+        return legend;
+    }
+
+    @Override
+    public void connectToSourceView(LegendView legendView) {
+        legendView.setWillNotDraw(false);
+        legend = legendView;
+    }
 }

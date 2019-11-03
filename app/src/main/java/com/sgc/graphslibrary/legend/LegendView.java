@@ -6,15 +6,23 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.sgc.graphslibrary.R;
+import com.sgc.graphslibrary.data.GroupBarChartData;
+import com.sgc.graphslibrary.diagram.BaseBarChart;
+
+import java.util.ArrayList;
 
 public class LegendView extends View {
 
     private int indent = 20;
     private int textSize = 40;
+
+    private SourceLegendListener sourceView;
 
     protected void loadAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.LegendView);
@@ -45,10 +53,9 @@ public class LegendView extends View {
         loadAttribute(context, attrs);
     }
 
-    private SourceLegendListener sourceView;
-
     public void connectToView(SourceLegendListener sourceView) {
         this.sourceView = sourceView;
+        sourceView.connectToSourceView(this);
         invalidate();
     }
 
@@ -180,4 +187,63 @@ public class LegendView extends View {
         return textWidth;
     }
 
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof LegendView.SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        LegendView.SavedState ss = (LegendView.SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.indent = ss.indent;
+        this.textSize = ss.textSize;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        LegendView.SavedState ss = new LegendView.SavedState(superState);
+
+        ss.indent = this.indent;
+        ss.textSize = this.textSize;
+
+        return ss;
+    }
+
+
+    static class SavedState extends BaseSavedState {
+        int indent;
+        int textSize;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.indent = in.readInt();
+            this.textSize = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.indent);
+            out.writeInt(this.textSize);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<LegendView.SavedState> CREATOR =
+                new Parcelable.Creator<LegendView.SavedState>() {
+                    public LegendView.SavedState createFromParcel(Parcel in) {
+                        return new LegendView.SavedState(in);
+                    }
+
+                    public LegendView.SavedState[] newArray(int size) {
+                        return new LegendView.SavedState[size];
+                    }
+                };
+    }
 }

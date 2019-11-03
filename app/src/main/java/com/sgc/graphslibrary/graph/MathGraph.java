@@ -34,7 +34,12 @@ public class MathGraph extends LineGraph implements SourceLegendListener {
 
     public void setFunctions(ArrayList<MathData> functions) {
         this.functions = functions;
-        setData(calculatedCoordinates());
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                setData(calculatedCoordinates());
+            }
+        });
     }
 
     @Override

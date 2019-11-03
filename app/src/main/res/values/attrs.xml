@@ -59,4 +59,9 @@
         <attr name="thicknessCoordinateGrid" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="LegendView">
+        <attr name="indent" format="integer" />
+        <attr name="textSize" format="dimension" />
+        <attr name="countColumns" format="integer" />
+    </declare-styleable>
 </resources>

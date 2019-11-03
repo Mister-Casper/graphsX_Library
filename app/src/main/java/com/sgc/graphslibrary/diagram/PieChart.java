@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -348,5 +350,75 @@ public class PieChart extends View implements SourceLegendListener {
     @Override
     public void connectToSourceView(LegendView legendView) {
         legend = legendView;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof PieChart.SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        PieChart.SavedState ss = (PieChart.SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        this.descriptionColor = ss.descriptionColor;
+        this.startAngle = ss.startAngle;
+        this.distanceDescriptionSectorFactor = ss.distanceDescriptionSectorFactor;
+        this.descriptionTextSize = ss.descriptionTextSize;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        PieChart.SavedState ss = new PieChart.SavedState(superState);
+
+        ss.descriptionColor = this.descriptionColor;
+        ss.startAngle = this.startAngle;
+        ss.distanceDescriptionSectorFactor = this.distanceDescriptionSectorFactor;
+        ss.descriptionTextSize = this.descriptionTextSize;
+
+        return ss;
+    }
+
+
+    static class SavedState extends BaseSavedState {
+        int descriptionColor;
+        float startAngle;
+        float distanceDescriptionSectorFactor;
+        int descriptionTextSize;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.descriptionColor = in.readInt();
+            this.startAngle = in.readFloat();
+            this.distanceDescriptionSectorFactor = in.readFloat();
+            this.descriptionTextSize = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.descriptionColor);
+            out.writeFloat(this.startAngle);
+            out.writeFloat(this.distanceDescriptionSectorFactor);
+            out.writeInt(this.descriptionTextSize);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<PieChart.SavedState> CREATOR =
+                new Parcelable.Creator<PieChart.SavedState>() {
+                    public PieChart.SavedState createFromParcel(Parcel in) {
+                        return new PieChart.SavedState(in);
+                    }
+
+                    public PieChart.SavedState[] newArray(int size) {
+                        return new PieChart.SavedState[size];
+                    }
+                };
     }
 }

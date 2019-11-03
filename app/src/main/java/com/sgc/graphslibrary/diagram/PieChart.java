@@ -314,6 +314,6 @@ public class PieChart extends View implements SourceLegendListener {
             legendDescription.add(data.get(i).getLegendDescription());
         }
 
-        return new Legend(legendColor, legendDescription,HORIZONTAL);
+        return new Legend(legendColor, legendDescription);
     }
 }

@@ -29,6 +29,20 @@ public class PieChart extends View implements SourceLegendListener {
 
     LegendView legend;
 
+    OnPieChartClickListener clickListener;
+
+    public OnPieChartClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public void setClickListener(OnPieChartClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    interface OnPieChartClickListener {
+        void click(PieChartData clickPieChart);
+    }
+
     //
     // Constructors
     //
@@ -202,7 +216,7 @@ public class PieChart extends View implements SourceLegendListener {
     public void invalidate() {
         super.invalidate();
 
-        if(legend != null)
+        if (legend != null)
             legend.invalidate();
     }
 
@@ -303,6 +317,9 @@ public class PieChart extends View implements SourceLegendListener {
 
             if (clickSector.getClickListener() != null)
                 clickSector.getClickListener().click();
+            
+            if (clickListener != null)
+                clickListener.click(clickSector);
         }
 
         return super.onTouchEvent(event);

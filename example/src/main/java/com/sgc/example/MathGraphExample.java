@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.sgc.graphslibrary.data.MathData;
 import com.sgc.graphslibrary.graph.MathGraph;
+import com.sgc.graphslibrary.legend.LegendView;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class MathGraphExample extends Fragment {
     MathGraph math;
 
     Unbinder unbinder;
+    @BindView(R.id.legend)
+    LegendView legend;
 
     public MathGraphExample() {
         // Required empty public constructor
@@ -47,8 +50,13 @@ public class MathGraphExample extends Fragment {
             }
         });
         mathData3.setColorGraph(Color.BLUE);
+        mathData3.setLineLegendDescription(" y = ( sin (x) ) ");
+
         graphs.add(mathData3);
+
         math.setFunctions(graphs);
+
+        legend.connectToView(math);
 
         return view;
     }

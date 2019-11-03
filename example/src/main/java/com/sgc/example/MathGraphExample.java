@@ -3,6 +3,7 @@ package com.sgc.example;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,16 @@ public class MathGraphExample extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         ArrayList<MathData> graphs = new ArrayList<>();
         MathData mathData3 = new MathData(50, new MathData.MathFunctionInterface() {
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+
+            }
+
             @Override
             public float function(float x) {
                 return (float) Math.sin(x);

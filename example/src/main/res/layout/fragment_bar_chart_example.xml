@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:columnDescriptionTextSize="10dp"
-        app:columnThickness="100"
+        app:columnThickness="80"
         app:countShowDescription="5"
         app:isAbscissaInCenter="true"
         app:layout_constraintStart_toStartOf="parent"

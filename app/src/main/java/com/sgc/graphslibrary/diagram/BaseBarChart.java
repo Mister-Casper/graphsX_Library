@@ -7,12 +7,18 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import com.sgc.graphslibrary.R;
+import com.sgc.graphslibrary.data.BarChartData;
 import com.sgc.graphslibrary.data.GroupBarChartData;
 import com.sgc.graphslibrary.graph.BaseCoordinateSystem;
+import com.sgc.graphslibrary.legend.Legend;
+import com.sgc.graphslibrary.legend.LegendView;
+import com.sgc.graphslibrary.legend.SourceLegendListener;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
-public class BaseBarChart extends BaseCoordinateSystem {
+public class BaseBarChart extends BaseCoordinateSystem implements SourceLegendListener {
 
     protected void loadAttribute(Context context, AttributeSet attrs) {
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.BaseBarChart);
@@ -33,7 +39,7 @@ public class BaseBarChart extends BaseCoordinateSystem {
                     R.styleable.BaseBarChart_valueTextSize,
                     valueColumnDescriptionTextSize);
 
-            isLining =  arr.getBoolean(
+            isLining = arr.getBoolean(
                     R.styleable.BaseBarChart_isLining,
                     isLining);
 
@@ -59,12 +65,12 @@ public class BaseBarChart extends BaseCoordinateSystem {
 
     public BaseBarChart(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.loadAttribute(context,attrs);
+        this.loadAttribute(context, attrs);
     }
 
     public BaseBarChart(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.loadAttribute(context,attrs);
+        this.loadAttribute(context, attrs);
     }
 
     public float getIndentColumnDescription() {
@@ -150,6 +156,8 @@ public class BaseBarChart extends BaseCoordinateSystem {
     protected int countShowDescription = 20;
 
     ArrayList<GroupBarChartData> data = new ArrayList<>();
+
+    LegendView legend;
 
     public ArrayList<GroupBarChartData> getData() {
         return data;
@@ -256,4 +264,34 @@ public class BaseBarChart extends BaseCoordinateSystem {
                 };
     }
 
+
+    @Override
+    public Legend getLegend() {
+        LinkedHashSet<String> legendDescription = new LinkedHashSet<>();
+        LinkedHashSet<Integer> legendColor = new LinkedHashSet<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            GroupBarChartData groupBarChart = data.get(i);
+            for (int q = 0; q < groupBarChart.getData().size(); q++) {
+                BarChartData legendElement = groupBarChart.getData().get(q);
+                legendDescription.add(legendElement.getColumnLegendDescription());
+                legendColor.add(legendElement.getColorColumn());
+            }
+        }
+
+        return new Legend(legendColor.toArray(),legendDescription.toArray());
+    }
+
+    @Override
+    public void connectToSourceView(LegendView legendView) {
+        this.legend = legendView;
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+
+        if (legend != null)
+            legend.invalidate();
+    }
 }

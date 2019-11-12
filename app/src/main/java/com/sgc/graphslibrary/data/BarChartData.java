@@ -7,6 +7,7 @@ import android.os.Parcelable;
 public class BarChartData implements Parcelable {
 
     private int colorColumn = Color.BLACK;
+    private String columnLegendDescription = "";
     private float percentHeight;
 
     public BarChartData(float percentHeight){
@@ -16,6 +17,12 @@ public class BarChartData implements Parcelable {
     public BarChartData(int colorColumn ,float percentHeight){
         this.colorColumn = colorColumn;
         this.percentHeight = percentHeight;
+    }
+
+    public BarChartData(int colorColumn ,float percentHeight,String columnLegendDescription){
+        this.colorColumn = colorColumn;
+        this.percentHeight = percentHeight;
+        this.columnLegendDescription = columnLegendDescription;
     }
 
     protected BarChartData(Parcel in) {
@@ -61,4 +68,12 @@ public class BarChartData implements Parcelable {
             return new BarChartData[size];
         }
     };
+
+    public String getColumnLegendDescription() {
+        return columnLegendDescription;
+    }
+
+    public void setColumnLegendDescription(String columnLegendDescription) {
+        this.columnLegendDescription = columnLegendDescription;
+    }
 }

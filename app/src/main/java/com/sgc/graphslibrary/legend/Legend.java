@@ -9,27 +9,35 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 public class Legend {
 
     private int orientationMode = LinearLayoutCompat.VERTICAL;
-    private ArrayList<Integer> itemsColor;
-    private ArrayList<String> itemsDescription;
+    private ArrayList<Integer> itemsColor = new ArrayList<>();
+    private ArrayList<String> itemsDescription = new ArrayList<>();
 
     private int height = 50;
     private int width = 50;
 
-    public Legend(ArrayList<Integer> itemsColor,ArrayList<String> itemsDescription){
+    public Legend(ArrayList<Integer> itemsColor, ArrayList<String> itemsDescription) {
         this.itemsColor = itemsColor;
         this.itemsDescription = itemsDescription;
         isValuesEqual();
     }
 
-    public Legend(ArrayList<Integer> itemsColor,ArrayList<String> itemsDescription,int orientationMode ){
+    public Legend(Object[] itemsColor, Object[] itemsDescription) {
+        for (int i = 0; i < itemsColor.length && i <itemsDescription.length; i++) {
+            this.itemsColor.add((Integer)itemsColor[i]);
+            this.itemsDescription.add((String)itemsDescription[i]);
+        }
+        isValuesEqual();
+    }
+
+    public Legend(ArrayList<Integer> itemsColor, ArrayList<String> itemsDescription, int orientationMode) {
         this.itemsColor = itemsColor;
         this.itemsDescription = itemsDescription;
         this.orientationMode = orientationMode;
         isValuesEqual();
     }
 
-    private void isValuesEqual(){
-        if(itemsDescription.size() != itemsColor.size()){
+    private void isValuesEqual() {
+        if (itemsDescription.size() != itemsColor.size()) {
             throw new RuntimeException("Count itemsDescription must be equal count itemsColor");
         }
     }

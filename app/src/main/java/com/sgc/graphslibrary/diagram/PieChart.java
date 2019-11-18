@@ -311,15 +311,16 @@ public class PieChart extends View implements SourceLegendListener {
     public boolean onTouchEvent(MotionEvent event) {
         float centerX = getDiameter() / 2;
         float centerY = getDiameter() / 2;
+        float radius = getDiameter() / 2;
 
-        if (!isGoBeyond(centerX, event, centerX)) {
+        if (!isGoBeyond(centerX, event, radius)) {
             Line line = new Line(event.getX(), event.getY(), centerX, centerY);
             double angle = AngleMath.getLineAtan2(line, startAngle);
             PieChartData clickSector = AngleMath.findSectorByAngle(angle, getData());
 
             if (clickSector.getClickListener() != null)
                 clickSector.getClickListener().click();
-            
+
             if (clickListener != null)
                 clickListener.click(clickSector);
         }
